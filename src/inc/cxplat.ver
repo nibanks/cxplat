@@ -16,7 +16,7 @@
 
 #define VER_COMPANYNAME_STR         "Microsoft Corporation"
 #define VER_FILEDESCRIPTION_STR     "Microsoft\256 QUIC Library"
-#define VER_INTERNALNAME_STR        "msquic"
+#define VER_INTERNALNAME_STR        "cxplat"
 #define VER_LEGALCOPYRIGHT_STR      "\251 Microsoft Corporation."
 #define VER_PRODUCTNAME_STR         "Microsoft\256 QUIC"
 

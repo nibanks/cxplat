@@ -33,7 +33,7 @@ else()
     endif()
 endif()
 
-project(msquic)
+project(cxplat)
 
 # Set a default build type if none was specified
 set(default_build_type "Release")
@@ -62,7 +62,7 @@ message(STATUS "Platform: ${CXPLAT_PLATFORM}")
 if(WIN32)
     # On Windows, we just need to set the destination variables
     # This will allow the build to be picked up by other projects
-    set(msquic_dest ${CMAKE_INSTALL_PREFIX})
+    set(cxplat_dest ${CMAKE_INSTALL_PREFIX})
     set(main_lib_dest lib)
     set(include_dest include)
 else()
@@ -81,21 +81,21 @@ else()
     # Once this is fixed, also fix the shim in build-config-user.yml
     #set(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
 
-    #set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/msquic/lib")
+    #set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/cxplat/lib")
 
     # Add the automatically determined parts of the RPATH
     # which point to directories outside the build tree to the install RPATH
     #set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
     # The RPATH to be used when installing, but only if it's not a system directory
-    list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/msquic/lib" isSystemDir)
+    list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/cxplat/lib" isSystemDir)
     if("${isSystemDir}" STREQUAL "-1")
-    #set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/msquic/lib")
+    #set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/cxplat/lib")
     endif("${isSystemDir}" STREQUAL "-1")
 
-    set(msquic_dest msquic)
-    set(main_lib_dest msquic/lib)
-    set(include_dest msquic/include)
+    set(cxplat_dest cxplat)
+    set(main_lib_dest cxplat/lib)
+    set(include_dest cxplat/include)
 endif()
 
 set(FILENAME_DEP_REPLACE "get_filename_component(SELF_DIR \"$\{CMAKE_CURRENT_LIST_FILE\}\" PATH)")
@@ -179,7 +179,7 @@ if (CXPLAT_ENABLE_LOGGING)
     set(CMAKE_CLOG_SIDECAR_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src/manifest)
     set(CLOG_INCLUDE_DIRECTORY ${CXPLAT_BUILD_DIR}/clog)
     set(CMAKE_CLOG_GENERATE_FILE ${CXPLAT_BUILD_DIR}/clog/CLog.cmake)
-    set(CMAKE_CLOG_CONFIG_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/manifest/msquic.clog_config)
+    set(CMAKE_CLOG_CONFIG_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/manifest/cxplat.clog_config)
     include(${CMAKE_CLOG_GENERATE_FILE})
 
     function(add_clog_library)
@@ -194,7 +194,7 @@ else()
 endif()
 
 set(CXPLAT_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/inc)
-set(MANIFESTED_HEADER_FILENAME ${CXPLAT_BUILD_DIR}/inc/MsQuicEtw.h)
+set(MANIFESTED_HEADER_FILENAME ${CXPLAT_BUILD_DIR}/inc/CxPlatEtw.h)
 
 if (WIN32)
     set(CXPLAT_WARNING_FLAGS /WX /W4 /sdl CACHE INTERNAL "")
@@ -222,21 +222,21 @@ if(CXPLAT_RANDOM_ALLOC_FAIL)
 endif()
 
 if(WIN32)
-    # Generate the MsQuicEtw header file.
+    # Generate the CxPlatEtw header file.
     file(MAKE_DIRECTORY ${CXPLAT_BUILD_DIR}/inc)
-    file(WRITE ${CXPLAT_BUILD_DIR}/inc/MsQuicEtw.rc)
+    file(WRITE ${CXPLAT_BUILD_DIR}/inc/CxPlatEtw.rc)
     include_directories(${CXPLAT_BUILD_DIR}/inc)
 
     add_custom_command(
-        OUTPUT ${CXPLAT_BUILD_DIR}/inc/MsQuicEtw.h
-        OUTPUT ${CXPLAT_BUILD_DIR}/inc/MsQuicEtw.rc
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/manifest/MsQuicEtw.man
-        COMMAND mc.exe -um -h ${CXPLAT_BUILD_DIR}/inc -r ${CXPLAT_BUILD_DIR}/inc ${CMAKE_CURRENT_SOURCE_DIR}/src/manifest/MsQuicEtw.man)
-    add_custom_target(MsQuicEtw
-        DEPENDS ${CXPLAT_BUILD_DIR}/inc/MsQuicEtw.h
-        DEPENDS ${CXPLAT_BUILD_DIR}/inc/MsQuicEtw.rc)
+        OUTPUT ${CXPLAT_BUILD_DIR}/inc/CxPlatEtw.h
+        OUTPUT ${CXPLAT_BUILD_DIR}/inc/CxPlatEtw.rc
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/manifest/CxPlatEtw.man
+        COMMAND mc.exe -um -h ${CXPLAT_BUILD_DIR}/inc -r ${CXPLAT_BUILD_DIR}/inc ${CMAKE_CURRENT_SOURCE_DIR}/src/manifest/CxPlatEtw.man)
+    add_custom_target(CxPlatEtw
+        DEPENDS ${CXPLAT_BUILD_DIR}/inc/CxPlatEtw.h
+        DEPENDS ${CXPLAT_BUILD_DIR}/inc/CxPlatEtw.rc)
 
-    set_property(TARGET MsQuicEtw PROPERTY FOLDER "libraries")
+    set_property(TARGET CxPlatEtw PROPERTY FOLDER "libraries")
 
     if (CXPLAT_UWP_BUILD)
         list(APPEND CXPLAT_COMMON_DEFINES WINAPI_FAMILY=WINAPI_FAMILY_DESKTOP_APP CXPLAT_UWP_BUILD)
@@ -282,13 +282,13 @@ if(WIN32)
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /LTCG /DEBUG /OPT:REF /OPT:ICF")
 
     # Configure PGO linker flags.
-    set(CXPLAT_PGO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/src/bin/winuser/pgo_${CMAKE_GENERATOR_PLATFORM}/msquic.pgd")
+    set(CXPLAT_PGO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/src/bin/winuser/pgo_${CMAKE_GENERATOR_PLATFORM}/cxplat.pgd")
     if(CXPLAT_PGO)
         # Configured for training mode. Use the previous PGD file if present.
         if(EXISTS "${CXPLAT_PGO_FILE}")
             message(STATUS "/GENPROFILE:PDG")
-            configure_file("${CXPLAT_PGO_FILE}" "${CXPLAT_OUTPUT_DIR}/msquic.pgd" COPYONLY)
-            set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /GENPROFILE:PGD=${CXPLAT_OUTPUT_DIR}/msquic.pgd")
+            configure_file("${CXPLAT_PGO_FILE}" "${CXPLAT_OUTPUT_DIR}/cxplat.pgd" COPYONLY)
+            set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /GENPROFILE:PGD=${CXPLAT_OUTPUT_DIR}/cxplat.pgd")
         else()
             message(STATUS "/GENPROFILE")
             set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /GENPROFILE")
@@ -297,8 +297,8 @@ if(WIN32)
         # Just doing a normal build. Use the PGD file if present.
         if(EXISTS "${CXPLAT_PGO_FILE}")
             message(STATUS "Using profile-guided optimization")
-            configure_file("${CXPLAT_PGO_FILE}" "${CXPLAT_OUTPUT_DIR}/msquic.pgd" COPYONLY)
-            set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /USEPROFILE:PGD=${CXPLAT_OUTPUT_DIR}/msquic.pgd")
+            configure_file("${CXPLAT_PGO_FILE}" "${CXPLAT_OUTPUT_DIR}/cxplat.pgd" COPYONLY)
+            set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /USEPROFILE:PGD=${CXPLAT_OUTPUT_DIR}/cxplat.pgd")
         endif()
     endif()
 
@@ -489,10 +489,10 @@ endif()
 
 if(CXPLAT_TLS STREQUAL "mitls")
     # Build Everest.
-    add_subdirectory(submodules/everest/msquic/msvc/kremlib)
-    add_subdirectory(submodules/everest/msquic/msvc/evercrypt)
-    add_subdirectory(submodules/everest/msquic/msvc/mitls)
-    add_subdirectory(submodules/everest/msquic/msvc/quiccrypto)
+    add_subdirectory(submodules/everest/cxplat/msvc/kremlib)
+    add_subdirectory(submodules/everest/cxplat/msvc/evercrypt)
+    add_subdirectory(submodules/everest/cxplat/msvc/mitls)
+    add_subdirectory(submodules/everest/cxplat/msvc/quiccrypto)
 endif()
 
 if(CXPLAT_CODE_CHECK)

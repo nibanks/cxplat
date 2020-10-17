@@ -10,20 +10,20 @@ set(SOURCES
 )
 
 # Allow CLOG to preprocess all the source files.
-add_clog_library(msquicplatformtest.clog STATIC ${SOURCES})
+add_clog_library(cxplatplatformtest.clog STATIC ${SOURCES})
 
-add_executable(msquicplatformtest ${SOURCES})
+add_executable(cxplatplatformtest ${SOURCES})
 
-target_include_directories(msquicplatformtest PRIVATE ${PROJECT_SOURCE_DIR}/src/core)
+target_include_directories(cxplatplatformtest PRIVATE ${PROJECT_SOURCE_DIR}/src/core)
 
-set_property(TARGET msquicplatformtest PROPERTY FOLDER "tests")
+set_property(TARGET cxplatplatformtest PROPERTY FOLDER "tests")
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    target_link_libraries(msquicplatformtest msquic platform inc gtest)
+    target_link_libraries(cxplatplatformtest cxplat platform inc gtest)
 else()
-    target_link_libraries(msquicplatformtest msquic platform inc gtest msquicplatformtest.clog)
+    target_link_libraries(cxplatplatformtest cxplat platform inc gtest cxplatplatformtest.clog)
 endif()
 
-add_test(NAME msquicplatformtest
-         COMMAND msquicplatformtest
+add_test(NAME cxplatplatformtest
+         COMMAND cxplatplatformtest
          WORKING_DIRECTORY ${CXPLAT_OUTPUT_DIR})

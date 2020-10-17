@@ -5,7 +5,7 @@
 
 Abstract:
 
-    MsQuic defines two classes of tracing:
+    CxPlat defines two classes of tracing:
 
     Events      These are well-defined and have explicit formats. Each event is
                 defined with its own, unique function. These are generally used
@@ -164,14 +164,14 @@ QuicEtwCallback(
 
 //
 // Defining MCGEN_PRIVATE_ENABLE_CALLBACK_V2, makes McGenControlCallbackV2
-// call our user-defined callback routine. See MsQuicEvents.h.
+// call our user-defined callback routine. See CxPlatEvents.h.
 //
 #define MCGEN_PRIVATE_ENABLE_CALLBACK_V2 QuicEtwCallback
 
 #pragma warning(push) // Don't care about warnings from generated files
 #pragma warning(disable:6001)
 #pragma warning(disable:26451)
-#include "MsQuicEtw.h"
+#include "CxPlatEtw.h"
 #pragma warning(pop)
 
 #define QuicTraceEventEnabled(Name) EventEnabledQuic##Name()
@@ -223,7 +223,7 @@ QuicTraceStubVarArgs(
 #pragma warning(push) // Don't care about warnings from generated files
 #pragma warning(disable:6001)
 #pragma warning(disable:26451)
-#include "MsQuicEtw.h"
+#include "CxPlatEtw.h"
 #pragma warning(pop)
 
 #include <stdio.h>

@@ -1,7 +1,7 @@
 <#
 
 .SYNOPSIS
-This script provides helpers for running executing the MsQuic tests.
+This script provides helpers for running executing the CxPlat tests.
 
 .PARAMETER Config
     Specifies the build configuration to test.
@@ -189,28 +189,28 @@ if ($CodeCoverage) {
 # Path to the run-gtest Powershell script.
 $RunTest = Join-Path $RootDir "scripts/run-gtest.ps1"
 
-# Path to the msquictest exectuable.
-$MsQuicTest = $null
-$MsQuicCoreTest = $null
-$MsQuicPlatTest = $null
+# Path to the cxplattest exectuable.
+$CxPlatTest = $null
+$CxPlatCoreTest = $null
+$CxPlatPlatTest = $null
 $KernelPath = $null;
 if ($IsWindows) {
-    $MsQuicTest = Join-Path $RootDir "\artifacts\bin\windows\$($Arch)_$($Config)_$($Tls)\msquictest.exe"
-    $MsQuicCoreTest = Join-Path $RootDir "\artifacts\bin\windows\$($Arch)_$($Config)_$($Tls)\msquiccoretest.exe"
-    $MsQuicPlatTest = Join-Path $RootDir "\artifacts\bin\windows\$($Arch)_$($Config)_$($Tls)\msquicplatformtest.exe"
+    $CxPlatTest = Join-Path $RootDir "\artifacts\bin\windows\$($Arch)_$($Config)_$($Tls)\cxplattest.exe"
+    $CxPlatCoreTest = Join-Path $RootDir "\artifacts\bin\windows\$($Arch)_$($Config)_$($Tls)\cxplatcoretest.exe"
+    $CxPlatPlatTest = Join-Path $RootDir "\artifacts\bin\windows\$($Arch)_$($Config)_$($Tls)\cxplatplatformtest.exe"
     $KernelPath = Join-Path $RootDir "\artifacts\bin\winkernel\$($Arch)_$($Config)_$($Tls)"
 } else {
-    $MsQuicTest = Join-Path $RootDir "/artifacts/bin/linux/$($Arch)_$($Config)_$($Tls)/msquictest"
-    $MsQuicCoreTest = Join-Path $RootDir "/artifacts/bin/linux/$($Arch)_$($Config)_$($Tls)/msquiccoretest"
-    $MsQuicPlatTest = Join-Path $RootDir "/artifacts/bin/linux/$($Arch)_$($Config)_$($Tls)/msquicplatformtest"
+    $CxPlatTest = Join-Path $RootDir "/artifacts/bin/linux/$($Arch)_$($Config)_$($Tls)/cxplattest"
+    $CxPlatCoreTest = Join-Path $RootDir "/artifacts/bin/linux/$($Arch)_$($Config)_$($Tls)/cxplatcoretest"
+    $CxPlatPlatTest = Join-Path $RootDir "/artifacts/bin/linux/$($Arch)_$($Config)_$($Tls)/cxplatplatformtest"
 }
 
 # Make sure the build is present.
-if (!(Test-Path $MsQuicTest)) {
+if (!(Test-Path $CxPlatTest)) {
     Write-Error "Build does not exist!`n `nRun the following to generate it:`n `n    $(Join-Path $RootDir "scripts" "build.ps1") -Config $Config -Arch $Arch -Tls $Tls`n"
 }
 if ($Kernel) {
-    if (!(Test-Path (Join-Path $KernelPath "msquictestpriv.sys"))) {
+    if (!(Test-Path (Join-Path $KernelPath "cxplattestpriv.sys"))) {
         Write-Error "Kernel binaries do not exist!"
     }
 }
@@ -260,10 +260,10 @@ if ($CodeCoverage) {
 
 # Run the script.
 if (!$Kernel) {
-    Invoke-Expression ($RunTest + " -Path $MsQuicCoreTest " + $TestArguments)
-    Invoke-Expression ($RunTest + " -Path $MsQuicPlatTest " + $TestArguments)
+    Invoke-Expression ($RunTest + " -Path $CxPlatCoreTest " + $TestArguments)
+    Invoke-Expression ($RunTest + " -Path $CxPlatPlatTest " + $TestArguments)
 }
-Invoke-Expression ($RunTest + " -Path $MsQuicTest " + $TestArguments)
+Invoke-Expression ($RunTest + " -Path $CxPlatTest " + $TestArguments)
 
 if ($CodeCoverage) {
     # Merge code coverage results
@@ -274,7 +274,7 @@ if ($CodeCoverage) {
     }
 
     if ($CoverageMergeParams -ne "") {
-        $CoverageMergeParams +=  " --export_type cobertura:$(Join-Path $CoverageDir "msquiccoverage.xml")"
+        $CoverageMergeParams +=  " --export_type cobertura:$(Join-Path $CoverageDir "cxplatcoverage.xml")"
 
         $CoverageExe = 'C:\"Program Files"\OpenCppCoverage\OpenCppCoverage.exe'
         Invoke-Expression ($CoverageExe + $CoverageMergeParams) | Out-Null

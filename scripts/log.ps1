@@ -71,7 +71,7 @@ param (
     [string]$WorkingDirectory,
 
     [Parameter(Mandatory = $false)]
-    [string]$InstanceName = "msquic"
+    [string]$InstanceName = "cxplat"
 )
 
 Set-StrictMode -Version 'Latest'
@@ -81,7 +81,7 @@ $PSDefaultParameterValues['*:ErrorAction'] = 'Stop'
 $RootDir = Split-Path $PSScriptRoot -Parent
 
 # Path for the WPR profile.
-$WprpFile = $RootDir + "\src\manifest\msquic.wprp"
+$WprpFile = $RootDir + "\src\manifest\cxplat.wprp"
 $SideCar = Join-Path $RootDir "src/manifest/clog.sidecar"
 $Clog2Text_lttng = "$HOME/.dotnet/tools/clog2text_lttng"
 
@@ -102,7 +102,7 @@ function Log-Start {
 
         try {
             if ($Stream) {
-                lttng -q create msquiclive --live
+                lttng -q create cxplatlive --live
             } else {
                 New-Item -Path $TempDir -ItemType Directory -Force | Out-Null
                 $Command = "lttng create $InstanceName -o=$TempDir"
@@ -116,13 +116,13 @@ function Log-Start {
                 lttng list | Write-Debug
                 babeltrace -i lttng-live net://localhost | Write-Debug
                 Write-Host "Now decoding LTTng events in realtime...`n"
-                $args = "babeltrace --names all -i lttng-live net://localhost/host/$env:NAME/msquiclive | $Clog2Text_lttng  -s $SideCar --showTimestamp --showCpuInfo"
+                $args = "babeltrace --names all -i lttng-live net://localhost/host/$env:NAME/cxplatlive | $Clog2Text_lttng  -s $SideCar --showTimestamp --showCpuInfo"
                 Write-Host $args
                 Invoke-Expression $args
             }
         } finally {
             if ($Stream) {
-                Invoke-Expression "lttng destroy msquiclive" | Write-Debug
+                Invoke-Expression "lttng destroy cxplatlive" | Write-Debug
             }
         }
     }

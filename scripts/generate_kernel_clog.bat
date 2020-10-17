@@ -14,7 +14,7 @@ set CMAKE_CLOG_OUTPUT_DIRECTORY=%CXPLAT_BUILD_DIR%\inc
 set CMAKE_CLOG_SIDECAR_DIRECTORY=%CMAKE_SOURCE_DIR%\src\manifest
 set CLOG_SOURCE_DIRECTORY=%CMAKE_SOURCE_DIR%\submodules\clog
 set CLOG_INCLUDE_DIRECTORY=%CMAKE_SOURCE_DIR%\inc
-set CMAKE_CLOG_CONFIG_FILE=%CMAKE_SOURCE_DIR%\src\manifest\msquic.clog_config
+set CMAKE_CLOG_CONFIG_FILE=%CMAKE_SOURCE_DIR%\src\manifest\cxplat.clog_config
 
 echo EnvVars] --------------------------------------------------------------
 set

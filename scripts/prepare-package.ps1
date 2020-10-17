@@ -27,13 +27,13 @@ function Force-Copy($Source, $Destination) {
 }
 
 # Package up all necessary header and manifest files.
-$IncFiles = "msquic.h", "msquicp.h", "msquic_winkernel.h", "msquic_winuser.h"
+$IncFiles = "cxplat.h", "cxplatp.h", "cxplat_winkernel.h", "cxplat_winuser.h"
 foreach ($File in $IncFiles) {
     Force-Copy (Join-Path $RootDir "src/inc/$File") $PackageDir
 }
-Force-Copy (Join-Path $RootDir "src/tools/etwlib/MsQuicEventCollection.h") $PackageDir
-Force-Copy (Join-Path $RootDir "src/manifest/MsQuic.wprp") $PackageDir
-Force-Copy (Join-Path $RootDir "src/manifest/MsQuicEtw.man") $PackageDir
+Force-Copy (Join-Path $RootDir "src/tools/etwlib/CxPlatEventCollection.h") $PackageDir
+Force-Copy (Join-Path $RootDir "src/manifest/CxPlat.wprp") $PackageDir
+Force-Copy (Join-Path $RootDir "src/manifest/CxPlatEtw.man") $PackageDir
 
 # Package up all the user mode binary files.
 $Configs = [System.Tuple]::Create("Debug","chk"), [System.Tuple]::Create("Release","fre")
@@ -42,11 +42,11 @@ $Archs = [System.Tuple]::Create("arm","arm","arm"), [System.Tuple]::Create("arm6
 foreach ($Config in $Configs) {
     foreach ($Arch in $Archs) {
         $InputDir = Join-Path $ArtifactsDir "bin/windows/$($Arch.Item1)_$($Config.Item1)_schannel"
-        Force-Copy (Join-Path $InputDir "msquic.lib") (Join-Path $PackageDir "lib/$($Arch.Item2)$($Config.Item2)/user")
-        Force-Copy (Join-Path $InputDir "msquic.dll") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/user")
-        Force-Copy (Join-Path $InputDir "msquic.pdb") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/user")
-        Force-Copy (Join-Path $InputDir "msquictest.exe") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/user")
-        Force-Copy (Join-Path $InputDir "msquictest.pdb") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/user")
+        Force-Copy (Join-Path $InputDir "cxplat.lib") (Join-Path $PackageDir "lib/$($Arch.Item2)$($Config.Item2)/user")
+        Force-Copy (Join-Path $InputDir "cxplat.dll") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/user")
+        Force-Copy (Join-Path $InputDir "cxplat.pdb") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/user")
+        Force-Copy (Join-Path $InputDir "cxplattest.exe") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/user")
+        Force-Copy (Join-Path $InputDir "cxplattest.pdb") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/user")
     }
 }
 
@@ -57,10 +57,10 @@ $Archs = [System.Tuple]::Create("ARM","arm","arm"), [System.Tuple]::Create("ARM6
 foreach ($Config in $Configs) {
     foreach ($Arch in $Archs) {
         $InputDir = Join-Path $ArtifactsDir "bin/winkernel/$($Arch.Item1)_$($Config.Item1)_schannel"
-        Force-Copy (Join-Path $InputDir "msquic.lib") (Join-Path $PackageDir "lib/$($Arch.Item2)$($Config.Item2)/kernel")
-        Force-Copy (Join-Path $InputDir "msquic.sys") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/kernel")
-        Force-Copy (Join-Path $InputDir "msquictest.sys") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/kernel")
-        Force-Copy (Join-Path $InputDir "msquic.pdb") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/kernel")
-        Force-Copy (Join-Path $InputDir "msquictest.pdb") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/kernel")
+        Force-Copy (Join-Path $InputDir "cxplat.lib") (Join-Path $PackageDir "lib/$($Arch.Item2)$($Config.Item2)/kernel")
+        Force-Copy (Join-Path $InputDir "cxplat.sys") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/kernel")
+        Force-Copy (Join-Path $InputDir "cxplattest.sys") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/kernel")
+        Force-Copy (Join-Path $InputDir "cxplat.pdb") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/kernel")
+        Force-Copy (Join-Path $InputDir "cxplattest.pdb") (Join-Path $PackageDir "bin/$($Arch.Item3)$($Config.Item2)/kernel")
     }
 }

@@ -292,7 +292,7 @@ function Start-TestExecutable([String]$Arguments, [String]$OutputDir) {
     $p
 }
 
-# Asynchronously starts a single msquictest test case running.
+# Asynchronously starts a single cxplattest test case running.
 function Start-TestCase([String]$Name) {
 
     $InstanceName = $Name.Replace("/", "_")
@@ -325,7 +325,7 @@ function Start-TestCase([String]$Name) {
     }
 }
 
-# Asynchronously start all the msquictest test cases running.
+# Asynchronously start all the cxplattest test cases running.
 function Start-AllTestCases {
 
     $Name = "all"
@@ -569,25 +569,25 @@ if ($IsWindows -and $EnableAppVerifier) {
 
 # Install the kernel mode drivers.
 if ($Kernel -ne "") {
-    if ($null -ne (Get-Service -Name "msquicpriv" -ErrorAction Ignore)) {
+    if ($null -ne (Get-Service -Name "cxplatpriv" -ErrorAction Ignore)) {
         try {
-            net.exe stop msquicpriv /y | Out-Null
+            net.exe stop cxplatpriv /y | Out-Null
         }
         catch {}
-        sc.exe delete msquicpriv /y | Out-Null
+        sc.exe delete cxplatpriv /y | Out-Null
     }
-    if ($null -ne (Get-Service -Name "msquictestpriv" -ErrorAction Ignore)) {
+    if ($null -ne (Get-Service -Name "cxplattestpriv" -ErrorAction Ignore)) {
         try {
-            net.exe stop msquictestpriv /y | Out-Null
+            net.exe stop cxplattestpriv /y | Out-Null
         }
         catch {}
-        sc.exe delete msquictestpriv /y | Out-Null
+        sc.exe delete cxplattestpriv /y | Out-Null
     }
-    Copy-Item (Join-Path $Kernel "msquictestpriv.sys") (Split-Path $Path -Parent)
-    Copy-Item (Join-Path $Kernel "msquicpriv.sys") (Split-Path $Path -Parent)
-    sc.exe create "msquicpriv" type= kernel binpath= (Join-Path (Split-Path $Path -Parent) "msquicpriv.sys") start= demand | Out-Null
-    verifier.exe /volatile /adddriver afd.sys msquicpriv.sys msquictestpriv.sys netio.sys tcpip.sys /flags 0x9BB
-    net.exe start msquicpriv
+    Copy-Item (Join-Path $Kernel "cxplattestpriv.sys") (Split-Path $Path -Parent)
+    Copy-Item (Join-Path $Kernel "cxplatpriv.sys") (Split-Path $Path -Parent)
+    sc.exe create "cxplatpriv" type= kernel binpath= (Join-Path (Split-Path $Path -Parent) "cxplatpriv.sys") start= demand | Out-Null
+    verifier.exe /volatile /adddriver afd.sys cxplatpriv.sys cxplattestpriv.sys netio.sys tcpip.sys /flags 0x9BB
+    net.exe start cxplatpriv
 }
 
 try {
@@ -691,12 +691,12 @@ try {
     }
     Write-Host ""
 
-    # Uninstall the kernel mode test driver and revert the msquic driver.
+    # Uninstall the kernel mode test driver and revert the cxplat driver.
     if ($Kernel -ne "") {
-        net.exe stop msquicpriv /y | Out-Null
-        sc.exe delete msquictestpriv | Out-Null
-        sc.exe delete msquicpriv | Out-Null
-        verifier.exe /volatile /removedriver afd.sys msquicpriv.sys msquictestpriv.sys netio.sys tcpip.sys
+        net.exe stop cxplatpriv /y | Out-Null
+        sc.exe delete cxplattestpriv | Out-Null
+        sc.exe delete cxplatpriv | Out-Null
+        verifier.exe /volatile /removedriver afd.sys cxplatpriv.sys cxplattestpriv.sys netio.sys tcpip.sys
         verifier.exe /volatile /flags 0x0
     }
 }

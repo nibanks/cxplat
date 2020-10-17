@@ -1,7 +1,7 @@
 <#
 
 .SYNOPSIS
-This script provides helpers for building msquic.
+This script provides helpers for building cxplat.
 
 .PARAMETER Config
     The debug or release configuration to build for.
@@ -43,10 +43,10 @@ This script provides helpers for building msquic.
     Enables CMake to build in parallel, where possible.
 
 .PARAMETER DynamicCRT
-    Builds msquic with dynamic C runtime (Windows-only).
+    Builds cxplat with dynamic C runtime (Windows-only).
 
 .PARAMETER PGO
-    Builds msquic with profile guided optimization support (Windows-only).
+    Builds cxplat with profile guided optimization support (Windows-only).
 
 .PARAMETER Generator
     Specifies a specific cmake generator (Only supported on unix)
@@ -304,7 +304,7 @@ function CMake-Generate {
         # Manually edit project file, since CMake doesn't seem to have a way to do it.
         $FindText = "  <PropertyGroup Label=`"UserMacros`" />"
         $ReplaceText = "  <PropertyGroup Label=`"UserMacros`" />`r`n  <PropertyGroup><LibraryPath>`$(LibraryPath);`$(VC_LibraryPath_VC_$($Arch)_Desktop)</LibraryPath></PropertyGroup>"
-        $ProjectFile = Join-Path $BuildDir "src\bin\msquic.vcxproj"
+        $ProjectFile = Join-Path $BuildDir "src\bin\cxplat.vcxproj"
         (Get-Content $ProjectFile) -replace $FindText, $ReplaceText | Out-File $ProjectFile
     }
 }
@@ -326,9 +326,9 @@ function CMake-Build {
     CMake-Execute $Arguments
 
     if ($IsWindows) {
-        Copy-Item (Join-Path $BuildDir "obj" $Config "msquic.lib") $ArtifactsDir
+        Copy-Item (Join-Path $BuildDir "obj" $Config "cxplat.lib") $ArtifactsDir
         if (!$DisableTools) {
-            Copy-Item (Join-Path $BuildDir "obj" $Config "msquicetw.lib") $ArtifactsDir
+            Copy-Item (Join-Path $BuildDir "obj" $Config "cxplatetw.lib") $ArtifactsDir
         }
         if ($PGO -and $Config -eq "Release") {
             Install-Module VSSetup -Scope CurrentUser -Force -SkipPublisherCheck

@@ -18,15 +18,15 @@
 #include "quic_versions.h"
 #include "quic_trace.h"
 
-#include <msquic.h>
-#include <msquicp.h>
+#include <cxplat.h>
+#include <cxplatp.h>
 
 #define CXPLAT_CREDENTIAL_TYPE_NULL ((CXPLAT_CREDENTIAL_TYPE)0xF0000000)    // Stub-only special case type
 
 #ifdef CXPLAT_FUZZER
-#include "msquic_fuzz.h"
+#include "cxplat_fuzz.h"
 
-#define CXPLAT_DISABLED_BY_FUZZER_START if (!MsQuicFuzzerContext.RedirectDataPath) {
+#define CXPLAT_DISABLED_BY_FUZZER_START if (!CxPlatFuzzerContext.RedirectDataPath) {
 #define CXPLAT_DISABLED_BY_FUZZER_END }
 
 #else
@@ -38,7 +38,7 @@
 
 #ifdef _KERNEL_MODE
 
-#define CXPLAT_BASE_REG_PATH L"\\Registry\\Machine\\System\\CurrentControlSet\\Services\\MsQuic\\Parameters\\"
+#define CXPLAT_BASE_REG_PATH L"\\Registry\\Machine\\System\\CurrentControlSet\\Services\\CxPlat\\Parameters\\"
 
 typedef struct CXPLAT_PLATFORM {
 
@@ -60,7 +60,7 @@ typedef struct CXPLAT_PLATFORM {
 #include <crtdbg.h>
 #endif
 
-#define CXPLAT_BASE_REG_PATH "System\\CurrentControlSet\\Services\\MsQuic\\Parameters\\"
+#define CXPLAT_BASE_REG_PATH "System\\CurrentControlSet\\Services\\CxPlat\\Parameters\\"
 
 typedef struct CXPLAT_PLATFORM {
 

@@ -20,7 +20,7 @@ endif()
 
 if(CXPLAT_ENABLE_LOGGING)
     if(WIN32)
-        add_dependencies(inc INTERFACE MsQuicEtw)
+        add_dependencies(inc INTERFACE CxPlatEtw)
     else()
         target_link_libraries(inc INTERFACE ${LTTNGUST_LIBRARIES})
     endif()

@@ -5,7 +5,7 @@
 
 Abstract:
 
-    This file contains the platform specific definitions for MsQuic structures
+    This file contains the platform specific definitions for CxPlat structures
     and error codes.
 
 Environment:

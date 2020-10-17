@@ -5,7 +5,7 @@
 
 Abstract:
 
-    Declarations for the MsQuic API, which enables applications and drivers to
+    Declarations for the CxPlat API, which enables applications and drivers to
     create QUIC connections as a client or server.
 
     For more detailed information, see ../docs/API.md
@@ -29,11 +29,11 @@ Supported Platforms:
 #pragma warning(disable:4214)  // nonstandard extension used: bit field types other than int
 
 #ifdef _KERNEL_MODE
-#include "msquic_winkernel.h"
+#include "cxplat_winkernel.h"
 #elif _WIN32
-#include "msquic_winuser.h"
+#include "cxplat_winuser.h"
 #elif __linux__
-#include "msquic_linux.h"
+#include "cxplat_linux.h"
 #else
 #error "Unsupported Platform"
 #endif
@@ -190,7 +190,7 @@ typedef enum CXPLAT_DATAGRAM_SEND_STATE {
 
 //
 // Helper to determine if a datagrams state is final, and no longer tracked
-// by MsQuic.
+// by CxPlat.
 //
 #define CXPLAT_DATAGRAM_SEND_STATE_IS_FINAL(State) \
     (State >= CXPLAT_DATAGRAM_SEND_LOST_DISCARDED)
@@ -590,7 +590,7 @@ CXPLAT_STATUS
 // Closes the registration. This function synchronizes the cleanup of all
 // child objects. It does this by blocking until all those child objects have
 // been closed by the application.
-// N.B. This function will deadlock if called in any MsQuic callbacks.
+// N.B. This function will deadlock if called in any CxPlat callbacks.
 //
 typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
@@ -602,7 +602,7 @@ void
 
 //
 // Calls shutdown for all connections in this registration. Don't call on a
-// MsQuic callback thread or it might deadlock.
+// CxPlat callback thread or it might deadlock.
 //
 typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
@@ -1134,23 +1134,23 @@ typedef struct CXPLAT_API_TABLE {
 //
 // Opens the API library and initializes it if this is the first call for the
 // process. It returns API function table for the rest of the API's functions.
-// MsQuicClose must be called when the app is done with the function table.
+// CxPlatClose must be called when the app is done with the function table.
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
 CXPLAT_API
-MsQuicOpen(
+CxPlatOpen(
     _Out_ _Pre_defensive_ const CXPLAT_API_TABLE** QuicApi
     );
 
 //
-// Cleans up the function table returned from MsQuicOpen and releases the
+// Cleans up the function table returned from CxPlatOpen and releases the
 // reference on the API.
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
 CXPLAT_API
-MsQuicClose(
+CxPlatClose(
     _In_ _Pre_defensive_ const CXPLAT_API_TABLE* QuicApi
     );
 

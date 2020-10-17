@@ -17,12 +17,12 @@ Abstract:
 #endif
 
 #include <wincrypt.h>
-#include <msquic.h>
+#include <cxplat.h>
 
-#define CXPLAT_CERT_CREATION_EVENT_NAME       L"MsQuicCertEvent"
+#define CXPLAT_CERT_CREATION_EVENT_NAME       L"CxPlatCertEvent"
 #define CXPLAT_CERT_CREATION_EVENT_WAIT       10000
-#define CXPLAT_CERTIFICATE_TEST_FRIENDLY_NAME L"MsQuicTestCert"
-#define CXPLAT_KEY_CONTAINER_NAME             L"MsQuicSelfSignKey"
+#define CXPLAT_CERTIFICATE_TEST_FRIENDLY_NAME L"CxPlatTestCert"
+#define CXPLAT_KEY_CONTAINER_NAME             L"CxPlatSelfSignKey"
 #define CXPLAT_KEY_SIZE                       2048
 
 void
@@ -784,7 +784,7 @@ FreeServerCertificate(
 }
 
 /*
-    Find the first MsQuic test certificate that is valid, or create one.
+    Find the first CxPlat test certificate that is valid, or create one.
 */
 _Success_(return != NULL)
 void*

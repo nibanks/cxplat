@@ -44,7 +44,7 @@ Environment:
 #ifdef CXPLAT_TELEMETRY_ASSERTS
 #include <telemetry\MicrosoftTelemetryAssertKM.h>
 #endif
-#include <msquic_winkernel.h>
+#include <cxplat_winkernel.h>
 #pragma warning(pop)
 
 #if defined(__cplusplus)
@@ -191,7 +191,7 @@ QuicPlatformLogAssert(
 #endif // _PREFAST_
 
 //
-// MsQuic uses three types of asserts:
+// CxPlat uses three types of asserts:
 //
 //  CXPLAT_DBG_ASSERT - Asserts that are too expensive to evaluate all the time.
 //  CXPLAT_TEL_ASSERT - Asserts that are acceptable to always evaluate, but not

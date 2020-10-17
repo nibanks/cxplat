@@ -39,11 +39,11 @@ $RootDir = Split-Path $PSScriptRoot -Parent
 $ArtifactsDir = Join-Path $RootDir "artifacts/bin"
 
 if ($IsWindows) {
-    if (!(Test-Path "C:\Windows\System32\drivers\msquic.sys")) {
+    if (!(Test-Path "C:\Windows\System32\drivers\cxplat.sys")) {
         # Install ETW manifest, if not already present
-        $MsQuicDll = Join-Path $ArtifactsDir "\windows\$($Arch)_$($Config)_$($Tls)\msquic.dll"
-        $ManifestPath = Join-Path $RootDir "\src\manifest\MsQuicEtw.man"
-        $Command = "wevtutil.exe im $($ManifestPath) /rf:$($MsQuicDll) /mf:$($MsQuicDll)"
+        $CxPlatDll = Join-Path $ArtifactsDir "\windows\$($Arch)_$($Config)_$($Tls)\cxplat.dll"
+        $ManifestPath = Join-Path $RootDir "\src\manifest\CxPlatEtw.man"
+        $Command = "wevtutil.exe im $($ManifestPath) /rf:$($CxPlatDll) /mf:$($CxPlatDll)"
         Write-Host $Command
         Invoke-Expression $Command
     }

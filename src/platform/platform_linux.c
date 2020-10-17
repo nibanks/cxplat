@@ -35,7 +35,7 @@ CXPLAT_PLATFORM_DISPATCH* PlatDispatch = NULL;
 int RandomFd; // Used for reading random numbers.
 #endif
 
-static const char TpLibName[] = "libmsquic.lttng.so";
+static const char TpLibName[] = "libcxplat.lttng.so";
 
 uint64_t QuicTotalMemory;
 
@@ -85,7 +85,7 @@ QuicPlatformSystemLoad(
     }
 
     //
-    // Get the path to the currently executing shared object (libmsquic.so).
+    // Get the path to the currently executing shared object (libcxplat.so).
     //
     Dl_info Info;
     int Succeeded = dladdr((void *)QuicPlatformSystemLoad, &Info);
@@ -398,7 +398,7 @@ QuicEventInitialize(
     EventObj = QuicAlloc(sizeof(CXPLAT_EVENT_OBJECT));
 
     //
-    // MsQuic expects this call to be non failable.
+    // CxPlat expects this call to be non failable.
     //
 
     CXPLAT_DBG_ASSERT(EventObj != NULL);

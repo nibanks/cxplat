@@ -10,7 +10,7 @@ using System.Text;
 using System.Net;
 using System.Runtime.InteropServices;
 
-namespace msquic.clog_config
+namespace cxplat.clog_config
 {
     public class Types
     {

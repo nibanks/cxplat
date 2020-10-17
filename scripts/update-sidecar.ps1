@@ -22,7 +22,7 @@ $SrcDir = Join-Path $RootDir "src"
 $Files = Get-ChildItem -Path "$SrcDir\*" -Recurse -Include *.c,*.h,*.cpp,*.hpp -File
 
 $Sidecar = Join-Path $SrcDir "manifest" "clog.sidecar"
-$ConfigFile = Join-Path $SrcDir "manifest" "msquic.clog_config"
+$ConfigFile = Join-Path $SrcDir "manifest" "cxplat.clog_config"
 
 $OutputDir = Join-Path $RootDir "build" "tmp"
 New-Item -Path $OutputDir -ItemType Directory -Force | Out-Null

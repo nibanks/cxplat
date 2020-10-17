@@ -6,10 +6,10 @@
 --*/
 
 #include "main.h"
-#include "msquic.h"
+#include "cxplat.h"
 #include "quic_tls.h"
 
-#include "msquichelper.h"
+#include "cxplathelper.h"
 #ifdef CXPLAT_CLOG
 #include "CryptTest.cpp.clog.h"
 #endif

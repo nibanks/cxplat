@@ -11,7 +11,7 @@ Abstract:
 
 #pragma once
 
-#include <msquic.h>
+#include <cxplat.h>
 #include <quic_crypt.h>
 
 #if defined(__cplusplus)

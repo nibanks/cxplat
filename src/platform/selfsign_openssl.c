@@ -322,7 +322,7 @@ QuicPlatGetSelfSignedCert(
     UINT TempFileStatus =
         GetTempFileNameA(
             Params->TempPath,
-            "msquicopensslcert",
+            "cxplatopensslcert",
             0,
             Params->CertFilepath);
     if (TempFileStatus == 0) {
@@ -336,7 +336,7 @@ QuicPlatGetSelfSignedCert(
     TempFileStatus =
         GetTempFileNameA(
             Params->TempPath,
-            "msquicopensslkey",
+            "cxplatopensslkey",
             0,
             Params->PrivateKeyFilepath);
     if (TempFileStatus == 0) {

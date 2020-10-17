@@ -245,9 +245,9 @@ function Wait-Executable($Exe) {
                 & $LogScript -Start -Profile $LogProfile | Out-Null
             }
             # Set a registry key to trigger the settings code paths.
-            reg.exe add HKLM\SYSTEM\CurrentControlSet\Services\MsQuic\Parameters\Apps\spinquic /v InitialWindowPackets /t REG_DWORD /d 20 /f | Out-Null
+            reg.exe add HKLM\SYSTEM\CurrentControlSet\Services\CxPlat\Parameters\Apps\spinquic /v InitialWindowPackets /t REG_DWORD /d 20 /f | Out-Null
             Sleep -Seconds 1
-            reg.exe delete HKLM\SYSTEM\CurrentControlSet\Services\MsQuic\Parameters\Apps\spinquic /f
+            reg.exe delete HKLM\SYSTEM\CurrentControlSet\Services\CxPlat\Parameters\Apps\spinquic /f
         }
 
         if (!$Debugger) {

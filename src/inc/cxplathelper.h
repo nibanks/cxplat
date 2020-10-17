@@ -5,7 +5,7 @@
 
 Abstract:
 
-    This file contains helpers for using MsQuic.
+    This file contains helpers for using CxPlat.
 
 Environment:
 
@@ -16,8 +16,8 @@ Environment:
 #pragma once
 
 #include <quic_platform.h>
-#include <msquic.h>
-#include <msquicp.h>
+#include <cxplat.h>
+#include <cxplatp.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -65,18 +65,18 @@ QuicStatusToString(
 }
 
 //
-// Helper function to get the RTT (in microseconds) from a MsQuic Connection or Stream handle.
+// Helper function to get the RTT (in microseconds) from a CxPlat Connection or Stream handle.
 //
 inline
 uint32_t
 GetConnRtt(
-    _In_ const CXPLAT_API_TABLE* MsQuic,
+    _In_ const CXPLAT_API_TABLE* CxPlat,
     _In_ HQUIC Handle
     )
 {
     CXPLAT_STATISTICS Value;
     uint32_t ValueSize = sizeof(Value);
-    MsQuic->GetParam(
+    CxPlat->GetParam(
         Handle,
         CXPLAT_PARAM_LEVEL_CONNECTION,
         CXPLAT_PARAM_CONN_STATISTICS,
@@ -86,18 +86,18 @@ GetConnRtt(
 }
 
 //
-// Helper function to get the Stream ID from a MsQuic Stream handle.
+// Helper function to get the Stream ID from a CxPlat Stream handle.
 //
 inline
 uint64_t
 GetStreamID(
-    _In_ const CXPLAT_API_TABLE* MsQuic,
+    _In_ const CXPLAT_API_TABLE* CxPlat,
     _In_ HQUIC Handle
     )
 {
     uint64_t ID = (uint32_t)(-1);
     uint32_t IDLen = sizeof(ID);
-    MsQuic->GetParam(
+    CxPlat->GetParam(
         Handle,
         CXPLAT_PARAM_LEVEL_STREAM,
         CXPLAT_PARAM_STREAM_ID,
@@ -107,13 +107,13 @@ GetStreamID(
 }
 
 //
-// Helper function to get the remote IP address (as a string) from a MsQuic
+// Helper function to get the remote IP address (as a string) from a CxPlat
 // Connection or Stream handle.
 //
 inline
 CXPLAT_ADDR_STR
 GetRemoteAddr(
-    _In_ const CXPLAT_API_TABLE* MsQuic,
+    _In_ const CXPLAT_API_TABLE* CxPlat,
     _In_ HQUIC Handle
     )
 {
@@ -121,7 +121,7 @@ GetRemoteAddr(
     uint32_t addrLen = sizeof(addr);
     CXPLAT_ADDR_STR addrStr = { 0 };
     CXPLAT_STATUS status =
-        MsQuic->GetParam(
+        CxPlat->GetParam(
             Handle,
             CXPLAT_PARAM_LEVEL_CONNECTION,
             CXPLAT_PARAM_CONN_REMOTE_ADDRESS,
@@ -136,13 +136,13 @@ GetRemoteAddr(
 inline
 CXPLAT_STATUS
 QuicForceRetry(
-    _In_ const CXPLAT_API_TABLE* MsQuic,
+    _In_ const CXPLAT_API_TABLE* CxPlat,
     _In_ BOOLEAN Enabled
     )
 {
     uint16_t value = Enabled ? 0 : 65;
     return
-        MsQuic->SetParam(
+        CxPlat->SetParam(
             NULL,
             CXPLAT_PARAM_LEVEL_GLOBAL,
             CXPLAT_PARAM_GLOBAL_RETRY_MEMORY_PERCENT,
@@ -152,13 +152,13 @@ QuicForceRetry(
 
 inline
 void
-DumpMsQuicPerfCounters(
-    _In_ const CXPLAT_API_TABLE* MsQuic
+DumpCxPlatPerfCounters(
+    _In_ const CXPLAT_API_TABLE* CxPlat
     )
 {
     uint64_t Counters[CXPLAT_PERF_COUNTER_MAX] = {0};
     uint32_t Lenth = sizeof(Counters);
-    MsQuic->GetParam(
+    CxPlat->GetParam(
         NULL,
         CXPLAT_PARAM_LEVEL_GLOBAL,
         CXPLAT_PARAM_GLOBAL_PERF_COUNTERS,
@@ -386,7 +386,7 @@ HQUIC
 GetServerConfigurationFromArgs(
     _In_ int argc,
     _In_reads_(argc) _Null_terminated_ char* argv[],
-    _In_ const CXPLAT_API_TABLE* MsQuic,
+    _In_ const CXPLAT_API_TABLE* CxPlat,
     _In_ HQUIC Registration,
     _In_reads_(AlpnBufferCount) _Pre_defensive_
         const CXPLAT_BUFFER* const AlpnBuffers,
@@ -453,7 +453,7 @@ GetServerConfigurationFromArgs(
 
     HQUIC Configuration = nullptr;
     if (CXPLAT_SUCCEEDED(
-        MsQuic->ConfigurationOpen(
+        CxPlat->ConfigurationOpen(
             Registration,
             AlpnBuffers,
             AlpnBufferCount,
@@ -462,10 +462,10 @@ GetServerConfigurationFromArgs(
             Context,
             &Configuration)) &&
         CXPLAT_FAILED(
-        MsQuic->ConfigurationLoadCredential(
+        CxPlat->ConfigurationLoadCredential(
             Configuration,
             Config))) {
-        MsQuic->ConfigurationClose(Configuration);
+        CxPlat->ConfigurationClose(Configuration);
         Configuration = nullptr;
     }
 
@@ -481,17 +481,17 @@ GetServerConfigurationFromArgs(
 inline
 void
 FreeServerConfiguration(
-    _In_ const CXPLAT_API_TABLE* MsQuic,
+    _In_ const CXPLAT_API_TABLE* CxPlat,
     _In_ HQUIC Configuration
     )
 {
 #ifdef CXPLAT_TEST_APIS
-    auto SelfSignedConfig = (const CXPLAT_CREDENTIAL_CONFIG*)MsQuic->GetContext(Configuration);
+    auto SelfSignedConfig = (const CXPLAT_CREDENTIAL_CONFIG*)CxPlat->GetContext(Configuration);
     if (SelfSignedConfig) {
         QuicPlatFreeSelfSignedCert(SelfSignedConfig);
     }
 #endif
-    MsQuic->ConfigurationClose(Configuration);
+    CxPlat->ConfigurationClose(Configuration);
 }
 
 #endif // defined(__cplusplus)

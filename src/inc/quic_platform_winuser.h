@@ -49,7 +49,7 @@ Environment:
 #ifdef CXPLAT_TELEMETRY_ASSERTS
 #include <telemetry\MicrosoftTelemetryAssert.h>
 #endif
-#include <msquic_winuser.h>
+#include <cxplat_winuser.h>
 #pragma warning(pop)
 
 #pragma warning(disable:4201)  // nonstandard extension used: nameless struct/union
@@ -176,7 +176,7 @@ QuicPlatformLogAssert(
 
 
 //
-// MsQuic uses three types of asserts:
+// CxPlat uses three types of asserts:
 //
 //  CXPLAT_DBG_ASSERT - Asserts that are too expensive to evaluate all the time.
 //  CXPLAT_TEL_ASSERT - Asserts that are acceptable to always evaluate, but not

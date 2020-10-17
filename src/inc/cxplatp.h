@@ -5,7 +5,7 @@
 
 Abstract:
 
-    Private definitions for MsQuic.
+    Private definitions for CxPlat.
 
 --*/
 
@@ -14,7 +14,7 @@ Abstract:
 #ifndef _MSQUICP_
 #define _MSQUICP_
 
-#include <msquic.h>
+#include <cxplat.h>
 
 #if defined(__cplusplus)
 extern "C" {

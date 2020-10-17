@@ -37,7 +37,7 @@ Environment:
 #include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <msquic_linux.h>
+#include <cxplat_linux.h>
 #include <stdbool.h>
 #include <pthread.h>
 #include <errno.h>

@@ -5,7 +5,7 @@
 
 Abstract:
 
-    C++ Declarations for the MsQuic API, which enables applications and
+    C++ Declarations for the CxPlat API, which enables applications and
     drivers to create QUIC connections as a client or server.
 
     For more detailed information, see ../docs/API.md
@@ -20,7 +20,7 @@ Supported Platforms:
 
 #pragma once
 
-#include <msquic.h>
+#include <cxplat.h>
 
 #ifndef CXPLAT_DBG_ASSERT
 #define CXPLAT_DBG_ASSERT(X) // no-op if not already defined
@@ -187,19 +187,19 @@ public:
     bool operator != (T* _ptr) const { return ptr != _ptr; }
 };
 
-class MsQuicApi : public CXPLAT_API_TABLE {
+class CxPlatApi : public CXPLAT_API_TABLE {
     const CXPLAT_API_TABLE* ApiTable {nullptr};
     CXPLAT_STATUS InitStatus;
 public:
-    MsQuicApi() noexcept {
-        if (CXPLAT_SUCCEEDED(InitStatus = MsQuicOpen(&ApiTable))) {
+    CxPlatApi() noexcept {
+        if (CXPLAT_SUCCEEDED(InitStatus = CxPlatOpen(&ApiTable))) {
             CXPLAT_API_TABLE* thisTable = this;
             memcpy(thisTable, ApiTable, sizeof(*ApiTable));
         }
     }
-    ~MsQuicApi() noexcept {
+    ~CxPlatApi() noexcept {
         if (CXPLAT_SUCCEEDED(InitStatus)) {
-            MsQuicClose(ApiTable);
+            CxPlatClose(ApiTable);
             ApiTable = nullptr;
             CXPLAT_API_TABLE* thisTable = this;
             memset(thisTable, 0, sizeof(*thisTable));
@@ -208,60 +208,60 @@ public:
     CXPLAT_STATUS GetInitStatus() const noexcept { return InitStatus; }
 };
 
-extern const MsQuicApi* MsQuic;
+extern const CxPlatApi* CxPlat;
 
-class MsQuicRegistration {
+class CxPlatRegistration {
     bool CloseAllConnectionsOnDelete {false};
     HQUIC Handle {nullptr};
     CXPLAT_STATUS InitStatus;
 public:
     operator HQUIC () const noexcept { return Handle; }
-    MsQuicRegistration(
+    CxPlatRegistration(
         _In_ bool AutoCleanUp = false
         ) noexcept : CloseAllConnectionsOnDelete(AutoCleanUp) {
-        InitStatus = MsQuic->RegistrationOpen(nullptr, &Handle);
+        InitStatus = CxPlat->RegistrationOpen(nullptr, &Handle);
     }
-    MsQuicRegistration(
+    CxPlatRegistration(
         _In_z_ const char* AppName,
         CXPLAT_EXECUTION_PROFILE Profile = CXPLAT_EXECUTION_PROFILE_LOW_LATENCY,
         _In_ bool AutoCleanUp = false
         ) noexcept : CloseAllConnectionsOnDelete(AutoCleanUp) {
         const CXPLAT_REGISTRATION_CONFIG RegConfig = { AppName, Profile };
-        InitStatus = MsQuic->RegistrationOpen(&RegConfig, &Handle);
+        InitStatus = CxPlat->RegistrationOpen(&RegConfig, &Handle);
     }
-    ~MsQuicRegistration() noexcept {
+    ~CxPlatRegistration() noexcept {
         if (Handle != nullptr) {
             if (CloseAllConnectionsOnDelete) {
-                MsQuic->RegistrationShutdown(
+                CxPlat->RegistrationShutdown(
                     Handle,
                     CXPLAT_CONNECTION_SHUTDOWN_FLAG_SILENT,
                     1);
             }
-            MsQuic->RegistrationClose(Handle);
+            CxPlat->RegistrationClose(Handle);
         }
     }
     CXPLAT_STATUS GetInitStatus() const noexcept { return InitStatus; }
     bool IsValid() const noexcept { return CXPLAT_SUCCEEDED(InitStatus); }
-    MsQuicRegistration(MsQuicRegistration& other) = delete;
-    MsQuicRegistration operator=(MsQuicRegistration& Other) = delete;
+    CxPlatRegistration(CxPlatRegistration& other) = delete;
+    CxPlatRegistration operator=(CxPlatRegistration& Other) = delete;
     void Shutdown(
         _In_ CXPLAT_CONNECTION_SHUTDOWN_FLAGS Flags,
         _In_ CXPLAT_UINT62 ErrorCode
         ) noexcept {
-        MsQuic->RegistrationShutdown(Handle, Flags, ErrorCode);
+        CxPlat->RegistrationShutdown(Handle, Flags, ErrorCode);
     }
 };
 
-class MsQuicAlpn {
+class CxPlatAlpn {
     CXPLAT_BUFFER Buffers[2];
     uint32_t BuffersLength;
 public:
-    MsQuicAlpn(_In_z_ const char* RawAlpn1) noexcept {
+    CxPlatAlpn(_In_z_ const char* RawAlpn1) noexcept {
         Buffers[0].Buffer = (uint8_t*)RawAlpn1;
         Buffers[0].Length = (uint32_t)strlen(RawAlpn1);
         BuffersLength = 1;
     }
-    MsQuicAlpn(_In_z_ const char* RawAlpn1, _In_z_ const char* RawAlpn2) noexcept {
+    CxPlatAlpn(_In_z_ const char* RawAlpn1, _In_z_ const char* RawAlpn2) noexcept {
         Buffers[0].Buffer = (uint8_t*)RawAlpn1;
         Buffers[0].Length = (uint32_t)strlen(RawAlpn1);
         Buffers[1].Buffer = (uint8_t*)RawAlpn2;
@@ -272,52 +272,52 @@ public:
     uint32_t Length() const noexcept { return BuffersLength; }
 };
 
-class MsQuicSettings : public CXPLAT_SETTINGS {
+class CxPlatSettings : public CXPLAT_SETTINGS {
 public:
-    MsQuicSettings() noexcept { IsSetFlags = 0; }
-    MsQuicSettings& SetSendBufferingEnabled(bool Value) { SendBufferingEnabled = Value; IsSet.SendBufferingEnabled = TRUE; return *this; }
-    MsQuicSettings& SetPacingEnabled(bool Value) { PacingEnabled = Value; IsSet.PacingEnabled = TRUE; return *this; }
-    MsQuicSettings& SetMigrationEnabled(bool Value) { MigrationEnabled = Value; IsSet.MigrationEnabled = TRUE; return *this; }
-    MsQuicSettings& SetDatagramReceiveEnabled(bool Value) { DatagramReceiveEnabled = Value; IsSet.DatagramReceiveEnabled = TRUE; return *this; }
-    MsQuicSettings& SetServerResumptionLevel(CXPLAT_SERVER_RESUMPTION_LEVEL Value) { ServerResumptionLevel = Value; IsSet.ServerResumptionLevel = TRUE; return *this; }
-    MsQuicSettings& SetIdleTimeoutMs(uint64_t Value) { IdleTimeoutMs = Value; IsSet.IdleTimeoutMs = TRUE; return *this; }
-    MsQuicSettings& SetHandshakeIdleTimeoutMs(uint64_t Value) { HandshakeIdleTimeoutMs = Value; IsSet.HandshakeIdleTimeoutMs = TRUE; return *this; }
-    MsQuicSettings& SetDisconnectTimeoutMs(uint32_t Value) { DisconnectTimeoutMs = Value; IsSet.DisconnectTimeoutMs = TRUE; return *this; }
-    MsQuicSettings& SetPeerBidiStreamCount(uint16_t Value) { PeerBidiStreamCount = Value; IsSet.PeerBidiStreamCount = TRUE; return *this; }
-    MsQuicSettings& SetPeerUnidiStreamCount(uint16_t Value) { PeerUnidiStreamCount = Value; IsSet.PeerUnidiStreamCount = TRUE; return *this; }
-    MsQuicSettings& SetMaxBytesPerKey(uint64_t Value) { MaxBytesPerKey = Value; IsSet.MaxBytesPerKey = TRUE; return *this; }
-    MsQuicSettings& SetMaxAckDelayMs(uint32_t Value) { MaxAckDelayMs = Value; IsSet.MaxAckDelayMs = TRUE; return *this; }
+    CxPlatSettings() noexcept { IsSetFlags = 0; }
+    CxPlatSettings& SetSendBufferingEnabled(bool Value) { SendBufferingEnabled = Value; IsSet.SendBufferingEnabled = TRUE; return *this; }
+    CxPlatSettings& SetPacingEnabled(bool Value) { PacingEnabled = Value; IsSet.PacingEnabled = TRUE; return *this; }
+    CxPlatSettings& SetMigrationEnabled(bool Value) { MigrationEnabled = Value; IsSet.MigrationEnabled = TRUE; return *this; }
+    CxPlatSettings& SetDatagramReceiveEnabled(bool Value) { DatagramReceiveEnabled = Value; IsSet.DatagramReceiveEnabled = TRUE; return *this; }
+    CxPlatSettings& SetServerResumptionLevel(CXPLAT_SERVER_RESUMPTION_LEVEL Value) { ServerResumptionLevel = Value; IsSet.ServerResumptionLevel = TRUE; return *this; }
+    CxPlatSettings& SetIdleTimeoutMs(uint64_t Value) { IdleTimeoutMs = Value; IsSet.IdleTimeoutMs = TRUE; return *this; }
+    CxPlatSettings& SetHandshakeIdleTimeoutMs(uint64_t Value) { HandshakeIdleTimeoutMs = Value; IsSet.HandshakeIdleTimeoutMs = TRUE; return *this; }
+    CxPlatSettings& SetDisconnectTimeoutMs(uint32_t Value) { DisconnectTimeoutMs = Value; IsSet.DisconnectTimeoutMs = TRUE; return *this; }
+    CxPlatSettings& SetPeerBidiStreamCount(uint16_t Value) { PeerBidiStreamCount = Value; IsSet.PeerBidiStreamCount = TRUE; return *this; }
+    CxPlatSettings& SetPeerUnidiStreamCount(uint16_t Value) { PeerUnidiStreamCount = Value; IsSet.PeerUnidiStreamCount = TRUE; return *this; }
+    CxPlatSettings& SetMaxBytesPerKey(uint64_t Value) { MaxBytesPerKey = Value; IsSet.MaxBytesPerKey = TRUE; return *this; }
+    CxPlatSettings& SetMaxAckDelayMs(uint32_t Value) { MaxAckDelayMs = Value; IsSet.MaxAckDelayMs = TRUE; return *this; }
 };
 
 #ifndef CXPLAT_DEFAULT_CLIENT_CRED_FLAGS
 #define CXPLAT_DEFAULT_CLIENT_CRED_FLAGS CXPLAT_CREDENTIAL_FLAG_CLIENT
 #endif
 
-class MsQuicCredentialConfig : public CXPLAT_CREDENTIAL_CONFIG {
+class CxPlatCredentialConfig : public CXPLAT_CREDENTIAL_CONFIG {
 public:
-    MsQuicCredentialConfig(const CXPLAT_CREDENTIAL_CONFIG& Config) {
+    CxPlatCredentialConfig(const CXPLAT_CREDENTIAL_CONFIG& Config) {
         CXPLAT_CREDENTIAL_CONFIG* thisStruct = this;
         memcpy(thisStruct, &Config, sizeof(CXPLAT_CREDENTIAL_CONFIG));
     }
-    MsQuicCredentialConfig(CXPLAT_CREDENTIAL_FLAGS _Flags = CXPLAT_DEFAULT_CLIENT_CRED_FLAGS) {
+    CxPlatCredentialConfig(CXPLAT_CREDENTIAL_FLAGS _Flags = CXPLAT_DEFAULT_CLIENT_CRED_FLAGS) {
         CXPLAT_CREDENTIAL_CONFIG* thisStruct = this;
         memset(thisStruct, 0, sizeof(CXPLAT_CREDENTIAL_CONFIG));
         Flags = _Flags;
     }
 };
 
-class MsQuicConfiguration {
+class CxPlatConfiguration {
     HQUIC Handle {nullptr};
     CXPLAT_STATUS InitStatus;
 public:
     operator HQUIC () const noexcept { return Handle; }
-    MsQuicConfiguration(
-        _In_ const MsQuicRegistration& Reg,
-        _In_ const MsQuicAlpn& Alpns
+    CxPlatConfiguration(
+        _In_ const CxPlatRegistration& Reg,
+        _In_ const CxPlatAlpn& Alpns
         )  {
         InitStatus = !Reg.IsValid() ?
             Reg.GetInitStatus() :
-            MsQuic->ConfigurationOpen(
+            CxPlat->ConfigurationOpen(
                 Reg,
                 Alpns,
                 Alpns.Length(),
@@ -326,14 +326,14 @@ public:
                 nullptr,
                 &Handle);
     }
-    MsQuicConfiguration(
-        _In_ const MsQuicRegistration& Reg,
-        _In_ const MsQuicAlpn& Alpns,
-        _In_ const MsQuicCredentialConfig& CredConfig
+    CxPlatConfiguration(
+        _In_ const CxPlatRegistration& Reg,
+        _In_ const CxPlatAlpn& Alpns,
+        _In_ const CxPlatCredentialConfig& CredConfig
         )  {
         InitStatus = !Reg.IsValid() ?
             Reg.GetInitStatus() :
-            MsQuic->ConfigurationOpen(
+            CxPlat->ConfigurationOpen(
                 Reg,
                 Alpns,
                 Alpns.Length(),
@@ -345,14 +345,14 @@ public:
             InitStatus = LoadCredential(&CredConfig);
         }
     }
-    MsQuicConfiguration(
-        _In_ const MsQuicRegistration& Reg,
-        _In_ const MsQuicAlpn& Alpns,
-        _In_ const MsQuicSettings& Settings
+    CxPlatConfiguration(
+        _In_ const CxPlatRegistration& Reg,
+        _In_ const CxPlatAlpn& Alpns,
+        _In_ const CxPlatSettings& Settings
         ) noexcept {
         InitStatus = !Reg.IsValid() ?
             Reg.GetInitStatus() :
-            MsQuic->ConfigurationOpen(
+            CxPlat->ConfigurationOpen(
                 Reg,
                 Alpns,
                 Alpns.Length(),
@@ -361,15 +361,15 @@ public:
                 nullptr,
                 &Handle);
     }
-    MsQuicConfiguration(
-        _In_ const MsQuicRegistration& Reg,
-        _In_ const MsQuicAlpn& Alpns,
-        _In_ const MsQuicSettings& Settings,
-        _In_ const MsQuicCredentialConfig& CredConfig
+    CxPlatConfiguration(
+        _In_ const CxPlatRegistration& Reg,
+        _In_ const CxPlatAlpn& Alpns,
+        _In_ const CxPlatSettings& Settings,
+        _In_ const CxPlatCredentialConfig& CredConfig
         ) noexcept {
         InitStatus = !Reg.IsValid() ?
             Reg.GetInitStatus() :
-            MsQuic->ConfigurationOpen(
+            CxPlat->ConfigurationOpen(
                 Reg,
                 Alpns,
                 Alpns.Length(),
@@ -381,38 +381,38 @@ public:
             InitStatus = LoadCredential(&CredConfig);
         }
     }
-    ~MsQuicConfiguration() noexcept {
+    ~CxPlatConfiguration() noexcept {
         if (Handle != nullptr) {
-            MsQuic->ConfigurationClose(Handle);
+            CxPlat->ConfigurationClose(Handle);
         }
     }
     CXPLAT_STATUS GetInitStatus() const noexcept { return InitStatus; }
     bool IsValid() const noexcept { return CXPLAT_SUCCEEDED(InitStatus); }
-    MsQuicConfiguration(MsQuicConfiguration& other) = delete;
-    MsQuicConfiguration operator=(MsQuicConfiguration& Other) = delete;
+    CxPlatConfiguration(CxPlatConfiguration& other) = delete;
+    CxPlatConfiguration operator=(CxPlatConfiguration& Other) = delete;
     CXPLAT_STATUS
     LoadCredential(_In_ const CXPLAT_CREDENTIAL_CONFIG* CredConfig) noexcept {
-        return MsQuic->ConfigurationLoadCredential(Handle, CredConfig);
+        return CxPlat->ConfigurationLoadCredential(Handle, CredConfig);
     }
 };
 
-struct MsQuicListener {
+struct CxPlatListener {
     HQUIC Handle { nullptr };
     CXPLAT_STATUS InitStatus;
     CXPLAT_LISTENER_CALLBACK_HANDLER Handler { nullptr };
     void* Context{ nullptr };
 
-    MsQuicListener(const MsQuicRegistration& Registration) noexcept {
+    CxPlatListener(const CxPlatRegistration& Registration) noexcept {
         if (!Registration.IsValid()) {
             InitStatus = Registration.GetInitStatus();
             return;
         }
         if (CXPLAT_FAILED(
             InitStatus =
-                MsQuic->ListenerOpen(
+                CxPlat->ListenerOpen(
                     Registration,
                     [](HQUIC Handle, void* Context, CXPLAT_LISTENER_EVENT* Event) -> CXPLAT_STATUS {
-                        MsQuicListener* Listener = (MsQuicListener*)Context;
+                        CxPlatListener* Listener = (CxPlatListener*)Context;
                         return Listener->Handler(Handle, Listener->Context, Event);
                     },
                     this,
@@ -420,24 +420,24 @@ struct MsQuicListener {
             Handle = nullptr;
         }
     }
-    ~MsQuicListener() noexcept {
+    ~CxPlatListener() noexcept {
         if (Handler != nullptr) {
-            MsQuic->ListenerStop(Handle);
+            CxPlat->ListenerStop(Handle);
         }
         if (Handle) {
-            MsQuic->ListenerClose(Handle);
+            CxPlat->ListenerClose(Handle);
         }
     }
 
     CXPLAT_STATUS
     Start(
-        _In_ const MsQuicAlpn& Alpns,
+        _In_ const CxPlatAlpn& Alpns,
         _In_ CXPLAT_ADDR* Address,
         _In_ CXPLAT_LISTENER_CALLBACK_HANDLER _Handler,
         _In_ void* _Context) noexcept {
         Handler = _Handler;
         Context = _Context;
-        return MsQuic->ListenerStart(Handle, Alpns, Alpns.Length(), Address);
+        return CxPlat->ListenerStart(Handle, Alpns, Alpns.Length(), Address);
     }
 
     CXPLAT_STATUS
@@ -447,8 +447,8 @@ struct MsQuicListener {
 
     CXPLAT_STATUS GetInitStatus() const noexcept { return InitStatus; }
     bool IsValid() const { return CXPLAT_SUCCEEDED(InitStatus); }
-    MsQuicListener(MsQuicListener& other) = delete;
-    MsQuicListener operator=(MsQuicListener& Other) = delete;
+    CxPlatListener(CxPlatListener& other) = delete;
+    CxPlatListener operator=(CxPlatListener& Other) = delete;
     operator HQUIC () const noexcept { return Handle; }
 };
 
@@ -456,7 +456,7 @@ struct ListenerScope {
     HQUIC Handle;
     ListenerScope() noexcept : Handle(nullptr) { }
     ListenerScope(HQUIC handle) noexcept : Handle(handle) { }
-    ~ListenerScope() noexcept { if (Handle) { MsQuic->ListenerClose(Handle); } }
+    ~ListenerScope() noexcept { if (Handle) { CxPlat->ListenerClose(Handle); } }
     operator HQUIC() const noexcept { return Handle; }
 };
 
@@ -464,7 +464,7 @@ struct ConnectionScope {
     HQUIC Handle;
     ConnectionScope() noexcept : Handle(nullptr) { }
     ConnectionScope(HQUIC handle) noexcept : Handle(handle) { }
-    ~ConnectionScope() noexcept { if (Handle) { MsQuic->ConnectionClose(Handle); } }
+    ~ConnectionScope() noexcept { if (Handle) { CxPlat->ConnectionClose(Handle); } }
     operator HQUIC() const noexcept { return Handle; }
 };
 
@@ -472,7 +472,7 @@ struct StreamScope {
     HQUIC Handle;
     StreamScope() noexcept : Handle(nullptr) { }
     StreamScope(HQUIC handle) noexcept : Handle(handle) { }
-    ~StreamScope() noexcept { if (Handle) { MsQuic->StreamClose(Handle); } }
+    ~StreamScope() noexcept { if (Handle) { CxPlat->StreamClose(Handle); } }
     operator HQUIC() const noexcept { return Handle; }
 };
 

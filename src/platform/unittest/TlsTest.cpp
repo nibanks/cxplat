@@ -6,7 +6,7 @@
 --*/
 
 #include "main.h"
-#include "msquic.h"
+#include "cxplat.h"
 #include "quic_tls.h"
 #ifdef CXPLAT_CLOG
 #include "TlsTest.cpp.clog.h"

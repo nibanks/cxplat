@@ -2888,10 +2888,10 @@ QuicEncrypt(
     CXPLAT_DBG_ASSERT(CXPLAT_ENCRYPTION_OVERHEAD <= BufferLength);
 
 #ifdef CXPLAT_FUZZER
-    if (MsQuicFuzzerContext.EncryptCallback) {
+    if (CxPlatFuzzerContext.EncryptCallback) {
 #pragma prefast(suppress: __WARNING_26000, "Auth Data and Buffer are always contiguous")
-        MsQuicFuzzerContext.EncryptCallback(
-            MsQuicFuzzerContext.CallbackContext,
+        CxPlatFuzzerContext.EncryptCallback(
+            CxPlatFuzzerContext.CallbackContext,
             (uint8_t*)AuthData,
             AuthDataLength + BufferLength
         );

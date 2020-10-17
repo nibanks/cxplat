@@ -23,23 +23,23 @@
       </Keywords>
     </SystemProvider>
 
-    <EventProvider Id="EP_MsQuicEtw" Name="ff15e657-4f26-570e-88ab-0796b258d11c" NonPagedMemory="true" />
-    <EventProvider Id="EP_MsQuicEtw_LowVolume" Name="ff15e657-4f26-570e-88ab-0796b258d11c" NonPagedMemory="true" Level="4">
+    <EventProvider Id="EP_CxPlatEtw" Name="ff15e657-4f26-570e-88ab-0796b258d11c" NonPagedMemory="true" />
+    <EventProvider Id="EP_CxPlatEtw_LowVolume" Name="ff15e657-4f26-570e-88ab-0796b258d11c" NonPagedMemory="true" Level="4">
       <Keywords>
         <Keyword Value="0x80000000"/>
       </Keywords>
     </EventProvider>
-    <EventProvider Id="EP_MsQuicEtw_LowVolume_Scheduling" Name="ff15e657-4f26-570e-88ab-0796b258d11c" NonPagedMemory="true">
+    <EventProvider Id="EP_CxPlatEtw_LowVolume_Scheduling" Name="ff15e657-4f26-570e-88ab-0796b258d11c" NonPagedMemory="true">
       <Keywords>
         <Keyword Value="0xA0000000"/>
       </Keywords>
     </EventProvider>
-    <EventProvider Id="EP_MsQuicEtw_LowVolume_DataPath" Name="ff15e657-4f26-570e-88ab-0796b258d11c" NonPagedMemory="true">
+    <EventProvider Id="EP_CxPlatEtw_LowVolume_DataPath" Name="ff15e657-4f26-570e-88ab-0796b258d11c" NonPagedMemory="true">
       <Keywords>
         <Keyword Value="0xC0000000"/>
       </Keywords>
     </EventProvider>
-    <EventProvider Id="EP_MsQuicEtw_LowVolume_Api" Name="ff15e657-4f26-570e-88ab-0796b258d11c" NonPagedMemory="true">
+    <EventProvider Id="EP_CxPlatEtw_LowVolume_Api" Name="ff15e657-4f26-570e-88ab-0796b258d11c" NonPagedMemory="true">
       <Keywords>
         <Keyword Value="0x80000800"/>
       </Keywords>
@@ -63,58 +63,58 @@
       </Keywords>
     </EventProvider>
 
-    <Profile Id="Performance.Light.File" Name="Performance" Description="Perf related MsQuic ETW Events" LoggingMode="File" DetailLevel="Light">
+    <Profile Id="Performance.Light.File" Name="Performance" Description="Perf related CxPlat ETW Events" LoggingMode="File" DetailLevel="Light">
       <Collectors>
         <EventCollectorId Value="EC_HighVolume">
           <EventProviders>
-            <EventProviderId Value="EP_MsQuicEtw" />
+            <EventProviderId Value="EP_CxPlatEtw" />
           </EventProviders>
         </EventCollectorId>
       </Collectors>
     </Profile>
-    <Profile Id="Performance.Light.Memory" Base="Performance.Light.File" Name="Performance" Description="Perf related MsQuic ETW Events" LoggingMode="Memory" DetailLevel="Light"/>
+    <Profile Id="Performance.Light.Memory" Base="Performance.Light.File" Name="Performance" Description="Perf related CxPlat ETW Events" LoggingMode="Memory" DetailLevel="Light"/>
 
-    <Profile Id="Performance.Verbose.File" Name="Performance" Description="Perf related MsQuic ETW and System Events" LoggingMode="File" DetailLevel="Verbose">
+    <Profile Id="Performance.Verbose.File" Name="Performance" Description="Perf related CxPlat ETW and System Events" LoggingMode="File" DetailLevel="Verbose">
       <Collectors>
         <SystemCollectorId Value="SC_HighVolume">
           <SystemProviderId Value="SP_SystemThreadExecution" />
         </SystemCollectorId>
         <EventCollectorId Value="EC_HighVolume">
           <EventProviders>
-            <EventProviderId Value="EP_MsQuicEtw" />
+            <EventProviderId Value="EP_CxPlatEtw" />
           </EventProviders>
         </EventCollectorId>
       </Collectors>
     </Profile>
-    <Profile Id="Performance.Verbose.Memory" Base="Performance.Verbose.File" Name="Performance" Description="Perf related MsQuic ETW and System" LoggingMode="Memory" DetailLevel="Verbose"/>
+    <Profile Id="Performance.Verbose.Memory" Base="Performance.Verbose.File" Name="Performance" Description="Perf related CxPlat ETW and System" LoggingMode="Memory" DetailLevel="Verbose"/>
 
-    <Profile Id="Basic.Light.File" Name="Basic" Description="Low Volume MsQuic ETW Events" LoggingMode="File" DetailLevel="Light">
+    <Profile Id="Basic.Light.File" Name="Basic" Description="Low Volume CxPlat ETW Events" LoggingMode="File" DetailLevel="Light">
       <Collectors>
         <EventCollectorId Value="EC_LowVolume">
           <EventProviders>
-            <EventProviderId Value="EP_MsQuicEtw_LowVolume" />
+            <EventProviderId Value="EP_CxPlatEtw_LowVolume" />
           </EventProviders>
         </EventCollectorId>
       </Collectors>
     </Profile>
-    <Profile Id="Basic.Light.Memory" Base="Basic.Light.File" Name="Basic" Description="Low Volume MsQuic ETW Events" LoggingMode="Memory" DetailLevel="Light"/>
+    <Profile Id="Basic.Light.Memory" Base="Basic.Light.File" Name="Basic" Description="Low Volume CxPlat ETW Events" LoggingMode="Memory" DetailLevel="Light"/>
 
-    <Profile Id="Basic.Verbose.File" Name="Basic" Description="All MsQuic ETW Events" LoggingMode="File" DetailLevel="Verbose">
+    <Profile Id="Basic.Verbose.File" Name="Basic" Description="All CxPlat ETW Events" LoggingMode="File" DetailLevel="Verbose">
       <Collectors>
         <EventCollectorId Value="EC_HighVolume">
           <EventProviders>
-            <EventProviderId Value="EP_MsQuicEtw" />
+            <EventProviderId Value="EP_CxPlatEtw" />
           </EventProviders>
         </EventCollectorId>
       </Collectors>
     </Profile>
-    <Profile Id="Basic.Verbose.Memory" Base="Basic.Verbose.File" Name="Basic" Description="All MsQuic ETW Events" LoggingMode="Memory" DetailLevel="Verbose"/>
+    <Profile Id="Basic.Verbose.Memory" Base="Basic.Verbose.File" Name="Basic" Description="All CxPlat ETW Events" LoggingMode="Memory" DetailLevel="Verbose"/>
 
     <Profile Id="Scheduling.Verbose.File" Name="Scheduling" Description="Used for debugging scheduling" LoggingMode="File" DetailLevel="Verbose">
       <Collectors>
         <EventCollectorId Value="EC_HighVolume">
           <EventProviders>
-            <EventProviderId Value="EP_MsQuicEtw_LowVolume_Scheduling" />
+            <EventProviderId Value="EP_CxPlatEtw_LowVolume_Scheduling" />
           </EventProviders>
         </EventCollectorId>
       </Collectors>
@@ -125,30 +125,30 @@
       <Collectors>
         <EventCollectorId Value="EC_HighVolume">
           <EventProviders>
-            <EventProviderId Value="EP_MsQuicEtw_LowVolume_DataPath" />
+            <EventProviderId Value="EP_CxPlatEtw_LowVolume_DataPath" />
           </EventProviders>
         </EventCollectorId>
       </Collectors>
     </Profile>
     <Profile Id="Datapath.Verbose.Memory" Base="Datapath.Verbose.File" Name="Datapath" Description="Used for debugging datapath" LoggingMode="Memory" DetailLevel="Verbose"/>
 
-    <Profile Id="Full.Light.File" Name="Full" Description="All MsQuic and TAEF Events" LoggingMode="File" DetailLevel="Light">
+    <Profile Id="Full.Light.File" Name="Full" Description="All CxPlat and TAEF Events" LoggingMode="File" DetailLevel="Light">
       <Collectors>
         <EventCollectorId Value="EC_LowVolume">
           <EventProviders>
-            <EventProviderId Value="EP_MsQuicEtw" />
+            <EventProviderId Value="EP_CxPlatEtw" />
             <EventProviderId Value="EP_TaefEtw" />
           </EventProviders>
         </EventCollectorId>
       </Collectors>
     </Profile>
-    <Profile Id="Full.Light.Memory" Base="Full.Light.File" Name="Full" Description="All MsQuic and TAEF Events" LoggingMode="Memory" DetailLevel="Light"/>
+    <Profile Id="Full.Light.Memory" Base="Full.Light.File" Name="Full" Description="All CxPlat and TAEF Events" LoggingMode="Memory" DetailLevel="Light"/>
 
     <Profile Id="Full.Verbose.File" Name="Full" Description="Everything" LoggingMode="File" DetailLevel="Verbose">
       <Collectors>
         <EventCollectorId Value="EC_LowVolume">
           <EventProviders>
-            <EventProviderId Value="EP_MsQuicEtw" />
+            <EventProviderId Value="EP_CxPlatEtw" />
             <EventProviderId Value="EP_TaefEtw" />
           </EventProviders>
         </EventCollectorId>
@@ -168,7 +168,7 @@
       <Collectors>
         <EventCollectorId Value="EC_LowVolume">
           <EventProviders>
-            <EventProviderId Value="EP_MsQuicEtw_LowVolume_Api" />
+            <EventProviderId Value="EP_CxPlatEtw_LowVolume_Api" />
           </EventProviders>
         </EventCollectorId>
       </Collectors>

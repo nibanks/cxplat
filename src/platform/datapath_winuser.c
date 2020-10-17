@@ -1141,9 +1141,9 @@ QuicDataPathBindingCreate(
         }
 
 #ifdef CXPLAT_FUZZER
-        MsQuicFuzzerContext.Socket = SocketContext;
-        MsQuicFuzzerContext.RealSendMsg = (PVOID)Datapath->WSASendMsg;
-        MsQuicFuzzerContext.RealRecvMsg = (PVOID)Datapath->WSARecvMsg;
+        CxPlatFuzzerContext.Socket = SocketContext;
+        CxPlatFuzzerContext.RealSendMsg = (PVOID)Datapath->WSASendMsg;
+        CxPlatFuzzerContext.RealRecvMsg = (PVOID)Datapath->WSARecvMsg;
         Datapath->WSASendMsg = QuicFuzzerSendMsg;
         Datapath->WSARecvMsg = QuicFuzzerRecvMsg;
 #endif
@@ -2087,12 +2087,12 @@ QuicDataPathRecvComplete(
         CXPLAT_DBG_ASSERT(DatagramChain);
 
 #ifdef CXPLAT_FUZZER
-        if (MsQuicFuzzerContext.RecvCallback) {
+        if (CxPlatFuzzerContext.RecvCallback) {
             CXPLAT_RECV_DATAGRAM *_DatagramIter = DatagramChain;
 
             while (_DatagramIter) {
-                MsQuicFuzzerContext.RecvCallback(
-                    MsQuicFuzzerContext.CallbackContext,
+                CxPlatFuzzerContext.RecvCallback(
+                    CxPlatFuzzerContext.CallbackContext,
                     _DatagramIter->Buffer,
                     _DatagramIter->BufferLength);
                 _DatagramIter = _DatagramIter->Next;
@@ -2778,7 +2778,7 @@ QuicFuzzerReceiveInject(
         return;
     }
 
-    CXPLAT_UDP_SOCKET_CONTEXT* Socket = (CXPLAT_UDP_SOCKET_CONTEXT*)MsQuicFuzzerContext.Socket;
+    CXPLAT_UDP_SOCKET_CONTEXT* Socket = (CXPLAT_UDP_SOCKET_CONTEXT*)CxPlatFuzzerContext.Socket;
 
     if (!Socket) {
         return;
@@ -2806,9 +2806,9 @@ QuicFuzzerReceiveInject(
 
     memcpy(Datagram->Buffer, PacketData, Datagram->BufferLength);
 
-    if (MsQuicFuzzerContext.RecvCallback) {
-        MsQuicFuzzerContext.RecvCallback(
-            MsQuicFuzzerContext.CallbackContext,
+    if (CxPlatFuzzerContext.RecvCallback) {
+        CxPlatFuzzerContext.RecvCallback(
+            CxPlatFuzzerContext.CallbackContext,
             Datagram->Buffer,
             Datagram->BufferLength);
     }
@@ -2828,10 +2828,10 @@ QuicFuzzerRecvMsg(
     _In_ LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine
     )
 {
-    if (!MsQuicFuzzerContext.RedirectDataPath) {
-        CXPLAT_DBG_ASSERT(MsQuicFuzzerContext.RealRecvMsg);
+    if (!CxPlatFuzzerContext.RedirectDataPath) {
+        CXPLAT_DBG_ASSERT(CxPlatFuzzerContext.RealRecvMsg);
 
-        return ((LPFN_WSARECVMSG)MsQuicFuzzerContext.RealRecvMsg)(
+        return ((LPFN_WSARECVMSG)CxPlatFuzzerContext.RealRecvMsg)(
             s,
             lpMsg,
             lpdwNumberOfBytesRecvd,
@@ -2856,19 +2856,19 @@ QuicFuzzerSendMsg(
     _In_ LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine
     )
 {
-    if (MsQuicFuzzerContext.SendCallback) {
+    if (CxPlatFuzzerContext.SendCallback) {
         for (DWORD i = 0; i < lpMsg->dwBufferCount; i++) {
-            MsQuicFuzzerContext.SendCallback(
-                MsQuicFuzzerContext.CallbackContext,
+            CxPlatFuzzerContext.SendCallback(
+                CxPlatFuzzerContext.CallbackContext,
                 (uint8_t*)lpMsg->lpBuffers[i].buf,
                 lpMsg->lpBuffers[i].len);
         }
     }
 
-    if (!MsQuicFuzzerContext.RedirectDataPath) {
-        CXPLAT_DBG_ASSERT(MsQuicFuzzerContext.RealSendMsg);
+    if (!CxPlatFuzzerContext.RedirectDataPath) {
+        CXPLAT_DBG_ASSERT(CxPlatFuzzerContext.RealSendMsg);
 
-        return ((LPFN_WSASENDMSG)MsQuicFuzzerContext.RealSendMsg)(
+        return ((LPFN_WSASENDMSG)CxPlatFuzzerContext.RealSendMsg)(
             s,
             lpMsg,
             dwFlags,

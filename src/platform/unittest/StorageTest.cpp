@@ -28,28 +28,28 @@ struct StorageTest : public WEX::TestClass<StorageTest>
     BEGIN_TEST_CLASS(StorageTest)
     END_TEST_CLASS()
 
-    void ResetMsQuicRegistry()
+    void ResetCxPlatRegistry()
     {
         RegDeleteTreeA(
             HKEY_LOCAL_MACHINE,
-            "System\\CurrentControlSet\\Services\\MsQuic\\Parameters\\Storage\\TEST");
+            "System\\CurrentControlSet\\Services\\CxPlat\\Parameters\\Storage\\TEST");
     }
 
     TEST_CLASS_SETUP(Setup)
     {
-        ResetMsQuicRegistry();
+        ResetCxPlatRegistry();
         return TRUE;
     }
 
     TEST_CLASS_CLEANUP(Cleanup)
     {
-        ResetMsQuicRegistry();
+        ResetCxPlatRegistry();
         return true;
     }
 
     TEST_METHOD_CLEANUP(MethodCleanup)
     {
-        ResetMsQuicRegistry();
+        ResetCxPlatRegistry();
         return true;
     }
 

@@ -5,8 +5,8 @@
 
 Abstract:
 
-    This file defines an interface to msquic_fuzz which can be used in place
-    of msquic to create quic clients or servers. This is an addon which
+    This file defines an interface to cxplat_fuzz which can be used in place
+    of cxplat to create quic clients or servers. This is an addon which
     exposes hooks into send, receive, and encrypt operations performed by
     the quic library.
 
@@ -14,9 +14,9 @@ Abstract:
     payloads into QUIC connections, while still using core library to
     create semantically valid sessions.
 
-    msquic_fuzz also provides a mode of operation which disables the
+    cxplat_fuzz also provides a mode of operation which disables the
     use of os-level sockets, and instead provides a "Simulated Receive"
-    function, allowing for fuzzers to target and use msquic without
+    function, allowing for fuzzers to target and use cxplat without
     the need to create unique socket bindings for each quic connection.
 
 --*/
@@ -30,7 +30,7 @@ extern "C" {
 #define CXPLAT_FUZZ_BUFFER_MAX 0x1000
 
 //
-// Callback to be registered and called each time msquic sends a packet.
+// Callback to be registered and called each time cxplat sends a packet.
 // In 'Simulated' mode this used to capture the data which would be sent
 // via OS sockets.
 //
@@ -43,7 +43,7 @@ void
     );
 
 //
-// Callback to be registered and called each time msquic receives a packet.
+// Callback to be registered and called each time cxplat receives a packet.
 // In 'Simulated' mode this is still called.
 //
 typedef
@@ -55,7 +55,7 @@ void
     );
 
 //
-// Callback to be registered and called just prior to msquic encrypting
+// Callback to be registered and called just prior to cxplat encrypting
 // a payload. This function may modify or entirely replace the
 // datagram's data.
 //
@@ -71,7 +71,7 @@ void
     );
 
 //
-// Callback to be registered and called prior to msquic encrypting
+// Callback to be registered and called prior to cxplat encrypting
 // a payload. Can be used to capture or modify valid QUIC payloads.
 //
 typedef
@@ -84,7 +84,7 @@ void
 
 //
 // An internal global structure used to track fuzzer configuration
-// and state exposed via msquic_fuzz.
+// and state exposed via cxplat_fuzz.
 //
 typedef struct CXPLAT_FUZZ_CONTEXT {
     CXPLAT_FUZZ_SEND_CALLBACK_FN SendCallback;
@@ -102,63 +102,63 @@ typedef struct CXPLAT_FUZZ_CONTEXT {
     void *RealRecvMsg;
 } CXPLAT_FUZZ_CONTEXT;
 
-extern CXPLAT_FUZZ_CONTEXT MsQuicFuzzerContext;
+extern CXPLAT_FUZZ_CONTEXT CxPlatFuzzerContext;
 
 //
-// Function to enable fuzzing functionality in msquic_fuzz.
+// Function to enable fuzzing functionality in cxplat_fuzz.
 //
 // CallbackContext is a pointer to an opaque structure that will be
 // passed to all callbacks.
 //
 // Passing a non-zero value as RedirectDataPath will disable
-// msquic_fuzz's use of OS sockets, and assume that the consuming
-// application will make calls to MsQuicSimulateReceive.
+// cxplat_fuzz's use of OS sockets, and assume that the consuming
+// application will make calls to CxPlatSimulateReceive.
 //
 void
-MsQuicFuzzInit(
+CxPlatFuzzInit(
     _Inout_ void *CallbackContext,
     _In_ uint8_t RedirectDataPath
     );
 
 //
-// Sets callback to be invoked each time msquic_fuzz sends a datagram.
+// Sets callback to be invoked each time cxplat_fuzz sends a datagram.
 //
 void
-MsQuicFuzzRegisterSendCallback(
+CxPlatFuzzRegisterSendCallback(
     _In_ CXPLAT_FUZZ_SEND_CALLBACK_FN Callback
     );
 
 //
-// Sets callback to be invoked each time msquic_fuzz receives a datagram.
+// Sets callback to be invoked each time cxplat_fuzz receives a datagram.
 //
 void
-MsQuicFuzzRegisterRecvCallback(
+CxPlatFuzzRegisterRecvCallback(
     _In_ CXPLAT_FUZZ_RECV_CALLBACK_FN Callback
     );
 
 //
-// Sets callback to be invoked each time msquic_fuzz creates a new datagram.
+// Sets callback to be invoked each time cxplat_fuzz creates a new datagram.
 // to be sent.
 //
 void
-MsQuicFuzzRegisterInjectCallback(
+CxPlatFuzzRegisterInjectCallback(
     _In_ CXPLAT_FUZZ_INJECT_CALLBACK_FN Callback
     );
 
 //
-// Sets callback to be invoked each time msquic_fuzz encrypts a datagram.
+// Sets callback to be invoked each time cxplat_fuzz encrypts a datagram.
 //
 void
-MsQuicFuzzRegisterEncryptCallback(
+CxPlatFuzzRegisterEncryptCallback(
     _In_ CXPLAT_FUZZ_ENCRYPT_CALLBACK_FN Callback
     );
 
 //
 // When operating in 'Simulate' mode, can be called to deliver a datagram.
-// to the last-used connection in an msquic_fuzz session.
+// to the last-used connection in an cxplat_fuzz session.
 //
 void
-MsQuicFuzzSimulateReceive(
+CxPlatFuzzSimulateReceive(
     _In_ const CXPLAT_ADDR *SourceAddress,
     _In_reads_(PacketLength) uint8_t *PacketData,
     _In_ uint16_t PacketLength

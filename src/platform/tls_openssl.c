@@ -599,7 +599,7 @@ QuicTlsSecConfigCreate(
             if (QuicOpenSslClientTrustedCert != NULL) {
                 //
                 // LINUX_TODO: This is a hack to set a client side trusted cert in order
-                //   to verify server cert. Fix this once MsQuic formally supports
+                //   to verify server cert. Fix this once CxPlat formally supports
                 //   passing TLS related config from APP layer to TAL.
                 //
 

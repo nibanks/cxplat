@@ -73,7 +73,7 @@ if ($Local) {
     $CoverageMergeParams +=  " --export_type html:$(Join-Path $CoverageDir "report")"
 } else {
     # Use cobertura format for Azure Pipelines.
-    $CoverageMergeParams +=  " --export_type cobertura:$(Join-Path $CoverageDir "msquiccoverage.xml")"
+    $CoverageMergeParams +=  " --export_type cobertura:$(Join-Path $CoverageDir "cxplatcoverage.xml")"
 }
 
 # Call the tool to merge the files into the appropriate format.

@@ -12,7 +12,7 @@ Abstract:
 #include "main.h"
 #include "quic_datapath.h"
 
-#include "msquic.h"
+#include "cxplat.h"
 #ifdef CXPLAT_CLOG
 #include "DataPathTest.cpp.clog.h"
 #endif

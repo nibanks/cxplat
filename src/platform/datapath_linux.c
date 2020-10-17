@@ -43,7 +43,7 @@ typedef struct CXPLAT_DATAPATH_RECV_BLOCK {
     CXPLAT_POOL* OwningPool;
 
     //
-    // The recv buffer used by MsQuic.
+    // The recv buffer used by CxPlat.
     //
     CXPLAT_RECV_DATAGRAM RecvPacket;
 
@@ -307,17 +307,17 @@ typedef struct CXPLAT_DATAPATH {
     CXPLAT_RUNDOWN_REF BindingsRundown;
 
     //
-    // The MsQuic receive handler.
+    // The CxPlat receive handler.
     //
     CXPLAT_DATAPATH_RECEIVE_CALLBACK_HANDLER RecvHandler;
 
     //
-    // The MsQuic unreachable handler.
+    // The CxPlat unreachable handler.
     //
     CXPLAT_DATAPATH_UNREACHABLE_CALLBACK_HANDLER UnreachHandler;
 
     //
-    // The length of recv context used by MsQuic.
+    // The length of recv context used by CxPlat.
     //
     size_t ClientRecvContextLength;
 
@@ -1509,7 +1509,7 @@ QuicSocketContextProcessEvents(
                 "Socket error event");
 
             //
-            // Send unreachable notification to MsQuic if any related
+            // Send unreachable notification to CxPlat if any related
             // errors were received.
             //
             if (ErrNum == ECONNREFUSED ||
