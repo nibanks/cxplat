@@ -20,11 +20,11 @@ Abstract:
 //#define CXPLAT_IOCTL_PATH        "\\\\.\\\\" CXPLAT_DRIVER_NAME
 
 
-class QuicDriverService {
+class CxPlatDriverService {
     SC_HANDLE ScmHandle;
     SC_HANDLE ServiceHandle;
 public:
-    QuicDriverService() :
+    CxPlatDriverService() :
         ScmHandle(nullptr),
         ServiceHandle(nullptr) {
     }
@@ -36,7 +36,7 @@ public:
         ScmHandle = OpenSCManager(nullptr, nullptr, SC_MANAGER_ALL_ACCESS);
         if (ScmHandle == nullptr) {
             Error = GetLastError();
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryErrorStatus,
                 "[ lib] ERROR, %u, %s.",
                 Error,
@@ -50,7 +50,7 @@ public:
                 DriverName,
                 SERVICE_ALL_ACCESS);
         if (ServiceHandle == nullptr) {
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryErrorStatus,
                 "[ lib] ERROR, %u, %s.",
                  GetLastError(),
@@ -59,7 +59,7 @@ public:
             GetModuleFileNameA(NULL, DriverFilePath, MAX_PATH);
             char* PathEnd = strrchr(DriverFilePath, '\\');
             if (!PathEnd) {
-                QuicTraceEvent(
+                CxPlatTraceEvent(
                     LibraryError,
                     "[ lib] ERROR, %s.",
                     "Failed to get currently executing module path");
@@ -74,14 +74,14 @@ public:
                     "%s.sys",
                     DriverName);
             if (PathResult <= 0 || (size_t)PathResult > RemainingLength) {
-                QuicTraceEvent(
+                CxPlatTraceEvent(
                     LibraryError,
                     "[ lib] ERROR, %s.",
                     "Failed to create driver on disk file path");
                 return false;
             }
             if (GetFileAttributesA(DriverFilePath) == INVALID_FILE_ATTRIBUTES) {
-                QuicTraceEvent(
+                CxPlatTraceEvent(
                     LibraryError,
                     "[ lib] ERROR, %s.",
                     "Failed to find driver on disk");
@@ -107,7 +107,7 @@ public:
                 if (Error == ERROR_SERVICE_EXISTS) {
                     goto QueryService;
                 }
-                QuicTraceEvent(
+                CxPlatTraceEvent(
                     LibraryErrorStatus,
                     "[ lib] ERROR, %u, %s.",
                     Error,
@@ -129,7 +129,7 @@ public:
         if (!StartServiceA(ServiceHandle, 0, nullptr)) {
             uint32_t Error = GetLastError();
             if (Error != ERROR_SERVICE_ALREADY_RUNNING) {
-                QuicTraceEvent(
+                CxPlatTraceEvent(
                     LibraryErrorStatus,
                     "[ lib] ERROR, %u, %s.",
                     Error,
@@ -141,10 +141,10 @@ public:
     }
 };
 
-class QuicDriverClient {
+class CxPlatDriverClient {
     HANDLE DeviceHandle;
 public:
-    QuicDriverClient() : DeviceHandle(INVALID_HANDLE_VALUE) { }
+    CxPlatDriverClient() : DeviceHandle(INVALID_HANDLE_VALUE) { }
     bool Initialize(
         _In_ CXPLAT_CERTIFICATE_HASH* CertHash,
         _In_z_ const char* DriverName
@@ -158,7 +158,7 @@ public:
                 "\\\\.\\\\%s",
                 DriverName);
         if (PathResult < 0 || PathResult >= sizeof(IoctlPath)) {
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryError,
                 "[ lib] ERRROR, %s",
                 "Creating Driver File Path failed");
@@ -175,7 +175,7 @@ public:
                 nullptr);
         if (DeviceHandle == INVALID_HANDLE_VALUE) {
             Error = GetLastError();
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryErrorStatus,
                 "[ lib] ERROR, %u, %s.",
                 Error,
@@ -185,7 +185,7 @@ public:
         if (!Run(IOCTL_CXPLAT_SET_CERT_HASH, CertHash, sizeof(*CertHash), 30000)) {
             CloseHandle(DeviceHandle);
             DeviceHandle = INVALID_HANDLE_VALUE;
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryError,
                 "[ lib] ERROR, %s.",
                 "Run(IOCTL_CXPLAT_SET_CERT_HASH) failed");
@@ -210,14 +210,14 @@ public:
         Overlapped.hEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
         if (Overlapped.hEvent == nullptr) {
             Error = GetLastError();
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryErrorStatus,
                 "[ lib] ERROR, %u, %s.",
                 Error,
                 "CreateEvent failed");
             return false;
         }
-        QuicTraceLogVerbose(
+        CxPlatTraceLogVerbose(
             TestSendIoctl,
             "[test] Sending Write IOCTL %u with %u bytes.",
             IoGetFunctionCodeFromCtlCode(IoControlCode),
@@ -232,7 +232,7 @@ public:
             Error = GetLastError();
             if (Error != ERROR_IO_PENDING) {
                 CloseHandle(Overlapped.hEvent);
-                QuicTraceEvent(
+                CxPlatTraceEvent(
                     LibraryErrorStatus,
                     "[ lib] ERROR, %u, %s.",
                     Error,
@@ -252,7 +252,7 @@ public:
                 Error = ERROR_TIMEOUT;
                 CancelIoEx(DeviceHandle, &Overlapped);
             }
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryErrorStatus,
                 "[ lib] ERROR, %u, %s.",
                 Error,
@@ -290,14 +290,14 @@ public:
         Overlapped.hEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
         if (!Overlapped.hEvent) {
             Error = GetLastError();
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryErrorStatus,
                 "[ lib] ERROR, %u, %s.",
                 Error,
                 "CreateEvent failed");
             return false;
         }
-        QuicTraceLogVerbose(
+        CxPlatTraceLogVerbose(
             TestSendIoctl,
             "[test] Sending Read IOCTL %u.",
             IoGetFunctionCodeFromCtlCode(IoControlCode));
@@ -311,7 +311,7 @@ public:
             Error = GetLastError();
             if (Error != ERROR_IO_PENDING) {
                 CloseHandle(Overlapped.hEvent);
-                QuicTraceEvent(
+                CxPlatTraceEvent(
                     LibraryErrorStatus,
                     "[ lib] ERROR, %u, %s.",
                     Error,
@@ -333,7 +333,7 @@ public:
                     GetOverlappedResult(DeviceHandle, &Overlapped, &dwBytesReturned, true);
                 }
             } else {
-                QuicTraceEvent(
+                CxPlatTraceEvent(
                     LibraryErrorStatus,
                     "[ lib] ERROR, %u, %s.",
                     Error,
@@ -350,7 +350,7 @@ public:
 
 #else
 
-class QuicDriverService {
+class CxPlatDriverService {
 public:
     bool Initialize(
         _In_z_ const char* DriverName,
@@ -364,7 +364,7 @@ public:
     bool Start() { return false; }
 };
 
-class QuicDriverClient {
+class CxPlatDriverClient {
 public:
     bool Initialize(
         _In_ CXPLAT_CERTIFICATE_HASH* CertHash,

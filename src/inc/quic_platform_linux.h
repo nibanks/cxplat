@@ -58,22 +58,22 @@ extern "C" {
 //
 
 void
-QuicPlatformSystemLoad(
+CxPlatPlatformSystemLoad(
     void
     );
 
 void
-QuicPlatformSystemUnload(
+CxPlatPlatformSystemUnload(
     void
     );
 
 CXPLAT_STATUS
-QuicPlatformInitialize(
+CxPlatPlatformInitialize(
     void
     );
 
 void
-QuicPlatformUninitialize(
+CxPlatPlatformUninitialize(
     void
     );
 
@@ -93,7 +93,7 @@ QuicPlatformUninitialize(
 
 #define UNREFERENCED_PARAMETER(P) (void)(P)
 
-#define QuicNetByteSwapShort(x) htons((x))
+#define CxPlatNetByteSwapShort(x) htons((x))
 
 #define SIZEOF_STRUCT_MEMBER(StructType, StructMember) sizeof(((StructType *)0)->StructMember)
 #define TYPEOF_STRUCT_MEMBER(StructType, StructMember) typeof(((StructType *)0)->StructMember)
@@ -186,7 +186,7 @@ quic_bugcheck(
     );
 
 void
-QuicPlatformLogAssert(
+CxPlatPlatformLogAssert(
     _In_z_ const char* File,
     _In_ int Line,
     _In_z_ const char* Expr
@@ -195,7 +195,7 @@ QuicPlatformLogAssert(
 #define CXPLAT_STATIC_ASSERT(X,Y) static_assert(X, Y);
 #define CXPLAT_ANALYSIS_ASSERT(X)
 #define CXPLAT_ANALYSIS_ASSUME(X)
-#define CXPLAT_FRE_ASSERT(exp) ((exp) ? (void)0 : (QuicPlatformLogAssert(__FILE__, __LINE__, #exp), quic_bugcheck()));
+#define CXPLAT_FRE_ASSERT(exp) ((exp) ? (void)0 : (CxPlatPlatformLogAssert(__FILE__, __LINE__, #exp), quic_bugcheck()));
 
 #ifdef DEBUG
 #define CXPLAT_DBG_ASSERT(exp) CXPLAT_FRE_ASSERT(exp)
@@ -219,7 +219,7 @@ QuicPlatformLogAssert(
 // Debugger check.
 //
 
-#define QuicDebuggerPresent() FALSE
+#define CxPlatDebuggerPresent() FALSE
 
 //
 // Interrupt ReQuest Level.
@@ -232,22 +232,22 @@ QuicPlatformLogAssert(
 // Memory management interfaces.
 //
 
-extern uint64_t QuicTotalMemory;
+extern uint64_t CxPlatTotalMemory;
 
 _Ret_maybenull_
 void*
-QuicAlloc(
+CxPlatAlloc(
     _In_ size_t ByteCount
     );
 
 void
-QuicFree(
+CxPlatFree(
     __drv_freesMem(Mem) _Frees_ptr_opt_ void* Mem
     );
 
-#define CXPLAT_ALLOC_PAGED(Size) QuicAlloc(Size)
-#define CXPLAT_ALLOC_NONPAGED(Size) QuicAlloc(Size)
-#define CXPLAT_FREE(Mem) QuicFree((void*)Mem)
+#define CXPLAT_ALLOC_PAGED(Size) CxPlatAlloc(Size)
+#define CXPLAT_ALLOC_NONPAGED(Size) CxPlatAlloc(Size)
+#define CXPLAT_FREE(Mem) CxPlatFree((void*)Mem)
 #define CXPLAT_FREE_TAG(Mem, Tag) CXPLAT_FREE(Mem)
 
 //
@@ -292,7 +292,7 @@ typedef struct CXPLAT_POOL {
 #define CXPLAT_POOL_MAXIMUM_DEPTH   256 // Copied from EX_MAXIMUM_LOOKASIDE_DEPTH_BASE
 
 void
-QuicPoolInitialize(
+CxPlatPoolInitialize(
     _In_ BOOLEAN IsPaged,
     _In_ uint32_t Size,
     _In_ uint32_t Tag,
@@ -300,29 +300,29 @@ QuicPoolInitialize(
     );
 
 void
-QuicPoolUninitialize(
+CxPlatPoolUninitialize(
     _Inout_ CXPLAT_POOL* Pool
     );
 
 void*
-QuicPoolAlloc(
+CxPlatPoolAlloc(
     _Inout_ CXPLAT_POOL* Pool
     );
 
 void
-QuicPoolFree(
+CxPlatPoolFree(
     _Inout_ CXPLAT_POOL* Pool,
     _In_ void* Entry
     );
 
-#define QuicZeroMemory(Destination, Length) memset((Destination), 0, (Length))
-#define QuicCopyMemory(Destination, Source, Length) memcpy((Destination), (Source), (Length))
-#define QuicMoveMemory(Destination, Source, Length) memmove((Destination), (Source), (Length))
-#define QuicSecureZeroMemory QuicZeroMemory // TODO - Something better?
+#define CxPlatZeroMemory(Destination, Length) memset((Destination), 0, (Length))
+#define CxPlatCopyMemory(Destination, Source, Length) memcpy((Destination), (Source), (Length))
+#define CxPlatMoveMemory(Destination, Source, Length) memmove((Destination), (Source), (Length))
+#define CxPlatSecureZeroMemory CxPlatZeroMemory // TODO - Something better?
 
-#define QuicByteSwapUint16(value) __builtin_bswap16((unsigned short)(value))
-#define QuicByteSwapUint32(value) __builtin_bswap32((value))
-#define QuicByteSwapUint64(value) __builtin_bswap64((value))
+#define CxPlatByteSwapUint16(value) __builtin_bswap16((unsigned short)(value))
+#define CxPlatByteSwapUint32(value) __builtin_bswap32((value))
+#define CxPlatByteSwapUint64(value) __builtin_bswap64((value))
 
 //
 // Lock interfaces.
@@ -338,7 +338,7 @@ typedef struct CXPLAT_LOCK {
 
 } CXPLAT_LOCK;
 
-#define QuicLockInitialize(Lock) { \
+#define CxPlatLockInitialize(Lock) { \
     pthread_mutexattr_t Attr; \
     CXPLAT_FRE_ASSERT(pthread_mutexattr_init(&Attr) == 0); \
     CXPLAT_FRE_ASSERT(pthread_mutexattr_settype(&Attr, PTHREAD_MUTEX_RECURSIVE) == 0); \
@@ -346,24 +346,24 @@ typedef struct CXPLAT_LOCK {
     CXPLAT_FRE_ASSERT(pthread_mutexattr_destroy(&Attr) == 0); \
 }
 
-#define QuicLockUninitialize(Lock) \
+#define CxPlatLockUninitialize(Lock) \
         CXPLAT_FRE_ASSERT(pthread_mutex_destroy(&(Lock)->Mutex) == 0);
 
-#define QuicLockAcquire(Lock) \
+#define CxPlatLockAcquire(Lock) \
     CXPLAT_FRE_ASSERT(pthread_mutex_lock(&(Lock)->Mutex) == 0);
 
-#define QuicLockRelease(Lock) \
+#define CxPlatLockRelease(Lock) \
     CXPLAT_FRE_ASSERT(pthread_mutex_unlock(&(Lock)->Mutex) == 0);
 
 typedef CXPLAT_LOCK CXPLAT_DISPATCH_LOCK;
 
-#define QuicDispatchLockInitialize QuicLockInitialize
+#define CxPlatDispatchLockInitialize CxPlatLockInitialize
 
-#define QuicDispatchLockUninitialize QuicLockUninitialize
+#define CxPlatDispatchLockUninitialize CxPlatLockUninitialize
 
-#define QuicDispatchLockAcquire QuicLockAcquire
+#define CxPlatDispatchLockAcquire CxPlatLockAcquire
 
-#define QuicDispatchLockRelease QuicLockRelease
+#define CxPlatDispatchLockRelease CxPlatLockRelease
 
 //
 // Represents a QUIC RW lock.
@@ -375,37 +375,37 @@ typedef struct CXPLAT_RW_LOCK {
 
 } CXPLAT_RW_LOCK;
 
-#define QuicRwLockInitialize(Lock) \
+#define CxPlatRwLockInitialize(Lock) \
     CXPLAT_FRE_ASSERT(pthread_rwlock_init(&(Lock)->RwLock, NULL) == 0);
 
-#define QuicRwLockUninitialize(Lock) \
+#define CxPlatRwLockUninitialize(Lock) \
     CXPLAT_FRE_ASSERT(pthread_rwlock_destroy(&(Lock)->RwLock) == 0);
 
-#define QuicRwLockAcquireShared(Lock) \
+#define CxPlatRwLockAcquireShared(Lock) \
     CXPLAT_FRE_ASSERT(pthread_rwlock_rdlock(&(Lock)->RwLock) == 0);
 
-#define QuicRwLockAcquireExclusive(Lock) \
+#define CxPlatRwLockAcquireExclusive(Lock) \
     CXPLAT_FRE_ASSERT(pthread_rwlock_wrlock(&(Lock)->RwLock) == 0);
 
-#define QuicRwLockReleaseShared(Lock) \
+#define CxPlatRwLockReleaseShared(Lock) \
     CXPLAT_FRE_ASSERT(pthread_rwlock_unlock(&(Lock)->RwLock) == 0);
 
-#define QuicRwLockReleaseExclusive(Lock) \
+#define CxPlatRwLockReleaseExclusive(Lock) \
     CXPLAT_FRE_ASSERT(pthread_rwlock_unlock(&(Lock)->RwLock) == 0);
 
 typedef CXPLAT_RW_LOCK CXPLAT_DISPATCH_RW_LOCK;
 
-#define QuicDispatchRwLockInitialize QuicRwLockInitialize
+#define CxPlatDispatchRwLockInitialize CxPlatRwLockInitialize
 
-#define QuicDispatchRwLockUninitialize QuicRwLockUninitialize
+#define CxPlatDispatchRwLockUninitialize CxPlatRwLockUninitialize
 
-#define QuicDispatchRwLockAcquireShared QuicRwLockAcquireShared
+#define CxPlatDispatchRwLockAcquireShared CxPlatRwLockAcquireShared
 
-#define QuicDispatchRwLockAcquireExclusive QuicRwLockAcquireExclusive
+#define CxPlatDispatchRwLockAcquireExclusive CxPlatRwLockAcquireExclusive
 
-#define QuicDispatchRwLockReleaseShared QuicRwLockReleaseShared
+#define CxPlatDispatchRwLockReleaseShared CxPlatRwLockReleaseShared
 
-#define QuicDispatchRwLockReleaseExclusive QuicRwLockReleaseExclusive
+#define CxPlatDispatchRwLockReleaseExclusive CxPlatRwLockReleaseExclusive
 
 //
 // Reference Count Interface
@@ -414,26 +414,26 @@ typedef CXPLAT_RW_LOCK CXPLAT_DISPATCH_RW_LOCK;
 typedef int64_t CXPLAT_REF_COUNT;
 
 void
-QuicRefInitialize(
+CxPlatRefInitialize(
     _Inout_ CXPLAT_REF_COUNT* RefCount
     );
 
 void
-QuicRefIncrement(
+CxPlatRefIncrement(
     _Inout_ CXPLAT_REF_COUNT* RefCount
     );
 
 BOOLEAN
-QuicRefIncrementNonZero(
+CxPlatRefIncrementNonZero(
     _Inout_ volatile CXPLAT_REF_COUNT* RefCount
     );
 
 BOOLEAN
-QuicRefDecrement(
+CxPlatRefDecrement(
     _In_ CXPLAT_REF_COUNT* RefCount
     );
 
-#define QuicRefUninitialize(RefCount)
+#define CxPlatRefUninitialize(RefCount)
 
 //
 // Event Interfaces
@@ -469,34 +469,34 @@ typedef struct CXPLAT_EVENT_OBJECT {
 typedef CXPLAT_EVENT_OBJECT* CXPLAT_EVENT;
 
 void
-QuicEventInitialize(
+CxPlatEventInitialize(
     _Out_ CXPLAT_EVENT* Event,
     _In_ BOOLEAN ManualReset,
     _In_ BOOLEAN InitialState
     );
 
 void
-QuicEventUninitialize(
+CxPlatEventUninitialize(
     _Inout_ CXPLAT_EVENT Event
     );
 
 void
-QuicEventSet(
+CxPlatEventSet(
     _Inout_ CXPLAT_EVENT Event
     );
 
 void
-QuicEventReset(
+CxPlatEventReset(
     _Inout_ CXPLAT_EVENT Event
     );
 
 void
-QuicEventWaitForever(
+CxPlatEventWaitForever(
     _Inout_ CXPLAT_EVENT Event
     );
 
 BOOLEAN
-QuicEventWaitWithTimeout(
+CxPlatEventWaitWithTimeout(
     _Inout_ CXPLAT_EVENT Event,
     _In_ uint32_t timeoutMs
     );
@@ -513,29 +513,29 @@ QuicEventWaitWithTimeout(
 #define CXPLAT_MS_PER_SECOND        (1000)
 
 uint64_t
-QuicGetTimerResolution(
+CxPlatGetTimerResolution(
     void
     );
 
 uint64_t
-QuicTimeUs64(
+CxPlatTimeUs64(
     void
     );
 
 void
-QuicGetAbsoluteTime(
+CxPlatGetAbsoluteTime(
     _In_ unsigned long DeltaMs,
     _Out_ struct timespec *Time
     );
 
-#define QuicTimeUs32() (uint32_t)QuicTimeUs64()
-#define QuicTimeMs64()  (QuicTimeUs64() / CXPLAT_MICROSEC_PER_MS)
-#define QuicTimeMs32() (uint32_t)QuicTimeMs64()
-#define QuicTimeUs64ToPlat(x) (x)
+#define CxPlatTimeUs32() (uint32_t)CxPlatTimeUs64()
+#define CxPlatTimeMs64()  (CxPlatTimeUs64() / CXPLAT_MICROSEC_PER_MS)
+#define CxPlatTimeMs32() (uint32_t)CxPlatTimeMs64()
+#define CxPlatTimeUs64ToPlat(x) (x)
 
 inline
 int64_t
-QuicTimeEpochMs64(
+CxPlatTimeEpochMs64(
     void
     )
 {
@@ -546,7 +546,7 @@ QuicTimeEpochMs64(
 
 inline
 uint64_t
-QuicTimeDiff64(
+CxPlatTimeDiff64(
     _In_ uint64_t T1,
     _In_ uint64_t T2
     )
@@ -561,7 +561,7 @@ QuicTimeDiff64(
 inline
 uint32_t
 CXPLAT_NO_SANITIZE("unsigned-integer-overflow")
-QuicTimeDiff32(
+CxPlatTimeDiff32(
     _In_ uint32_t T1,     // First time measured
     _In_ uint32_t T2      // Second time measured
     )
@@ -575,7 +575,7 @@ QuicTimeDiff32(
 
 inline
 BOOLEAN
-QuicTimeAtOrBefore64(
+CxPlatTimeAtOrBefore64(
     _In_ uint64_t T1,
     _In_ uint64_t T2
     )
@@ -590,7 +590,7 @@ QuicTimeAtOrBefore64(
 inline
 BOOLEAN
 CXPLAT_NO_SANITIZE("unsigned-integer-overflow")
-QuicTimeAtOrBefore32(
+CxPlatTimeAtOrBefore32(
     _In_ uint32_t T1,
     _In_ uint32_t T2
     )
@@ -599,7 +599,7 @@ QuicTimeAtOrBefore32(
 }
 
 void
-QuicSleep(
+CxPlatSleep(
     _In_ uint32_t DurationMs
     );
 
@@ -633,25 +633,25 @@ typedef struct CXPLAT_THREAD_CONFIG {
 } CXPLAT_THREAD_CONFIG;
 
 CXPLAT_STATUS
-QuicThreadCreate(
+CxPlatThreadCreate(
     _In_ CXPLAT_THREAD_CONFIG* Config,
     _Out_ CXPLAT_THREAD* Thread
     );
 
 void
-QuicThreadDelete(
+CxPlatThreadDelete(
     _Inout_ CXPLAT_THREAD* Thread
     );
 
 void
-QuicThreadWait(
+CxPlatThreadWait(
     _Inout_ CXPLAT_THREAD* Thread
     );
 
 typedef uint32_t CXPLAT_THREAD_ID;
 
 uint32_t
-QuicCurThreadID(
+CxPlatCurThreadID(
     void
     );
 
@@ -660,17 +660,17 @@ QuicCurThreadID(
 //
 
 uint32_t
-QuicProcMaxCount(
+CxPlatProcMaxCount(
     void
     );
 
 uint32_t
-QuicProcActiveCount(
+CxPlatProcActiveCount(
     void
     );
 
 uint32_t
-QuicProcCurrentNumber(
+CxPlatProcCurrentNumber(
     void
     );
 
@@ -696,37 +696,37 @@ typedef struct CXPLAT_RUNDOWN_REF {
 
 
 void
-QuicRundownInitialize(
+CxPlatRundownInitialize(
     _Inout_ CXPLAT_RUNDOWN_REF* Rundown
     );
 
 void
-QuicRundownInitializeDisabled(
+CxPlatRundownInitializeDisabled(
     _Inout_ CXPLAT_RUNDOWN_REF* Rundown
     );
 
 void
-QuicRundownReInitialize(
+CxPlatRundownReInitialize(
     _Inout_ CXPLAT_RUNDOWN_REF* Rundown
     );
 
 void
-QuicRundownUninitialize(
+CxPlatRundownUninitialize(
     _Inout_ CXPLAT_RUNDOWN_REF* Rundown
     );
 
 BOOLEAN
-QuicRundownAcquire(
+CxPlatRundownAcquire(
     _Inout_ CXPLAT_RUNDOWN_REF* Rundown
     );
 
 void
-QuicRundownRelease(
+CxPlatRundownRelease(
     _Inout_ CXPLAT_RUNDOWN_REF* Rundown
     );
 
 void
-QuicRundownReleaseAndWait(
+CxPlatRundownReleaseAndWait(
     _Inout_ CXPLAT_RUNDOWN_REF* Rundown
     );
 
@@ -735,7 +735,7 @@ QuicRundownReleaseAndWait(
 //
 
 CXPLAT_STATUS
-QuicRandom(
+CxPlatRandom(
     _In_ uint32_t BufferLen,
     _Out_writes_bytes_(BufferLen) void* Buffer
     );
@@ -745,19 +745,19 @@ QuicRandom(
 //
 
 void
-QuicConvertToMappedV6(
+CxPlatConvertToMappedV6(
     _In_ const CXPLAT_ADDR* InAddr,
     _Out_ CXPLAT_ADDR* OutAddr
     );
 
 void
-QuicConvertFromMappedV6(
+CxPlatConvertFromMappedV6(
     _In_ const CXPLAT_ADDR* InAddr,
     _Out_ CXPLAT_ADDR* OutAddr
     );
 
-#define QuicSetCurrentThreadProcessorAffinity(ProcessorIndex) CXPLAT_STATUS_SUCCESS
-#define QuicSetCurrentThreadGroupAffinity(ProcessorGroup) CXPLAT_STATUS_SUCCESS
+#define CxPlatSetCurrentThreadProcessorAffinity(ProcessorIndex) CXPLAT_STATUS_SUCCESS
+#define CxPlatSetCurrentThreadGroupAffinity(ProcessorGroup) CXPLAT_STATUS_SUCCESS
 
 #define CXPLAT_CPUID(FunctionId, eax, ebx, ecx, dx)
 

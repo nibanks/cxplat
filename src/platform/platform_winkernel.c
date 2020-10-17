@@ -56,14 +56,14 @@ typedef struct _SYSTEM_BASIC_INFORMATION {
 } SYSTEM_BASIC_INFORMATION, *PSYSTEM_BASIC_INFORMATION;
 
 
-uint64_t QuicPlatformPerfFreq;
-uint64_t QuicTotalMemory;
-CXPLAT_PLATFORM QuicPlatform = { NULL, NULL };
+uint64_t CxPlatPlatformPerfFreq;
+uint64_t CxPlatTotalMemory;
+CXPLAT_PLATFORM CxPlatPlatform = { NULL, NULL };
 
 INITCODE
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicPlatformSystemLoad(
+CxPlatPlatformSystemLoad(
     _In_ PDRIVER_OBJECT DriverObject,
     _In_ PUNICODE_STRING RegistryPath
     )
@@ -71,18 +71,18 @@ QuicPlatformSystemLoad(
     UNREFERENCED_PARAMETER(RegistryPath);
 
 #ifdef CXPLAT_EVENTS_MANIFEST_ETW
-    EventRegisterMicrosoft_Quic();
+    EventRegisterMicrosoft_CxPlat();
 #endif
 
 #ifdef CXPLAT_TELEMETRY_ASSERTS
     InitializeTelemetryAssertsKM(RegistryPath);
 #endif
 
-    QuicPlatform.DriverObject = DriverObject;
-    (VOID)KeQueryPerformanceCounter((LARGE_INTEGER*)&QuicPlatformPerfFreq);
-    QuicPlatform.RngAlgorithm = NULL;
+    CxPlatPlatform.DriverObject = DriverObject;
+    (VOID)KeQueryPerformanceCounter((LARGE_INTEGER*)&CxPlatPlatformPerfFreq);
+    CxPlatPlatform.RngAlgorithm = NULL;
 
-    QuicTraceLogInfo(
+    CxPlatTraceLogInfo(
         WindowsKernelLoaded,
         "[ sys] Loaded");
 }
@@ -90,13 +90,13 @@ QuicPlatformSystemLoad(
 PAGEDX
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicPlatformSystemUnload(
+CxPlatPlatformSystemUnload(
     void
     )
 {
     PAGED_CODE();
 
-    QuicTraceLogInfo(
+    CxPlatTraceLogInfo(
         WindowsKernelUnloaded,
         "[ sys] Unloaded");
 
@@ -105,14 +105,14 @@ QuicPlatformSystemUnload(
 #endif
 
 #ifdef CXPLAT_EVENTS_MANIFEST_ETW
-    EventUnregisterMicrosoft_Quic();
+    EventUnregisterMicrosoft_CxPlat();
 #endif
 }
 
 PAGEDX
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicPlatformInitialize(
+CxPlatPlatformInitialize(
     void
     )
 {
@@ -122,25 +122,25 @@ QuicPlatformInitialize(
 
     CXPLAT_STATUS Status =
         BCryptOpenAlgorithmProvider(
-            &QuicPlatform.RngAlgorithm,
+            &CxPlatPlatform.RngAlgorithm,
             BCRYPT_RNG_ALGORITHM,
             NULL,
             BCRYPT_PROV_DISPATCH);
     if (CXPLAT_FAILED(Status)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             Status,
             "BCryptOpenAlgorithmProvider (RNG)");
         goto Error;
     }
-    CXPLAT_DBG_ASSERT(QuicPlatform.RngAlgorithm != NULL);
+    CXPLAT_DBG_ASSERT(CxPlatPlatform.RngAlgorithm != NULL);
 
     Status =
         ZwQuerySystemInformation(
             SystemBasicInformation, &Sbi, sizeof(Sbi), NULL);
     if (CXPLAT_FAILED(Status)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             Status,
@@ -148,13 +148,13 @@ QuicPlatformInitialize(
         goto Error;
     }
 
-    Status = QuicTlsLibraryInitialize();
+    Status = CxPlatTlsLibraryInitialize();
     if (CXPLAT_FAILED(Status)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             Status,
-            "QuicTlsLibraryInitialize");
+            "CxPlatTlsLibraryInitialize");
         goto Error;
     }
 
@@ -162,20 +162,20 @@ QuicPlatformInitialize(
     // TODO - Apparently this can be increased via hot memory add. Figure out
     // how to know when to update this value.
     //
-    QuicTotalMemory = (uint64_t)Sbi.NumberOfPhysicalPages * (uint64_t)Sbi.PageSize;
+    CxPlatTotalMemory = (uint64_t)Sbi.NumberOfPhysicalPages * (uint64_t)Sbi.PageSize;
 
-    QuicTraceLogInfo(
+    CxPlatTraceLogInfo(
         WindowsKernelInitialized,
         "[ sys] Initialized (PageSize = %u bytes; AvailMem = %llu bytes)",
         Sbi.PageSize,
-        QuicTotalMemory);
+        CxPlatTotalMemory);
 
 Error:
 
     if (CXPLAT_FAILED(Status)) {
-        if (QuicPlatform.RngAlgorithm != NULL) {
-            BCryptCloseAlgorithmProvider(QuicPlatform.RngAlgorithm, 0);
-            QuicPlatform.RngAlgorithm = NULL;
+        if (CxPlatPlatform.RngAlgorithm != NULL) {
+            BCryptCloseAlgorithmProvider(CxPlatPlatform.RngAlgorithm, 0);
+            CxPlatPlatform.RngAlgorithm = NULL;
         }
     }
 
@@ -185,22 +185,22 @@ Error:
 PAGEDX
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicPlatformUninitialize(
+CxPlatPlatformUninitialize(
     void
     )
 {
     PAGED_CODE();
-    QuicTlsLibraryUninitialize();
-    BCryptCloseAlgorithmProvider(QuicPlatform.RngAlgorithm, 0);
-    QuicPlatform.RngAlgorithm = NULL;
-    QuicTraceLogInfo(
+    CxPlatTlsLibraryUninitialize();
+    BCryptCloseAlgorithmProvider(CxPlatPlatform.RngAlgorithm, 0);
+    CxPlatPlatform.RngAlgorithm = NULL;
+    CxPlatTraceLogInfo(
         WindowsKernelUninitialized,
         "[ sys] Uninitialized");
 }
 
 _IRQL_requires_max_(DISPATCH_LEVEL)
 void
-QuicPlatformLogAssert(
+CxPlatPlatformLogAssert(
     _In_z_ const char* File,
     _In_ int Line,
     _In_z_ const char* Expr
@@ -209,7 +209,7 @@ QuicPlatformLogAssert(
     UNREFERENCED_PARAMETER(File);
     UNREFERENCED_PARAMETER(Line);
     UNREFERENCED_PARAMETER(Expr);
-    QuicTraceEvent(
+    CxPlatTraceEvent(
         LibraryAssert,
         "[ lib] ASSERT, %u:%s - %s.",
         (uint32_t)Line,
@@ -219,7 +219,7 @@ QuicPlatformLogAssert(
 
 _IRQL_requires_max_(DISPATCH_LEVEL)
 CXPLAT_STATUS
-QuicRandom(
+CxPlatRandom(
     _In_ uint32_t BufferLen,
     _Out_writes_bytes_(BufferLen) void* Buffer
     )
@@ -227,10 +227,10 @@ QuicRandom(
     //
     // Use the algorithm we initialized for DISPATCH_LEVEL usage.
     //
-    CXPLAT_DBG_ASSERT(QuicPlatform.RngAlgorithm != NULL);
+    CXPLAT_DBG_ASSERT(CxPlatPlatform.RngAlgorithm != NULL);
     return (CXPLAT_STATUS)
         BCryptGenRandom(
-            QuicPlatform.RngAlgorithm,
+            CxPlatPlatform.RngAlgorithm,
             (uint8_t*)Buffer,
             BufferLen,
             0);
@@ -242,7 +242,7 @@ _IRQL_requires_max_(PASSIVE_LEVEL)
 _IRQL_requires_same_
 void
 NTAPI
-QuicEtwCallback(
+CxPlatEtwCallback(
     _In_ LPCGUID SourceId,
     _In_ ULONG ControlCode,
     _In_ UCHAR Level,
@@ -262,7 +262,7 @@ QuicEtwCallback(
     case EVENT_CONTROL_CODE_ENABLE_PROVIDER:
     case EVENT_CONTROL_CODE_CAPTURE_STATE:
         if (CallbackContext == &MICROSOFT_MSCXPLAT_PROVIDER_Context) {
-            QuicTraceRundown();
+            CxPlatTraceRundown();
         }
         break;
     case EVENT_CONTROL_CODE_DISABLE_PROVIDER:

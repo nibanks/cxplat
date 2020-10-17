@@ -68,7 +68,7 @@
   },
   "SourceCodeMacros": [
     {
-      "MacroName": "QuicTraceLogWarning",
+      "MacroName": "CxPlatTraceLogWarning",
       "EncodedPrefix": null,
       "EncodedArgNumber": 1,
       "MacroConfiguration": {
@@ -79,7 +79,7 @@
       }
     },
     {
-      "MacroName": "QuicTraceLogStreamWarning",
+      "MacroName": "CxPlatTraceLogStreamWarning",
       "EncodedPrefix": "[strm][%p] ",
       "EncodedArgNumber": 2,
       "MacroConfiguration": {
@@ -90,7 +90,7 @@
       }
     },
     {
-      "MacroName": "QuicTraceLogStreamInfo",
+      "MacroName": "CxPlatTraceLogStreamInfo",
       "EncodedPrefix": "[strm][%p] ",
       "EncodedArgNumber": 2,
       "MacroConfiguration": {
@@ -101,7 +101,7 @@
       }
     },
     {
-      "MacroName": "QuicTraceLogStreamVerbose",
+      "MacroName": "CxPlatTraceLogStreamVerbose",
       "EncodedPrefix": "[strm][%p] ",
       "EncodedArgNumber": 2,
       "MacroConfiguration": {
@@ -112,7 +112,7 @@
       }
     },
     {
-      "MacroName": "QuicTraceLogInfo",
+      "MacroName": "CxPlatTraceLogInfo",
       "EncodedPrefix": null,
       "EncodedArgNumber": 1,
       "MacroConfiguration": {
@@ -123,7 +123,7 @@
       }
     },
     {
-      "MacroName": "QuicTraceLogVerbose",
+      "MacroName": "CxPlatTraceLogVerbose",
       "EncodedPrefix": null,
       "EncodedArgNumber": 1,
       "MacroConfiguration": {
@@ -134,7 +134,7 @@
       }
     },
     {
-      "MacroName": "QuicTraceLogError",
+      "MacroName": "CxPlatTraceLogError",
       "EncodedPrefix": null,
       "EncodedArgNumber": 1,
       "MacroConfiguration": {
@@ -145,7 +145,7 @@
       }
     },
     {
-      "MacroName": "QuicTraceLogConnError",
+      "MacroName": "CxPlatTraceLogConnError",
       "EncodedPrefix": "[conn][%p] ",
       "EncodedArgNumber": 2,
       "MacroConfiguration": {
@@ -156,7 +156,7 @@
       }
     },
     {
-      "MacroName": "QuicTraceLogConnWarning",
+      "MacroName": "CxPlatTraceLogConnWarning",
       "EncodedPrefix": "[conn][%p] ",
       "EncodedArgNumber": 2,
       "MacroConfiguration": {
@@ -167,7 +167,7 @@
       }
     },
     {
-      "MacroName": "QuicTraceLogConnInfo",
+      "MacroName": "CxPlatTraceLogConnInfo",
       "EncodedPrefix": "[conn][%p] ",
       "EncodedArgNumber": 2,
       "MacroConfiguration": {
@@ -178,7 +178,7 @@
       }
     },
     {
-      "MacroName": "QuicTraceLogConnVerbose",
+      "MacroName": "CxPlatTraceLogConnVerbose",
       "EncodedPrefix": "[conn][%p] ",
       "EncodedArgNumber": 2,
       "MacroConfiguration": {
@@ -189,7 +189,7 @@
       }
     },
     {
-      "MacroName": "QuicTraceEvent",
+      "MacroName": "CxPlatTraceEvent",
       "EncodedPrefix": null,
       "EncodedArgNumber": 1,
       "MacroConfiguration": {

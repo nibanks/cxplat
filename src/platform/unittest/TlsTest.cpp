@@ -32,15 +32,15 @@ protected:
     ~TlsTest()
     {
         if (ClientSecConfigNoCertValidation) {
-            QuicTlsSecConfigDelete(ClientSecConfigNoCertValidation);
+            CxPlatTlsSecConfigDelete(ClientSecConfigNoCertValidation);
             ClientSecConfigNoCertValidation = nullptr;
         }
         if (ClientSecConfig) {
-            QuicTlsSecConfigDelete(ClientSecConfig);
+            CxPlatTlsSecConfigDelete(ClientSecConfig);
             ClientSecConfig = nullptr;
         }
         if (ServerSecConfig) {
-            QuicTlsSecConfigDelete(ServerSecConfig);
+            CxPlatTlsSecConfigDelete(ServerSecConfig);
             ServerSecConfig = nullptr;
         }
     }
@@ -62,20 +62,20 @@ protected:
 
     static void SetUpTestSuite()
     {
-        SelfSignedCertParams = QuicPlatGetSelfSignedCert(CXPLAT_SELF_SIGN_CERT_USER);
+        SelfSignedCertParams = CxPlatPlatGetSelfSignedCert(CXPLAT_SELF_SIGN_CERT_USER);
         ASSERT_NE(nullptr, SelfSignedCertParams);
     }
 
     static void TearDownTestSuite()
     {
-        QuicPlatFreeSelfSignedCert(SelfSignedCertParams);
+        CxPlatPlatFreeSelfSignedCert(SelfSignedCertParams);
         SelfSignedCertParams = nullptr;
     }
 
     void SetUp() override
     {
         VERIFY_CXPLAT_SUCCESS(
-            QuicTlsSecConfigCreate(
+            CxPlatTlsSecConfigCreate(
                 SelfSignedCertParams,
                 &ServerSecConfig,
                 OnSecConfigCreateComplete));
@@ -88,7 +88,7 @@ protected:
             NULL
         };
         VERIFY_CXPLAT_SUCCESS(
-            QuicTlsSecConfigCreate(
+            CxPlatTlsSecConfigCreate(
                 &ClientCredConfig,
                 &ClientSecConfig,
                 OnSecConfigCreateComplete));
@@ -96,7 +96,7 @@ protected:
 
         ClientCredConfig.Flags |= CXPLAT_CREDENTIAL_FLAG_NO_CERTIFICATE_VALIDATION;
         VERIFY_CXPLAT_SUCCESS(
-            QuicTlsSecConfigCreate(
+            CxPlatTlsSecConfigCreate(
                 &ClientCredConfig,
                 &ClientSecConfigNoCertValidation,
                 OnSecConfigCreateComplete));
@@ -106,15 +106,15 @@ protected:
     void TearDown() override
     {
         if (ClientSecConfigNoCertValidation) {
-            QuicTlsSecConfigDelete(ClientSecConfigNoCertValidation);
+            CxPlatTlsSecConfigDelete(ClientSecConfigNoCertValidation);
             ClientSecConfigNoCertValidation = nullptr;
         }
         if (ClientSecConfig) {
-            QuicTlsSecConfigDelete(ClientSecConfig);
+            CxPlatTlsSecConfigDelete(ClientSecConfig);
             ClientSecConfig = nullptr;
         }
         if (ServerSecConfig) {
-            QuicTlsSecConfigDelete(ServerSecConfig);
+            CxPlatTlsSecConfigDelete(ServerSecConfig);
             ServerSecConfig = nullptr;
         }
     }
@@ -135,19 +135,19 @@ protected:
             Ptr(nullptr),
             SecConfig(nullptr),
             Connected(false) {
-            QuicEventInitialize(&ProcessCompleteEvent, FALSE, FALSE);
-            QuicZeroMemory(&State, sizeof(State));
+            CxPlatEventInitialize(&ProcessCompleteEvent, FALSE, FALSE);
+            CxPlatZeroMemory(&State, sizeof(State));
             State.Buffer = (uint8_t*)CXPLAT_ALLOC_NONPAGED(8000);
             State.BufferAllocLength = 8000;
         }
 
         ~TlsContext() {
-            QuicTlsUninitialize(Ptr);
-            QuicEventUninitialize(ProcessCompleteEvent);
+            CxPlatTlsUninitialize(Ptr);
+            CxPlatEventUninitialize(ProcessCompleteEvent);
             CXPLAT_FREE(State.Buffer);
             for (uint8_t i = 0; i < CXPLAT_PACKET_KEY_COUNT; ++i) {
-                QuicPacketKeyFree(State.ReadKeys[i]);
-                QuicPacketKeyFree(State.WriteKeys[i]);
+                CxPlatPacketKeyFree(State.ReadKeys[i]);
+                CxPlatPacketKeyFree(State.WriteKeys[i]);
             }
             if (ResumptionTicket.Buffer) {
                 CXPLAT_FREE(ResumptionTicket.Buffer);
@@ -167,16 +167,16 @@ protected:
             Config.AlpnBuffer = Alpn;
             Config.AlpnBufferLength = sizeof(Alpn);
             Config.LocalTPBuffer =
-                (uint8_t*)CXPLAT_ALLOC_NONPAGED(QuicTlsTPHeaderSize + TPLen);
-            Config.LocalTPLength = QuicTlsTPHeaderSize + TPLen;
+                (uint8_t*)CXPLAT_ALLOC_NONPAGED(CxPlatTlsTPHeaderSize + TPLen);
+            Config.LocalTPLength = CxPlatTlsTPHeaderSize + TPLen;
             Config.Connection = (CXPLAT_CONNECTION*)this;
             Config.ProcessCompleteCallback = OnProcessComplete;
-            Config.ReceiveTPCallback = OnRecvQuicTP;
+            Config.ReceiveTPCallback = OnRecvCxPlatTP;
             Config.ReceiveResumptionCallback = OnRecvTicketServer;
             State.NegotiatedAlpn = Alpn;
 
             VERIFY_CXPLAT_SUCCESS(
-                QuicTlsInitialize(
+                CxPlatTlsInitialize(
                     &Config,
                     &State,
                     &Ptr));
@@ -195,11 +195,11 @@ protected:
             Config.AlpnBuffer = MultipleAlpns ? MultiAlpn : Alpn;
             Config.AlpnBufferLength = MultipleAlpns ? sizeof(MultiAlpn) : sizeof(Alpn);
             Config.LocalTPBuffer =
-                (uint8_t*)CXPLAT_ALLOC_NONPAGED(QuicTlsTPHeaderSize + TPLen);
-            Config.LocalTPLength = QuicTlsTPHeaderSize + TPLen;
+                (uint8_t*)CXPLAT_ALLOC_NONPAGED(CxPlatTlsTPHeaderSize + TPLen);
+            Config.LocalTPLength = CxPlatTlsTPHeaderSize + TPLen;
             Config.Connection = (CXPLAT_CONNECTION*)this;
             Config.ProcessCompleteCallback = OnProcessComplete;
-            Config.ReceiveTPCallback = OnRecvQuicTP;
+            Config.ReceiveTPCallback = OnRecvCxPlatTP;
             Config.ReceiveResumptionCallback = OnRecvTicketClient;
             Config.ServerName = "localhost";
             if (Ticket) {
@@ -209,7 +209,7 @@ protected:
             }
 
             VERIFY_CXPLAT_SUCCESS(
-                QuicTlsInitialize(
+                CxPlatTlsInitialize(
                     &Config,
                     &State,
                     &Ptr));
@@ -263,7 +263,7 @@ protected:
             _In_ CXPLAT_TLS_DATA_TYPE DataType
             )
         {
-            QuicEventReset(ProcessCompleteEvent);
+            CxPlatEventReset(ProcessCompleteEvent);
 
             EXPECT_TRUE(Buffer != nullptr || *BufferLength == 0);
             if (Buffer != nullptr) {
@@ -277,15 +277,15 @@ protected:
             std::cout << "Processing " << *BufferLength << " bytes of type " << DataType << std::endl;
 
             auto Result =
-                QuicTlsProcessData(
+                CxPlatTlsProcessData(
                     Ptr,
                     DataType,
                     Buffer,
                     BufferLength,
                     &State);
             if (Result & CXPLAT_TLS_RESULT_PENDING) {
-                QuicEventWaitForever(ProcessCompleteEvent);
-                Result = QuicTlsProcessDataComplete(Ptr, BufferLength);
+                CxPlatEventWaitForever(ProcessCompleteEvent);
+                Result = CxPlatTlsProcessDataComplete(Ptr, BufferLength);
             }
 
             if (!ExpectError) {
@@ -390,7 +390,7 @@ protected:
                         DataType);
 
                 PeerState->BufferLength -= BufferLength;
-                QuicMoveMemory(
+                CxPlatMoveMemory(
                     PeerState->Buffer,
                     PeerState->Buffer + BufferLength,
                     PeerState->BufferLength);
@@ -407,11 +407,11 @@ protected:
             _In_ CXPLAT_CONNECTION* Connection
             )
         {
-            QuicEventSet(((TlsContext*)Connection)->ProcessCompleteEvent);
+            CxPlatEventSet(((TlsContext*)Connection)->ProcessCompleteEvent);
         }
 
         static BOOLEAN
-        OnRecvQuicTP(
+        OnRecvCxPlatTP(
             _In_ CXPLAT_CONNECTION* Connection,
             _In_ uint16_t TPLength,
             _In_reads_(TPLength) const uint8_t* TPBuffer
@@ -447,7 +447,7 @@ protected:
             if (Context->ResumptionTicket.Buffer == nullptr) {
                 Context->ResumptionTicket.Buffer =
                     (uint8_t*)CXPLAT_ALLOC_NONPAGED(TicketLength);
-                QuicCopyMemory(
+                CxPlatCopyMemory(
                     Context->ResumptionTicket.Buffer,
                     Ticket,
                     TicketLength);
@@ -480,11 +480,11 @@ protected:
             )
         {
             uint8_t Iv[CXPLAT_IV_LENGTH];
-            QuicCryptoCombineIvAndPacketNumber(Ptr->Iv, (uint8_t*) &PacketNumber, Iv);
+            CxPlatCryptoCombineIvAndPacketNumber(Ptr->Iv, (uint8_t*) &PacketNumber, Iv);
 
             return
                 CXPLAT_STATUS_SUCCESS ==
-                QuicEncrypt(
+                CxPlatEncrypt(
                     Ptr->PacketKey,
                     Iv,
                     HeaderLength,
@@ -504,11 +504,11 @@ protected:
             )
         {
             uint8_t Iv[CXPLAT_IV_LENGTH];
-            QuicCryptoCombineIvAndPacketNumber(Ptr->Iv, (uint8_t*) &PacketNumber, Iv);
+            CxPlatCryptoCombineIvAndPacketNumber(Ptr->Iv, (uint8_t*) &PacketNumber, Iv);
 
             return
                 CXPLAT_STATUS_SUCCESS ==
-                QuicDecrypt(
+                CxPlatDecrypt(
                     Ptr->PacketKey,
                     Iv,
                     HeaderLength,
@@ -527,7 +527,7 @@ protected:
         {
             return
                 CXPLAT_STATUS_SUCCESS ==
-                QuicHpComputeMask(
+                CxPlatHpComputeMask(
                     Ptr->HeaderKey,
                     1,
                     Cipher,
@@ -580,7 +580,7 @@ protected:
         uint16_t OverHead = Key.Overhead();
 
         uint64_t Start, End;
-        Start = QuicTimeUs64();
+        Start = CxPlatTimeUs64();
 
         for (uint64_t j = 0; j < LoopCount; ++j) {
             Key.Encrypt(
@@ -591,7 +591,7 @@ protected:
                 Buffer);
         }
 
-        End = QuicTimeUs64();
+        End = CxPlatTimeUs64();
 
         return End - Start;
     }
@@ -609,7 +609,7 @@ protected:
         uint8_t Mask[16];
 
         uint64_t Start, End;
-        Start = QuicTimeUs64();
+        Start = CxPlatTimeUs64();
 
         for (uint64_t j = 0; j < LoopCount; ++j) {
             Key.Encrypt(
@@ -624,7 +624,7 @@ protected:
             }
         }
 
-        End = QuicTimeUs64();
+        End = CxPlatTimeUs64();
 
         return End - Start;
     }
@@ -837,11 +837,11 @@ TEST_P(TlsTest, KeyUpdate)
     CXPLAT_PACKET_KEY* UpdateWriteKey = nullptr, *UpdateReadKey = nullptr;
 
     VERIFY_CXPLAT_SUCCESS(
-        QuicPacketKeyUpdate(
+        CxPlatPacketKeyUpdate(
             ServerContext.State.WriteKeys[CXPLAT_PACKET_KEY_1_RTT],
             &UpdateWriteKey));
     VERIFY_CXPLAT_SUCCESS(
-        QuicPacketKeyUpdate(
+        CxPlatPacketKeyUpdate(
             ClientContext.State.ReadKeys[CXPLAT_PACKET_KEY_1_RTT],
             &UpdateReadKey));
 
@@ -902,8 +902,8 @@ TEST_P(TlsTest, KeyUpdate)
             sizeof(Buffer),
             Buffer));
 
-    QuicPacketKeyFree(UpdateWriteKey);
-    QuicPacketKeyFree(UpdateReadKey);
+    CxPlatPacketKeyFree(UpdateWriteKey);
+    CxPlatPacketKeyFree(UpdateReadKey);
 }
 
 
@@ -966,16 +966,16 @@ uint64_t LockedCounter(
     CXPLAT_DISPATCH_LOCK Lock;
     uint64_t Counter = 0;
 
-    QuicDispatchLockInitialize(&Lock);
-    Start = QuicTimeUs64();
+    CxPlatDispatchLockInitialize(&Lock);
+    Start = CxPlatTimeUs64();
     for (uint64_t j = 0; j < LoopCount; ++j) {
-        QuicDispatchLockAcquire(&Lock);
+        CxPlatDispatchLockAcquire(&Lock);
         Counter++;
-        QuicDispatchLockRelease(&Lock);
+        CxPlatDispatchLockRelease(&Lock);
     }
-    End = QuicTimeUs64();
+    End = CxPlatTimeUs64();
 
-    QuicDispatchLockUninitialize(&Lock);
+    CxPlatDispatchLockUninitialize(&Lock);
 
     CXPLAT_FRE_ASSERT(Counter == LoopCount);
 
@@ -989,11 +989,11 @@ uint64_t InterlockedCounter(
     uint64_t Start, End;
     int64_t Counter = 0;
 
-    Start = QuicTimeUs64();
+    Start = CxPlatTimeUs64();
     for (uint64_t j = 0; j < LoopCount; ++j) {
         InterlockedIncrement64(&Counter);
     }
-    End = QuicTimeUs64();
+    End = CxPlatTimeUs64();
 
     CXPLAT_FRE_ASSERT(Counter == LoopCount);
 
@@ -1006,11 +1006,11 @@ uint64_t UnlockedCounter(
 {
     uint64_t Start, End;
     uint64_t Counter = 0;
-    Start = QuicTimeUs64();
+    Start = CxPlatTimeUs64();
     for (uint64_t j = 0; j < LoopCount; ++j) {
         Counter++;
     }
-    End = QuicTimeUs64();
+    End = CxPlatTimeUs64();
 
     CXPLAT_FRE_ASSERT(Counter == LoopCount);
 

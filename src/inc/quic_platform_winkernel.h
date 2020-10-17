@@ -101,7 +101,7 @@ ZwQueryInformationThread (
 INITCODE
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicPlatformSystemLoad(
+CxPlatPlatformSystemLoad(
     _In_ PDRIVER_OBJECT DriverObject,
     _In_ PUNICODE_STRING RegistryPath
     );
@@ -112,29 +112,29 @@ QuicPlatformSystemLoad(
 PAGEDX
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicPlatformSystemUnload(
+CxPlatPlatformSystemUnload(
     void
     );
 
 //
 // Initializes the PAL library. Calls to this and
-// QuicPlatformUninitialize must be serialized and cannot overlap.
+// CxPlatPlatformUninitialize must be serialized and cannot overlap.
 //
 PAGEDX
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicPlatformInitialize(
+CxPlatPlatformInitialize(
     void
     );
 
 //
 // Uninitializes the PAL library. Calls to this and
-// QuicPlatformInitialize must be serialized and cannot overlap.
+// CxPlatPlatformInitialize must be serialized and cannot overlap.
 //
 PAGEDX
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicPlatformUninitialize(
+CxPlatPlatformUninitialize(
     void
     );
 
@@ -151,7 +151,7 @@ QuicPlatformUninitialize(
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 void
-QuicPlatformLogAssert(
+CxPlatPlatformLogAssert(
     _In_z_ const char* File,
     _In_ int Line,
     _In_z_ const char* Expr
@@ -159,14 +159,14 @@ QuicPlatformLogAssert(
 
 #define CXPLAT_ASSERT_ACTION(_exp) \
     ((!(_exp)) ? \
-        (QuicPlatformLogAssert(__FILE__, __LINE__, #_exp), \
+        (CxPlatPlatformLogAssert(__FILE__, __LINE__, #_exp), \
          __annotation(L"Debug", L"AssertFail", L#_exp), \
          DbgRaiseAssertionFailure(), FALSE) : \
         TRUE)
 
 #define CXPLAT_ASSERTMSG_ACTION(_msg, _exp) \
     ((!(_exp)) ? \
-        (QuicPlatformLogAssert(__FILE__, __LINE__, #_exp), \
+        (CxPlatPlatformLogAssert(__FILE__, __LINE__, #_exp), \
          __annotation(L"Debug", L"AssertFail", L##_msg), \
          DbgRaiseAssertionFailure(), FALSE) : \
         TRUE)
@@ -232,13 +232,13 @@ QuicPlatformLogAssert(
 //
 // Verifier is enabled.
 //
-#define QuicVerifierEnabled(Flags) NT_SUCCESS(MmIsVerifierEnabled((PULONG)&Flags))
-#define QuicVerifierEnabledByAddr(Address) MmIsDriverVerifyingByAddress(Address)
+#define CxPlatVerifierEnabled(Flags) NT_SUCCESS(MmIsVerifierEnabled((PULONG)&Flags))
+#define CxPlatVerifierEnabledByAddr(Address) MmIsDriverVerifyingByAddress(Address)
 
 //
 // Debugger check.
 //
-#define QuicDebuggerPresent() KD_DEBUGGER_ENABLED
+#define CxPlatDebuggerPresent() KD_DEBUGGER_ENABLED
 
 //
 // Interrupt ReQuest Level
@@ -252,7 +252,7 @@ QuicPlatformLogAssert(
 // Allocation/Memory Interfaces
 //
 
-extern uint64_t QuicTotalMemory;
+extern uint64_t CxPlatTotalMemory;
 
 #define CXPLAT_ALLOC_PAGED(Size) ExAllocatePool2(POOL_FLAG_PAGED | POOL_FLAG_UNINITIALIZED, Size, CXPLAT_POOL_GENERIC)
 #define CXPLAT_ALLOC_NONPAGED(Size) ExAllocatePool2(POOL_FLAG_NON_PAGED | POOL_FLAG_UNINITIALIZED, Size, CXPLAT_POOL_GENERIC)
@@ -261,7 +261,7 @@ extern uint64_t QuicTotalMemory;
 
 typedef LOOKASIDE_LIST_EX CXPLAT_POOL;
 
-#define QuicPoolInitialize(IsPaged, Size, Tag, Pool) \
+#define CxPlatPoolInitialize(IsPaged, Size, Tag, Pool) \
     ExInitializeLookasideListEx( \
         Pool, \
         NULL, \
@@ -272,18 +272,18 @@ typedef LOOKASIDE_LIST_EX CXPLAT_POOL;
         Tag, \
         0)
 
-#define QuicPoolUninitialize(Pool) ExDeleteLookasideListEx(Pool)
-#define QuicPoolAlloc(Pool) ExAllocateFromLookasideListEx(Pool)
-#define QuicPoolFree(Pool, Entry) ExFreeToLookasideListEx(Pool, Entry)
+#define CxPlatPoolUninitialize(Pool) ExDeleteLookasideListEx(Pool)
+#define CxPlatPoolAlloc(Pool) ExAllocateFromLookasideListEx(Pool)
+#define CxPlatPoolFree(Pool, Entry) ExFreeToLookasideListEx(Pool, Entry)
 
-#define QuicZeroMemory RtlZeroMemory
-#define QuicCopyMemory RtlCopyMemory
-#define QuicMoveMemory RtlMoveMemory
-#define QuicSecureZeroMemory RtlSecureZeroMemory
+#define CxPlatZeroMemory RtlZeroMemory
+#define CxPlatCopyMemory RtlCopyMemory
+#define CxPlatMoveMemory RtlMoveMemory
+#define CxPlatSecureZeroMemory RtlSecureZeroMemory
 
-#define QuicByteSwapUint16 RtlUshortByteSwap
-#define QuicByteSwapUint32 RtlUlongByteSwap
-#define QuicByteSwapUint64 RtlUlonglongByteSwap
+#define CxPlatByteSwapUint16 RtlUshortByteSwap
+#define CxPlatByteSwapUint32 RtlUlongByteSwap
+#define CxPlatByteSwapUint64 RtlUlonglongByteSwap
 
 //
 // Locking Interfaces
@@ -336,92 +336,92 @@ ExfReleasePushLockShared(
 
 typedef EX_PUSH_LOCK CXPLAT_LOCK;
 
-#define QuicLockInitialize(Lock) ExInitializePushLock(Lock)
-#define QuicLockUninitialize(Lock)
-#define QuicLockAcquire(Lock) KeEnterCriticalRegion(); ExfAcquirePushLockExclusive(Lock)
-#define QuicLockRelease(Lock) ExfReleasePushLockExclusive(Lock); KeLeaveCriticalRegion()
+#define CxPlatLockInitialize(Lock) ExInitializePushLock(Lock)
+#define CxPlatLockUninitialize(Lock)
+#define CxPlatLockAcquire(Lock) KeEnterCriticalRegion(); ExfAcquirePushLockExclusive(Lock)
+#define CxPlatLockRelease(Lock) ExfReleasePushLockExclusive(Lock); KeLeaveCriticalRegion()
 
 typedef struct CXPLAT_DISPATCH_LOCK {
     KSPIN_LOCK SpinLock;
     KIRQL PrevIrql;
 } CXPLAT_DISPATCH_LOCK;
 
-#define QuicDispatchLockInitialize(Lock) KeInitializeSpinLock(&(Lock)->SpinLock)
-#define QuicDispatchLockUninitialize(Lock)
+#define CxPlatDispatchLockInitialize(Lock) KeInitializeSpinLock(&(Lock)->SpinLock)
+#define CxPlatDispatchLockUninitialize(Lock)
 #if defined(_AMD64_) || defined(_ARM64_)
-#define QuicDispatchLockAcquire(Lock) (Lock)->PrevIrql = KeAcquireSpinLockRaiseToDpc(&(Lock)->SpinLock)
+#define CxPlatDispatchLockAcquire(Lock) (Lock)->PrevIrql = KeAcquireSpinLockRaiseToDpc(&(Lock)->SpinLock)
 #else
-#define QuicDispatchLockAcquire(Lock) KeAcquireSpinLock(&(Lock)->SpinLock, &(Lock)->PrevIrql)
+#define CxPlatDispatchLockAcquire(Lock) KeAcquireSpinLock(&(Lock)->SpinLock, &(Lock)->PrevIrql)
 #endif
-#define QuicDispatchLockRelease(Lock) KeReleaseSpinLock(&(Lock)->SpinLock, (Lock)->PrevIrql)
+#define CxPlatDispatchLockRelease(Lock) KeReleaseSpinLock(&(Lock)->SpinLock, (Lock)->PrevIrql)
 
 typedef EX_PUSH_LOCK CXPLAT_RW_LOCK;
 
-#define QuicRwLockInitialize(Lock) ExInitializePushLock(Lock)
-#define QuicRwLockUninitialize(Lock)
-#define QuicRwLockAcquireShared(Lock) KeEnterCriticalRegion(); ExfAcquirePushLockShared(Lock)
-#define QuicRwLockAcquireExclusive(Lock) KeEnterCriticalRegion(); ExfAcquirePushLockExclusive(Lock)
-#define QuicRwLockReleaseShared(Lock) ExfReleasePushLockShared(Lock); KeLeaveCriticalRegion()
-#define QuicRwLockReleaseExclusive(Lock) ExfReleasePushLockExclusive(Lock); KeLeaveCriticalRegion()
+#define CxPlatRwLockInitialize(Lock) ExInitializePushLock(Lock)
+#define CxPlatRwLockUninitialize(Lock)
+#define CxPlatRwLockAcquireShared(Lock) KeEnterCriticalRegion(); ExfAcquirePushLockShared(Lock)
+#define CxPlatRwLockAcquireExclusive(Lock) KeEnterCriticalRegion(); ExfAcquirePushLockExclusive(Lock)
+#define CxPlatRwLockReleaseShared(Lock) ExfReleasePushLockShared(Lock); KeLeaveCriticalRegion()
+#define CxPlatRwLockReleaseExclusive(Lock) ExfReleasePushLockExclusive(Lock); KeLeaveCriticalRegion()
 
 typedef struct CXPLAT_DISPATCH_RW_LOCK {
     EX_SPIN_LOCK SpinLock;
     KIRQL PrevIrql;
 } CXPLAT_DISPATCH_RW_LOCK;
 
-#define QuicDispatchRwLockInitialize(Lock) (Lock)->SpinLock = 0
-#define QuicDispatchRwLockUninitialize(Lock)
-#define QuicDispatchRwLockAcquireShared(Lock) (Lock)->PrevIrql = ExAcquireSpinLockShared(&(Lock)->SpinLock)
-#define QuicDispatchRwLockAcquireExclusive(Lock) (Lock)->PrevIrql = ExAcquireSpinLockExclusive(&(Lock)->SpinLock)
-#define QuicDispatchRwLockReleaseShared(Lock) ExReleaseSpinLockShared(&(Lock)->SpinLock, (Lock)->PrevIrql)
-#define QuicDispatchRwLockReleaseExclusive(Lock) ExReleaseSpinLockExclusive(&(Lock)->SpinLock, (Lock)->PrevIrql)
+#define CxPlatDispatchRwLockInitialize(Lock) (Lock)->SpinLock = 0
+#define CxPlatDispatchRwLockUninitialize(Lock)
+#define CxPlatDispatchRwLockAcquireShared(Lock) (Lock)->PrevIrql = ExAcquireSpinLockShared(&(Lock)->SpinLock)
+#define CxPlatDispatchRwLockAcquireExclusive(Lock) (Lock)->PrevIrql = ExAcquireSpinLockExclusive(&(Lock)->SpinLock)
+#define CxPlatDispatchRwLockReleaseShared(Lock) ExReleaseSpinLockShared(&(Lock)->SpinLock, (Lock)->PrevIrql)
+#define CxPlatDispatchRwLockReleaseExclusive(Lock) ExReleaseSpinLockExclusive(&(Lock)->SpinLock, (Lock)->PrevIrql)
 
 //
 // Reference Count Interface
 //
 
 #if defined(_X86_) || defined(_AMD64_)
-#define QuicBarrierAfterInterlock()
+#define CxPlatBarrierAfterInterlock()
 #elif defined(_ARM64_)
-#define QuicBarrierAfterInterlock()  __dmb(_ARM64_BARRIER_ISH)
+#define CxPlatBarrierAfterInterlock()  __dmb(_ARM64_BARRIER_ISH)
 #elif defined(_ARM_)
-#define QuicBarrierAfterInterlock()  __dmb(_ARM_BARRIER_ISH)
+#define CxPlatBarrierAfterInterlock()  __dmb(_ARM_BARRIER_ISH)
 #else
 #error Unsupported architecture.
 #endif
 
 #if defined (_WIN64)
-#define QuicIncrementLongPtrNoFence InterlockedIncrementNoFence64
-#define QuicDecrementLongPtrRelease InterlockedDecrementRelease64
-#define QuicCompareExchangeLongPtrNoFence InterlockedCompareExchangeNoFence64
-#define QuicReadLongPtrNoFence ReadNoFence64
+#define CxPlatIncrementLongPtrNoFence InterlockedIncrementNoFence64
+#define CxPlatDecrementLongPtrRelease InterlockedDecrementRelease64
+#define CxPlatCompareExchangeLongPtrNoFence InterlockedCompareExchangeNoFence64
+#define CxPlatReadLongPtrNoFence ReadNoFence64
 #else
-#define QuicIncrementLongPtrNoFence InterlockedIncrementNoFence
-#define QuicDecrementLongPtrRelease InterlockedDecrementRelease
-#define QuicCompareExchangeLongPtrNoFence InterlockedCompareExchangeNoFence
-#define QuicReadLongPtrNoFence ReadNoFence
+#define CxPlatIncrementLongPtrNoFence InterlockedIncrementNoFence
+#define CxPlatDecrementLongPtrRelease InterlockedDecrementRelease
+#define CxPlatCompareExchangeLongPtrNoFence InterlockedCompareExchangeNoFence
+#define CxPlatReadLongPtrNoFence ReadNoFence
 #endif
 
 typedef LONG_PTR CXPLAT_REF_COUNT;
 
 inline
 void
-QuicRefInitialize(
+CxPlatRefInitialize(
     _Out_ CXPLAT_REF_COUNT* RefCount
     )
 {
     *RefCount = 1;
 }
 
-#define QuicRefUninitialize(RefCount)
+#define CxPlatRefUninitialize(RefCount)
 
 inline
 void
-QuicRefIncrement(
+CxPlatRefIncrement(
     _Inout_ CXPLAT_REF_COUNT* RefCount
     )
 {
-    if (QuicIncrementLongPtrNoFence(RefCount) > 1) {
+    if (CxPlatIncrementLongPtrNoFence(RefCount) > 1) {
         return;
     }
 
@@ -430,7 +430,7 @@ QuicRefIncrement(
 
 inline
 BOOLEAN
-QuicRefIncrementNonZero(
+CxPlatRefIncrementNonZero(
     _Inout_ volatile CXPLAT_REF_COUNT *RefCount,
     _In_ ULONG Bias
     )
@@ -439,11 +439,11 @@ QuicRefIncrementNonZero(
     CXPLAT_REF_COUNT OldValue;
 
     PrefetchForWrite(RefCount);
-    OldValue = QuicReadLongPtrNoFence(RefCount);
+    OldValue = CxPlatReadLongPtrNoFence(RefCount);
     for (;;) {
         NewValue = OldValue + Bias;
         if ((ULONG_PTR)NewValue > Bias) {
-            NewValue = QuicCompareExchangeLongPtrNoFence(RefCount,
+            NewValue = CxPlatCompareExchangeLongPtrNoFence(RefCount,
                                                          NewValue,
                                                          OldValue);
             if (NewValue == OldValue) {
@@ -464,7 +464,7 @@ QuicRefIncrementNonZero(
 
 inline
 BOOLEAN
-QuicRefDecrement(
+CxPlatRefDecrement(
     _Inout_ CXPLAT_REF_COUNT* RefCount
     )
 {
@@ -475,7 +475,7 @@ QuicRefDecrement(
     // complete before any thread can begin destroying the object.
     //
 
-    NewValue = QuicDecrementLongPtrRelease(RefCount);
+    NewValue = CxPlatDecrementLongPtrRelease(RefCount);
     if (NewValue > 0) {
         return FALSE;
 
@@ -486,7 +486,7 @@ QuicRefDecrement(
         // that the destructor cannot observe values changing on other threads.
         //
 
-        QuicBarrierAfterInterlock();
+        CxPlatBarrierAfterInterlock();
         return TRUE;
     }
 
@@ -499,16 +499,16 @@ QuicRefDecrement(
 //
 
 typedef KEVENT CXPLAT_EVENT;
-#define QuicEventInitialize(Event, ManualReset, InitialState) \
+#define CxPlatEventInitialize(Event, ManualReset, InitialState) \
     KeInitializeEvent(Event, ManualReset ? NotificationEvent : SynchronizationEvent, InitialState)
-#define QuicEventUninitialize(Event) UNREFERENCED_PARAMETER(Event)
-#define QuicEventSet(Event) KeSetEvent(&(Event), IO_NO_INCREMENT, FALSE)
-#define QuicEventReset(Event) KeResetEvent(&(Event))
-#define QuicEventWaitForever(Event) \
+#define CxPlatEventUninitialize(Event) UNREFERENCED_PARAMETER(Event)
+#define CxPlatEventSet(Event) KeSetEvent(&(Event), IO_NO_INCREMENT, FALSE)
+#define CxPlatEventReset(Event) KeResetEvent(&(Event))
+#define CxPlatEventWaitForever(Event) \
     KeWaitForSingleObject(&(Event), Executive, KernelMode, FALSE, NULL)
 inline
 NTSTATUS
-_QuicEventWaitWithTimeout(
+_CxPlatEventWaitWithTimeout(
     _In_ CXPLAT_EVENT* Event,
     _In_ uint32_t TimeoutMs
     )
@@ -517,8 +517,8 @@ _QuicEventWaitWithTimeout(
     Timeout100Ns.QuadPart = Int32x32To64(TimeoutMs, -10000);
     return KeWaitForSingleObject(Event, Executive, KernelMode, FALSE, &Timeout100Ns);
 }
-#define QuicEventWaitWithTimeout(Event, TimeoutMs) \
-    (STATUS_SUCCESS == _QuicEventWaitWithTimeout(&Event, TimeoutMs))
+#define CxPlatEventWaitWithTimeout(Event, TimeoutMs) \
+    (STATUS_SUCCESS == _CxPlatEventWaitWithTimeout(&Event, TimeoutMs))
 
 //
 // Time Measurement Interfaces
@@ -529,7 +529,7 @@ _QuicEventWaitWithTimeout(
 //
 inline
 uint64_t
-QuicGetTimerResolution()
+CxPlatGetTimerResolution()
 {
     ULONG MaximumTime, MinimumTime, CurrentTime;
     ExQueryTimerResolution(&MaximumTime, &MinimumTime, &CurrentTime);
@@ -539,14 +539,14 @@ QuicGetTimerResolution()
 //
 // Performance counter frequency.
 //
-extern uint64_t QuicPlatformPerfFreq;
+extern uint64_t CxPlatPlatformPerfFreq;
 
 //
 // Returns the current time in platform specific time units.
 //
 inline
 uint64_t
-QuicTimePlat(
+CxPlatTimePlat(
     void
     )
 {
@@ -558,13 +558,13 @@ QuicTimePlat(
 //
 inline
 uint64_t
-QuicTimePlatToUs64(
+CxPlatTimePlatToUs64(
     uint64_t Count
     )
 {
     //
     // Multiply by a big number (1000000, to convert seconds to microseconds)
-    // and divide by a big number (QuicPlatformPerfFreq, to convert counts to secs).
+    // and divide by a big number (CxPlatPlatformPerfFreq, to convert counts to secs).
     //
     // Avoid overflow with separate multiplication/division of the high and low
     // bits. Taken from TcpConvertPerformanceCounterToMicroseconds.
@@ -572,8 +572,8 @@ QuicTimePlatToUs64(
     uint64_t High = (Count >> 32) * 1000000;
     uint64_t Low = (Count & 0xFFFFFFFF) * 1000000;
     return
-        ((High / QuicPlatformPerfFreq) << 32) +
-        ((Low + ((High % QuicPlatformPerfFreq) << 32)) / QuicPlatformPerfFreq);
+        ((High / CxPlatPlatformPerfFreq) << 32) +
+        ((Low + ((High % CxPlatPlatformPerfFreq) << 32)) / CxPlatPlatformPerfFreq);
 }
 
 //
@@ -581,27 +581,27 @@ QuicTimePlatToUs64(
 //
 inline
 uint64_t
-QuicTimeUs64ToPlat(
+CxPlatTimeUs64ToPlat(
     uint64_t TimeUs
     )
 {
-    uint64_t High = (TimeUs >> 32) * QuicPlatformPerfFreq;
-    uint64_t Low = (TimeUs & 0xFFFFFFFF) * QuicPlatformPerfFreq;
+    uint64_t High = (TimeUs >> 32) * CxPlatPlatformPerfFreq;
+    uint64_t Low = (TimeUs & 0xFFFFFFFF) * CxPlatPlatformPerfFreq;
     return
         ((High / 1000000) << 32) +
         ((Low + ((High % 1000000) << 32)) / 1000000);
 }
 
-#define QuicTimeUs64() QuicTimePlatToUs64(QuicTimePlat())
-#define QuicTimeUs32() (uint32_t)QuicTimeUs64()
-#define QuicTimeMs64() US_TO_MS(QuicTimeUs64())
-#define QuicTimeMs32() (uint32_t)QuicTimeMs64()
+#define CxPlatTimeUs64() CxPlatTimePlatToUs64(CxPlatTimePlat())
+#define CxPlatTimeUs32() (uint32_t)CxPlatTimeUs64()
+#define CxPlatTimeMs64() US_TO_MS(CxPlatTimeUs64())
+#define CxPlatTimeMs32() (uint32_t)CxPlatTimeMs64()
 
 #define UNIX_EPOCH_AS_FILE_TIME 0x19db1ded53e8000ll
 
 inline
 int64_t
-QuicTimeEpochMs64(
+CxPlatTimeEpochMs64(
     )
 {
     LARGE_INTEGER SystemTime;
@@ -614,7 +614,7 @@ QuicTimeEpochMs64(
 //
 inline
 uint64_t
-QuicTimeDiff64(
+CxPlatTimeDiff64(
     _In_ uint64_t T1,     // First time measured
     _In_ uint64_t T2      // Second time measured
     )
@@ -630,7 +630,7 @@ QuicTimeDiff64(
 //
 inline
 uint32_t
-QuicTimeDiff32(
+CxPlatTimeDiff32(
     _In_ uint32_t T1,     // First time measured
     _In_ uint32_t T2      // Second time measured
     )
@@ -647,7 +647,7 @@ QuicTimeDiff32(
 //
 inline
 BOOLEAN
-QuicTimeAtOrBefore64(
+CxPlatTimeAtOrBefore64(
     _In_ uint64_t T1,
     _In_ uint64_t T2
     )
@@ -663,7 +663,7 @@ QuicTimeAtOrBefore64(
 //
 inline
 BOOLEAN
-QuicTimeAtOrBefore32(
+CxPlatTimeAtOrBefore32(
     _In_ uint32_t T1,
     _In_ uint32_t T2
     )
@@ -674,7 +674,7 @@ QuicTimeAtOrBefore32(
 _IRQL_requires_max_(PASSIVE_LEVEL)
 inline
 void
-QuicSleep(
+CxPlatSleep(
     _In_ uint32_t DurationMs
     )
 {
@@ -715,7 +715,7 @@ typedef struct _ETHREAD *CXPLAT_THREAD;
 
 inline
 CXPLAT_STATUS
-QuicThreadCreate(
+CxPlatThreadCreate(
     _In_ CXPLAT_THREAD_CONFIG* Config,
     _Out_ CXPLAT_THREAD* Thread
     )
@@ -761,7 +761,7 @@ QuicThreadCreate(
     IdealProcessor = Processor;
     if (Config->Flags & CXPLAT_THREAD_FLAG_SET_AFFINITIZE) {
         GROUP_AFFINITY Affinity;
-        QuicZeroMemory(&Affinity, sizeof(Affinity));
+        CxPlatZeroMemory(&Affinity, sizeof(Affinity));
         Affinity.Group = Processor.Group;
         Affinity.Mask = (1ull << Processor.Number);
         Status =
@@ -842,8 +842,8 @@ Cleanup:
 Error:
     return Status;
 }
-#define QuicThreadDelete(Thread) ObDereferenceObject(*(Thread))
-#define QuicThreadWait(Thread) \
+#define CxPlatThreadDelete(Thread) ObDereferenceObject(*(Thread))
+#define CxPlatThreadWait(Thread) \
     KeWaitForSingleObject( \
         *(Thread), \
         Executive, \
@@ -851,28 +851,28 @@ Error:
         FALSE, \
         NULL)
 typedef ULONG_PTR CXPLAT_THREAD_ID;
-#define QuicCurThreadID() ((CXPLAT_THREAD_ID)PsGetCurrentThreadId())
+#define CxPlatCurThreadID() ((CXPLAT_THREAD_ID)PsGetCurrentThreadId())
 
 //
 // Processor Count and Index
 //
 
-#define QuicProcMaxCount() KeQueryMaximumProcessorCountEx(ALL_PROCESSOR_GROUPS)
-#define QuicProcActiveCount() KeQueryActiveProcessorCountEx(ALL_PROCESSOR_GROUPS)
-#define QuicProcCurrentNumber() KeGetCurrentProcessorIndex()
+#define CxPlatProcMaxCount() KeQueryMaximumProcessorCountEx(ALL_PROCESSOR_GROUPS)
+#define CxPlatProcActiveCount() KeQueryActiveProcessorCountEx(ALL_PROCESSOR_GROUPS)
+#define CxPlatProcCurrentNumber() KeGetCurrentProcessorIndex()
 
 //
 // Rundown Protection Interfaces
 //
 
 typedef EX_RUNDOWN_REF CXPLAT_RUNDOWN_REF;
-#define QuicRundownInitialize(Rundown) ExInitializeRundownProtection(Rundown)
-#define QuicRundownInitializeDisabled(Rundown) (Rundown)->Count = EX_RUNDOWN_ACTIVE
-#define QuicRundownReInitialize(Rundown) ExReInitializeRundownProtection(Rundown)
-#define QuicRundownUninitialize(Rundown)
-#define QuicRundownAcquire(Rundown) ExAcquireRundownProtection(Rundown)
-#define QuicRundownRelease(Rundown) ExReleaseRundownProtection(Rundown)
-#define QuicRundownReleaseAndWait(Rundown) ExWaitForRundownProtectionRelease(Rundown)
+#define CxPlatRundownInitialize(Rundown) ExInitializeRundownProtection(Rundown)
+#define CxPlatRundownInitializeDisabled(Rundown) (Rundown)->Count = EX_RUNDOWN_ACTIVE
+#define CxPlatRundownReInitialize(Rundown) ExReInitializeRundownProtection(Rundown)
+#define CxPlatRundownUninitialize(Rundown)
+#define CxPlatRundownAcquire(Rundown) ExAcquireRundownProtection(Rundown)
+#define CxPlatRundownRelease(Rundown) ExReleaseRundownProtection(Rundown)
+#define CxPlatRundownReleaseAndWait(Rundown) ExWaitForRundownProtectionRelease(Rundown)
 
 //
 // Crypto Interfaces
@@ -883,7 +883,7 @@ typedef EX_RUNDOWN_REF CXPLAT_RUNDOWN_REF;
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 CXPLAT_STATUS
-QuicRandom(
+CxPlatRandom(
     _In_ uint32_t BufferLen,
     _Out_writes_bytes_(BufferLen) void* Buffer
     );
@@ -895,11 +895,11 @@ QuicRandom(
 #define CXPLAT_SILO PESILO
 #define CXPLAT_SILO_INVALID ((PESILO)(void*)(LONG_PTR)-1)
 
-#define QuicSiloGetCurrentServer() PsGetCurrentServerSilo()
-#define QuicSiloAddRef(Silo) if (Silo != NULL) { ObReferenceObjectWithTag(Silo, CXPLAT_POOL_GENERIC); }
-#define QuicSiloRelease(Silo) if (Silo != NULL) { ObDereferenceObjectWithTag(Silo, CXPLAT_POOL_GENERIC); }
-#define QuicSiloAttach(Silo) PsAttachSiloToCurrentThread(Silo)
-#define QuicSiloDetatch(PrevSilo) PsDetachSiloFromCurrentThread(PrevSilo)
+#define CxPlatSiloGetCurrentServer() PsGetCurrentServerSilo()
+#define CxPlatSiloAddRef(Silo) if (Silo != NULL) { ObReferenceObjectWithTag(Silo, CXPLAT_POOL_GENERIC); }
+#define CxPlatSiloRelease(Silo) if (Silo != NULL) { ObDereferenceObjectWithTag(Silo, CXPLAT_POOL_GENERIC); }
+#define CxPlatSiloAttach(Silo) PsAttachSiloToCurrentThread(Silo)
+#define CxPlatSiloDetatch(PrevSilo) PsDetachSiloFromCurrentThread(PrevSilo)
 
 //
 // Network Compartment ID interfaces
@@ -923,7 +923,7 @@ NdisSetThreadObjectCompartmentId(
 
 inline
 CXPLAT_STATUS
-QuicSetCurrentThreadProcessorAffinity(
+CxPlatSetCurrentThreadProcessorAffinity(
     _In_ uint16_t ProcessorIndex
     )
 {
@@ -948,7 +948,7 @@ QuicSetCurrentThreadProcessorAffinity(
 
 inline
 CXPLAT_STATUS
-QuicSetCurrentThreadGroupAffinity(
+CxPlatSetCurrentThreadGroupAffinity(
     _In_ uint16_t ProcessorGroup
     )
 {
@@ -976,8 +976,8 @@ QuicSetCurrentThreadGroupAffinity(
             sizeof(Affinity));
 }
 
-#define QuicCompartmentIdGetCurrent() NdisGetThreadObjectCompartmentId(PsGetCurrentThread())
-#define QuicCompartmentIdSetCurrent(CompartmentId) \
+#define CxPlatCompartmentIdGetCurrent() NdisGetThreadObjectCompartmentId(PsGetCurrentThread())
+#define CxPlatCompartmentIdSetCurrent(CompartmentId) \
     NdisSetThreadObjectCompartmentId(PsGetCurrentThread(), CompartmentId)
 
 #define CXPLAT_CPUID(FunctionId, eax, ebx, ecx, dx)

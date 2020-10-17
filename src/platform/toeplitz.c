@@ -56,7 +56,7 @@ Notes:
 // maintain per-nibble lookup tables, and we initialize them here.
 //
 void
-QuicToeplitzHashInitialize(
+CxPlatToeplitzHashInitialize(
     _Inout_ CXPLAT_TOEPLITZ_HASH* Toeplitz
     )
 {
@@ -141,7 +141,7 @@ QuicToeplitzHashInitialize(
 // needs to be done at the end).
 //
 uint32_t
-QuicToeplitzHashCompute(
+CxPlatToeplitzHashCompute(
     _In_ const CXPLAT_TOEPLITZ_HASH* Toeplitz,
     _In_reads_(HashInputLength)
         const uint8_t* HashInput,

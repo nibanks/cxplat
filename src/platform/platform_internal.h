@@ -91,7 +91,7 @@ typedef struct CXPLAT_PLATFORM {
 //
 // Global Platform variables/state.
 //
-extern CXPLAT_PLATFORM QuicPlatform;
+extern CXPLAT_PLATFORM CxPlatPlatform;
 
 #if _WIN32 // Some Windows Helpers
 
@@ -100,7 +100,7 @@ extern CXPLAT_PLATFORM QuicPlatform;
 //
 inline
 void
-QuicConvertToMappedV6(
+CxPlatConvertToMappedV6(
     _In_ const CXPLAT_ADDR* InAddr,
     _Out_ CXPLAT_ADDR* OutAddr
     )
@@ -125,7 +125,7 @@ QuicConvertToMappedV6(
 #pragma warning(disable: 6101) // Intentially don't overwrite output if unable to convert
 inline
 void
-QuicConvertFromMappedV6(
+CxPlatConvertFromMappedV6(
     _In_ const CXPLAT_ADDR* InAddr,
     _Out_ CXPLAT_ADDR* OutAddr
     )
@@ -150,11 +150,11 @@ QuicConvertFromMappedV6(
 //
 
 CXPLAT_STATUS
-QuicTlsLibraryInitialize(
+CxPlatTlsLibraryInitialize(
     void
     );
 
 void
-QuicTlsLibraryUninitialize(
+CxPlatTlsLibraryUninitialize(
     void
     );

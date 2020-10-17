@@ -37,7 +37,7 @@ int RandomFd; // Used for reading random numbers.
 
 static const char TpLibName[] = "libcxplat.lttng.so";
 
-uint64_t QuicTotalMemory;
+uint64_t CxPlatTotalMemory;
 
 __attribute__((noinline))
 void
@@ -61,7 +61,7 @@ quic_bugcheck(
 }
 
 void
-QuicPlatformSystemLoad(
+CxPlatPlatformSystemLoad(
     void
     )
 {
@@ -88,7 +88,7 @@ QuicPlatformSystemLoad(
     // Get the path to the currently executing shared object (libcxplat.so).
     //
     Dl_info Info;
-    int Succeeded = dladdr((void *)QuicPlatformSystemLoad, &Info);
+    int Succeeded = dladdr((void *)CxPlatPlatformSystemLoad, &Info);
     if (!Succeeded) {
         return;
     }
@@ -118,8 +118,8 @@ QuicPlatformSystemLoad(
         return;
     }
 
-    QuicCopyMemory(ProviderFullPath, Info.dli_fname, LastTrailingSlashLen);
-    QuicCopyMemory(ProviderFullPath + LastTrailingSlashLen, TpLibName, TpLibNameLen);
+    CxPlatCopyMemory(ProviderFullPath, Info.dli_fname, LastTrailingSlashLen);
+    CxPlatCopyMemory(ProviderFullPath + LastTrailingSlashLen, TpLibName, TpLibNameLen);
     ProviderFullPath[LastTrailingSlashLen + TpLibNameLen] = '\0';
 
     //
@@ -132,14 +132,14 @@ QuicPlatformSystemLoad(
 }
 
 void
-QuicPlatformSystemUnload(
+CxPlatPlatformSystemUnload(
     void
     )
 {
 }
 
 CXPLAT_STATUS
-QuicPlatformInitialize(
+CxPlatPlatformInitialize(
     void
     )
 {
@@ -152,13 +152,13 @@ QuicPlatformInitialize(
     }
 #endif
 
-    QuicTotalMemory = 0x40000000; // TODO - Hard coded at 1 GB. Query real value.
+    CxPlatTotalMemory = 0x40000000; // TODO - Hard coded at 1 GB. Query real value.
 
     return CXPLAT_STATUS_SUCCESS;
 }
 
 void
-QuicPlatformUninitialize(
+CxPlatPlatformUninitialize(
     void
     )
 {
@@ -168,7 +168,7 @@ QuicPlatformUninitialize(
 }
 
 void*
-QuicAlloc(
+CxPlatAlloc(
     _In_ size_t ByteCount
     )
 {
@@ -176,7 +176,7 @@ QuicAlloc(
     return PlatDispatch->Alloc(ByteCount);
 #else
 #ifdef CXPLAT_RANDOM_ALLOC_FAIL
-    uint8_t Rand; QuicRandom(sizeof(Rand), &Rand);
+    uint8_t Rand; CxPlatRandom(sizeof(Rand), &Rand);
     return ((Rand % 100) == 1) ? NULL : malloc(ByteCount);
 #else
     return malloc(ByteCount);
@@ -185,7 +185,7 @@ QuicAlloc(
 }
 
 void
-QuicFree(
+CxPlatFree(
     __drv_freesMem(Mem) _Frees_ptr_opt_ void* Mem
     )
 {
@@ -197,7 +197,7 @@ QuicFree(
 }
 
 void
-QuicPoolInitialize(
+CxPlatPoolInitialize(
     _In_ BOOLEAN IsPaged,
     _In_ uint32_t Size,
     _In_ uint32_t Tag,
@@ -214,7 +214,7 @@ QuicPoolInitialize(
 }
 
 void
-QuicPoolUninitialize(
+CxPlatPoolUninitialize(
     _Inout_ CXPLAT_POOL* Pool
     )
 {
@@ -226,17 +226,17 @@ QuicPoolUninitialize(
 }
 
 void*
-QuicPoolAlloc(
+CxPlatPoolAlloc(
     _Inout_ CXPLAT_POOL* Pool
     )
 {
 #ifdef CXPLAT_PLATFORM_DISPATCH_TABLE
     return PlatDispatch->PoolAlloc(Pool);
 #else
-    void*Entry = QuicAlloc(Pool->Size);
+    void*Entry = CxPlatAlloc(Pool->Size);
 
     if (Entry != NULL) {
-        QuicZeroMemory(Entry, Pool->Size);
+        CxPlatZeroMemory(Entry, Pool->Size);
     }
 
     return Entry;
@@ -244,7 +244,7 @@ QuicPoolAlloc(
 }
 
 void
-QuicPoolFree(
+CxPlatPoolFree(
     _Inout_ CXPLAT_POOL* Pool,
     _In_ void* Entry
     )
@@ -253,12 +253,12 @@ QuicPoolFree(
     PlatDispatch->PoolFree(Pool, Entry);
 #else
     UNREFERENCED_PARAMETER(Pool);
-    QuicFree(Entry);
+    CxPlatFree(Entry);
 #endif
 }
 
 void
-QuicRefInitialize(
+CxPlatRefInitialize(
     _Inout_ CXPLAT_REF_COUNT* RefCount
     )
 {
@@ -266,7 +266,7 @@ QuicRefInitialize(
 }
 
 void
-QuicRefIncrement(
+CxPlatRefIncrement(
     _Inout_ CXPLAT_REF_COUNT* RefCount
     )
 {
@@ -278,7 +278,7 @@ QuicRefIncrement(
 }
 
 BOOLEAN
-QuicRefIncrementNonZero(
+CxPlatRefIncrementNonZero(
     _Inout_ volatile CXPLAT_REF_COUNT* RefCount
     )
 {
@@ -302,7 +302,7 @@ QuicRefIncrementNonZero(
 }
 
 BOOLEAN
-QuicRefDecrement(
+CxPlatRefDecrement(
     _In_ CXPLAT_REF_COUNT* RefCount
     )
 {
@@ -320,25 +320,25 @@ QuicRefDecrement(
 }
 
 void
-QuicRundownInitialize(
+CxPlatRundownInitialize(
     _Inout_ CXPLAT_RUNDOWN_REF* Rundown
     )
 {
-    QuicRefInitialize(&((Rundown)->RefCount));
-    QuicEventInitialize(&((Rundown)->RundownComplete), false, false);
+    CxPlatRefInitialize(&((Rundown)->RefCount));
+    CxPlatEventInitialize(&((Rundown)->RundownComplete), false, false);
 }
 
 void
-QuicRundownInitializeDisabled(
+CxPlatRundownInitializeDisabled(
     _Inout_ CXPLAT_RUNDOWN_REF* Rundown
     )
 {
     (Rundown)->RefCount = 0;
-    QuicEventInitialize(&((Rundown)->RundownComplete), false, false);
+    CxPlatEventInitialize(&((Rundown)->RundownComplete), false, false);
 }
 
 void
-QuicRundownReInitialize(
+CxPlatRundownReInitialize(
     _Inout_ CXPLAT_RUNDOWN_REF* Rundown
     )
 {
@@ -346,43 +346,43 @@ QuicRundownReInitialize(
 }
 
 void
-QuicRundownUninitialize(
+CxPlatRundownUninitialize(
     _Inout_ CXPLAT_RUNDOWN_REF* Rundown
     )
 {
-    QuicEventUninitialize((Rundown)->RundownComplete);
+    CxPlatEventUninitialize((Rundown)->RundownComplete);
 }
 
 BOOLEAN
-QuicRundownAcquire(
+CxPlatRundownAcquire(
     _Inout_ CXPLAT_RUNDOWN_REF* Rundown
     )
 {
-    return QuicRefIncrementNonZero(&(Rundown)->RefCount);
+    return CxPlatRefIncrementNonZero(&(Rundown)->RefCount);
 }
 
 void
-QuicRundownRelease(
+CxPlatRundownRelease(
     _Inout_ CXPLAT_RUNDOWN_REF* Rundown
     )
 {
-    if (QuicRefDecrement(&(Rundown)->RefCount)) {
-        QuicEventSet((Rundown)->RundownComplete);
+    if (CxPlatRefDecrement(&(Rundown)->RefCount)) {
+        CxPlatEventSet((Rundown)->RundownComplete);
     }
 }
 
 void
-QuicRundownReleaseAndWait(
+CxPlatRundownReleaseAndWait(
     _Inout_ CXPLAT_RUNDOWN_REF* Rundown
     )
 {
-    if (!QuicRefDecrement(&(Rundown)->RefCount)) {
-        QuicEventWaitForever((Rundown)->RundownComplete);
+    if (!CxPlatRefDecrement(&(Rundown)->RefCount)) {
+        CxPlatEventWaitForever((Rundown)->RundownComplete);
     }
 }
 
 void
-QuicEventInitialize(
+CxPlatEventInitialize(
     _Out_ CXPLAT_EVENT* Event,
     _In_ BOOLEAN ManualReset,
     _In_ BOOLEAN InitialState
@@ -395,7 +395,7 @@ QuicEventInitialize(
     // LINUX_TODO: Tag allocation would be useful here.
     //
 
-    EventObj = QuicAlloc(sizeof(CXPLAT_EVENT_OBJECT));
+    EventObj = CxPlatAlloc(sizeof(CXPLAT_EVENT_OBJECT));
 
     //
     // CxPlat expects this call to be non failable.
@@ -416,7 +416,7 @@ QuicEventInitialize(
 }
 
 void
-QuicEventUninitialize(
+CxPlatEventUninitialize(
     _Inout_ CXPLAT_EVENT Event
     )
 {
@@ -425,12 +425,12 @@ QuicEventUninitialize(
     CXPLAT_FRE_ASSERT(pthread_cond_destroy(&EventObj->Cond) == 0);
     CXPLAT_FRE_ASSERT(pthread_mutex_destroy(&EventObj->Mutex) == 0);
 
-    QuicFree(EventObj);
+    CxPlatFree(EventObj);
     EventObj = NULL;
 }
 
 void
-QuicEventSet(
+CxPlatEventSet(
     _Inout_ CXPLAT_EVENT Event
     )
 {
@@ -450,7 +450,7 @@ QuicEventSet(
 }
 
 void
-QuicEventReset(
+CxPlatEventReset(
     _Inout_ CXPLAT_EVENT Event
     )
 {
@@ -462,7 +462,7 @@ QuicEventReset(
 }
 
 void
-QuicEventWaitForever(
+CxPlatEventWaitForever(
     _Inout_ CXPLAT_EVENT Event
     )
 {
@@ -487,7 +487,7 @@ QuicEventWaitForever(
 }
 
 BOOLEAN
-QuicEventWaitWithTimeout(
+CxPlatEventWaitWithTimeout(
     _Inout_ CXPLAT_EVENT Event,
     _In_ uint32_t TimeoutMs
     )
@@ -501,7 +501,7 @@ QuicEventWaitWithTimeout(
     // Get absolute time.
     //
 
-    QuicGetAbsoluteTime(TimeoutMs, &Ts);
+    CxPlatGetAbsoluteTime(TimeoutMs, &Ts);
 
     CXPLAT_FRE_ASSERT(pthread_mutex_lock(&EventObj->Mutex) == 0);
 
@@ -532,7 +532,7 @@ Exit:
 }
 
 uint64_t
-QuicTimespecToUs(
+CxPlatTimespecToUs(
     _In_ const struct timespec *Time
     )
 {
@@ -540,7 +540,7 @@ QuicTimespecToUs(
 }
 
 uint64_t
-QuicGetTimerResolution(
+CxPlatGetTimerResolution(
     void
     )
 {
@@ -548,11 +548,11 @@ QuicGetTimerResolution(
     int ErrorCode = clock_getres(CLOCK_MONOTONIC, &Res);
     CXPLAT_DBG_ASSERT(ErrorCode == 0);
     UNREFERENCED_PARAMETER(ErrorCode);
-    return QuicTimespecToUs(&Res);
+    return CxPlatTimespecToUs(&Res);
 }
 
 uint64_t
-QuicTimeUs64(
+CxPlatTimeUs64(
     void
     )
 {
@@ -560,18 +560,18 @@ QuicTimeUs64(
     int ErrorCode = clock_gettime(CLOCK_MONOTONIC, &CurrTime);
     CXPLAT_DBG_ASSERT(ErrorCode == 0);
     UNREFERENCED_PARAMETER(ErrorCode);
-    return QuicTimespecToUs(&CurrTime);
+    return CxPlatTimespecToUs(&CurrTime);
 }
 
 void
-QuicGetAbsoluteTime(
+CxPlatGetAbsoluteTime(
     _In_ unsigned long DeltaMs,
     _Out_ struct timespec *Time
     )
 {
     int ErrorCode = 0;
 
-    QuicZeroMemory(Time, sizeof(struct timespec));
+    CxPlatZeroMemory(Time, sizeof(struct timespec));
 
     ErrorCode = clock_gettime(CLOCK_MONOTONIC, Time);
 
@@ -589,7 +589,7 @@ QuicGetAbsoluteTime(
 }
 
 void
-QuicSleep(
+CxPlatSleep(
     _In_ uint32_t DurationMs
     )
 {
@@ -605,7 +605,7 @@ QuicSleep(
 }
 
 uint32_t
-QuicProcMaxCount(
+CxPlatProcMaxCount(
     void
     )
 {
@@ -613,7 +613,7 @@ QuicProcMaxCount(
 }
 
 uint32_t
-QuicProcActiveCount(
+CxPlatProcActiveCount(
     void
     )
 {
@@ -621,7 +621,7 @@ QuicProcActiveCount(
 }
 
 uint32_t
-QuicProcCurrentNumber(
+CxPlatProcCurrentNumber(
     void
     )
 {
@@ -629,7 +629,7 @@ QuicProcCurrentNumber(
 }
 
 CXPLAT_STATUS
-QuicRandom(
+CxPlatRandom(
     _In_ uint32_t BufferLen,
     _Out_writes_bytes_(BufferLen) void* Buffer
     )
@@ -645,14 +645,14 @@ QuicRandom(
 }
 
 void
-QuicConvertToMappedV6(
+CxPlatConvertToMappedV6(
     _In_ const CXPLAT_ADDR* InAddr,
     _Out_ CXPLAT_ADDR* OutAddr
     )
 {
     CXPLAT_DBG_ASSERT(!(InAddr == OutAddr));
 
-    QuicZeroMemory(OutAddr, sizeof(CXPLAT_ADDR));
+    CxPlatZeroMemory(OutAddr, sizeof(CXPLAT_ADDR));
 
     if (InAddr->Ip.sa_family == CXPLAT_ADDRESS_FAMILY_INET) {
         OutAddr->Ipv6.sin6_family = CXPLAT_ADDRESS_FAMILY_INET6;
@@ -665,7 +665,7 @@ QuicConvertToMappedV6(
 }
 
 void
-QuicConvertFromMappedV6(
+CxPlatConvertFromMappedV6(
     _In_ const CXPLAT_ADDR* InAddr,
     _Out_ CXPLAT_ADDR* OutAddr
     )
@@ -686,7 +686,7 @@ QuicConvertFromMappedV6(
 }
 
 CXPLAT_STATUS
-QuicThreadCreate(
+CxPlatThreadCreate(
     _In_ CXPLAT_THREAD_CONFIG* Config,
     _Out_ CXPLAT_THREAD* Thread
     )
@@ -695,7 +695,7 @@ QuicThreadCreate(
 
     pthread_attr_t Attr;
     if (pthread_attr_init(&Attr)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             errno,
@@ -709,7 +709,7 @@ QuicThreadCreate(
         CPU_ZERO(&CpuSet);
         CPU_SET(Config->IdealProcessor, &CpuSet);
         if (!pthread_attr_setaffinity_np(&Attr, sizeof(CpuSet), &CpuSet)) {
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryError,
                 "[ lib] ERROR, %s.",
                 "pthread_attr_setaffinity_np failed");
@@ -724,7 +724,7 @@ QuicThreadCreate(
         struct sched_param Params;
         Params.sched_priority = sched_get_priority_max(SCHED_FIFO);
         if (!pthread_attr_setschedparam(&Attr, &Params)) {
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryErrorStatus,
                 "[ lib] ERROR, %u, %s.",
                 errno,
@@ -734,7 +734,7 @@ QuicThreadCreate(
 
     if (pthread_create(Thread, &Attr, Config->Callback, Config->Context)) {
         Status = errno;
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             Status,
@@ -748,7 +748,7 @@ QuicThreadCreate(
             CPU_ZERO(&CpuSet);
             CPU_SET(Config->IdealProcessor, &CpuSet);
             if (!pthread_setaffinity_np(*Thread, sizeof(CpuSet), &CpuSet)) {
-                QuicTraceEvent(
+                CxPlatTraceEvent(
                     LibraryError,
                     "[ lib] ERROR, %s.",
                     "pthread_setaffinity_np failed");
@@ -765,7 +765,7 @@ QuicThreadCreate(
 }
 
 void
-QuicThreadDelete(
+CxPlatThreadDelete(
     _Inout_ CXPLAT_THREAD* Thread
     )
 {
@@ -773,7 +773,7 @@ QuicThreadDelete(
 }
 
 void
-QuicThreadWait(
+CxPlatThreadWait(
     _Inout_ CXPLAT_THREAD* Thread
     )
 {
@@ -782,7 +782,7 @@ QuicThreadWait(
 }
 
 uint32_t
-QuicCurThreadID(
+CxPlatCurThreadID(
     void
     )
 {
@@ -791,13 +791,13 @@ QuicCurThreadID(
 }
 
 void
-QuicPlatformLogAssert(
+CxPlatPlatformLogAssert(
     _In_z_ const char* File,
     _In_ int Line,
     _In_z_ const char* Expr
     )
 {
-    QuicTraceEvent(
+    CxPlatTraceEvent(
         LibraryAssert,
         "[ lib] ASSERT, %u:%s - %s.",
         (uint32_t)Line,
@@ -806,7 +806,7 @@ QuicPlatformLogAssert(
 }
 
 int
-QuicLogLevelToPriority(
+CxPlatLogLevelToPriority(
     _In_ CXPLAT_TRACE_LEVEL Level
     )
 {

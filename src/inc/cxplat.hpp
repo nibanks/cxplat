@@ -26,38 +26,38 @@ Supported Platforms:
 #define CXPLAT_DBG_ASSERT(X) // no-op if not already defined
 #endif
 
-struct QuicAddr {
+struct CxPlatAddr {
     CXPLAT_ADDR SockAddr;
-    QuicAddr() {
+    CxPlatAddr() {
         memset(&SockAddr, 0, sizeof(SockAddr));
     }
-    QuicAddr(CXPLAT_ADDRESS_FAMILY af) {
+    CxPlatAddr(CXPLAT_ADDRESS_FAMILY af) {
         memset(&SockAddr, 0, sizeof(SockAddr));
-        QuicAddrSetFamily(&SockAddr, af);
+        CxPlatAddrSetFamily(&SockAddr, af);
     }
-    QuicAddr(CXPLAT_ADDRESS_FAMILY af, uint16_t Port) {
+    CxPlatAddr(CXPLAT_ADDRESS_FAMILY af, uint16_t Port) {
         memset(&SockAddr, 0, sizeof(SockAddr));
-        QuicAddrSetFamily(&SockAddr, af);
-        QuicAddrSetPort(&SockAddr, Port);
+        CxPlatAddrSetFamily(&SockAddr, af);
+        CxPlatAddrSetPort(&SockAddr, Port);
     }
-    QuicAddr(CXPLAT_ADDRESS_FAMILY af, bool /*unused*/) {
+    CxPlatAddr(CXPLAT_ADDRESS_FAMILY af, bool /*unused*/) {
         memset(&SockAddr, 0, sizeof(SockAddr));
-        QuicAddrSetFamily(&SockAddr, af);
-        QuicAddrSetToLoopback(&SockAddr);
+        CxPlatAddrSetFamily(&SockAddr, af);
+        CxPlatAddrSetToLoopback(&SockAddr);
     }
-    QuicAddr(const QuicAddr &Addr, uint16_t Port) {
+    CxPlatAddr(const CxPlatAddr &Addr, uint16_t Port) {
         SockAddr = Addr.SockAddr;
-        QuicAddrSetPort(&SockAddr, Port);
+        CxPlatAddrSetPort(&SockAddr, Port);
     }
     void IncrementPort() {
-        CXPLAT_DBG_ASSERT(QuicAddrGetPort(&SockAddr) != 0xFFFF);
-        QuicAddrSetPort(&SockAddr, (uint16_t)1 + QuicAddrGetPort(&SockAddr));
+        CXPLAT_DBG_ASSERT(CxPlatAddrGetPort(&SockAddr) != 0xFFFF);
+        CxPlatAddrSetPort(&SockAddr, (uint16_t)1 + CxPlatAddrGetPort(&SockAddr));
     }
     void IncrementAddr() {
-        QuicAddrIncrement(&SockAddr);
+        CxPlatAddrIncrement(&SockAddr);
     }
-    uint16_t GetPort() const { return QuicAddrGetPort(&SockAddr); }
-    void SetPort(uint16_t Port) noexcept { QuicAddrSetPort(&SockAddr, Port); }
+    uint16_t GetPort() const { return CxPlatAddrGetPort(&SockAddr); }
+    void SetPort(uint16_t Port) noexcept { CxPlatAddrSetPort(&SockAddr, Port); }
 };
 
 template<class T>
@@ -476,16 +476,16 @@ struct StreamScope {
     operator HQUIC() const noexcept { return Handle; }
 };
 
-struct QuicBufferScope {
+struct CxPlatBufferScope {
     CXPLAT_BUFFER* Buffer;
-    QuicBufferScope() noexcept : Buffer(nullptr) { }
-    QuicBufferScope(uint32_t Size) noexcept : Buffer((CXPLAT_BUFFER*) new uint8_t[sizeof(CXPLAT_BUFFER) + Size]) {
+    CxPlatBufferScope() noexcept : Buffer(nullptr) { }
+    CxPlatBufferScope(uint32_t Size) noexcept : Buffer((CXPLAT_BUFFER*) new uint8_t[sizeof(CXPLAT_BUFFER) + Size]) {
         memset(Buffer, 0, sizeof(*Buffer) + Size);
         Buffer->Length = Size;
         Buffer->Buffer = (uint8_t*)(Buffer + 1);
     }
     operator CXPLAT_BUFFER* () noexcept { return Buffer; }
-    ~QuicBufferScope() noexcept { if (Buffer) { delete[](uint8_t*) Buffer; } }
+    ~CxPlatBufferScope() noexcept { if (Buffer) { delete[](uint8_t*) Buffer; } }
 };
 
 #ifdef CXPLAT_PLATFORM_TYPE
@@ -496,10 +496,10 @@ struct QuicBufferScope {
 
 struct EventScope {
     CXPLAT_EVENT Handle;
-    EventScope() noexcept { QuicEventInitialize(&Handle, FALSE, FALSE); }
-    EventScope(bool ManualReset) noexcept { QuicEventInitialize(&Handle, ManualReset, FALSE); }
+    EventScope() noexcept { CxPlatEventInitialize(&Handle, FALSE, FALSE); }
+    EventScope(bool ManualReset) noexcept { CxPlatEventInitialize(&Handle, ManualReset, FALSE); }
     EventScope(CXPLAT_EVENT event) noexcept : Handle(event) { }
-    ~EventScope() noexcept { QuicEventUninitialize(Handle); }
+    ~EventScope() noexcept { CxPlatEventUninitialize(Handle); }
     operator CXPLAT_EVENT() const noexcept { return Handle; }
 };
 

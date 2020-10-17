@@ -31,7 +31,7 @@ typedef struct CXPLAT_TLS CXPLAT_TLS;
 //
 // The size of the header required by the TLS layer.
 //
-extern uint16_t QuicTlsTPHeaderSize;
+extern uint16_t CxPlatTlsTPHeaderSize;
 
 //
 // Callback for indicating process can be completed.
@@ -47,7 +47,7 @@ typedef CXPLAT_TLS_PROCESS_COMPLETE_CALLBACK *CXPLAT_TLS_PROCESS_COMPLETE_CALLBA
 
 //
 // Callback for indicating received QUIC TP parameters. Callback always happens
-// in the context of a QuicTlsProcessData call; not on a separate thread.
+// in the context of a CxPlatTlsProcessData call; not on a separate thread.
 //
 typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
@@ -62,7 +62,7 @@ typedef CXPLAT_TLS_RECEIVE_TP_CALLBACK *CXPLAT_TLS_RECEIVE_TP_CALLBACK_HANDLER;
 
 //
 // Callback for indicating received resumption ticket. Callback always happens
-// in the context of a QuicTlsProcessData call; not on a separate thread.
+// in the context of a CxPlatTlsProcessData call; not on a separate thread.
 //
 typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
@@ -276,7 +276,7 @@ typedef CXPLAT_SEC_CONFIG_CREATE_COMPLETE *CXPLAT_SEC_CONFIG_CREATE_COMPLETE_HAN
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicTlsSecConfigCreate(
+CxPlatTlsSecConfigCreate(
     _In_ const CXPLAT_CREDENTIAL_CONFIG* CredConfig,
     _In_opt_ void* Context,
     _In_ CXPLAT_SEC_CONFIG_CREATE_COMPLETE_HANDLER CompletionHandler
@@ -287,7 +287,7 @@ QuicTlsSecConfigCreate(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicTlsSecConfigDelete(
+CxPlatTlsSecConfigDelete(
     __drv_freesMem(ServerConfig) _Frees_ptr_ _In_
         CXPLAT_SEC_CONFIG* SecurityConfig
     );
@@ -297,7 +297,7 @@ QuicTlsSecConfigDelete(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicTlsInitialize(
+CxPlatTlsInitialize(
     _In_ const CXPLAT_TLS_CONFIG* Config,
     _Inout_ CXPLAT_TLS_PROCESS_STATE* State,
     _Out_ CXPLAT_TLS** NewTlsContext
@@ -308,7 +308,7 @@ QuicTlsInitialize(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicTlsUninitialize(
+CxPlatTlsUninitialize(
     _In_opt_ CXPLAT_TLS* TlsContext
     );
 
@@ -317,7 +317,7 @@ QuicTlsUninitialize(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicTlsReset(
+CxPlatTlsReset(
     _In_ CXPLAT_TLS* TlsContext
     );
 
@@ -328,12 +328,12 @@ QuicTlsReset(
 // any state changes as a result of the call. If the call returns
 // CXPLAT_TLS_RESULT_PENDING, then the registered CXPLAT_TLS_PROCESS_COMPLETE_CALLBACK_HANDLER
 // will be triggered at a later date; at which the QUIC code must then call
-// QuicTlsProcessDataComplete to complete the operation and get the resulting
+// CxPlatTlsProcessDataComplete to complete the operation and get the resulting
 // flags.
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_TLS_RESULT_FLAGS
-QuicTlsProcessData(
+CxPlatTlsProcessData(
     _In_ CXPLAT_TLS* TlsContext,
     _In_ CXPLAT_TLS_DATA_TYPE DataType,
     _In_reads_bytes_(*BufferLength)
@@ -347,7 +347,7 @@ QuicTlsProcessData(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_TLS_RESULT_FLAGS
-QuicTlsProcessDataComplete(
+CxPlatTlsProcessDataComplete(
     _In_ CXPLAT_TLS* TlsContext,
     _Out_ uint32_t * ConsumedBuffer
     );
@@ -357,7 +357,7 @@ QuicTlsProcessDataComplete(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicTlsParamSet(
+CxPlatTlsParamSet(
     _In_ CXPLAT_TLS* TlsContext,
     _In_ uint32_t Param,
     _In_ uint32_t BufferLength,
@@ -370,7 +370,7 @@ QuicTlsParamSet(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicTlsParamGet(
+CxPlatTlsParamGet(
     _In_ CXPLAT_TLS* TlsContext,
     _In_ uint32_t Param,
     _Inout_ uint32_t* BufferLength,
@@ -385,7 +385,7 @@ QuicTlsParamGet(
 //
 inline
 const uint8_t*
-QuicTlsAlpnFindInList(
+CxPlatTlsAlpnFindInList(
     _In_ uint16_t AlpnListLength,
     _In_reads_(AlpnListLength)
         const uint8_t* AlpnList,

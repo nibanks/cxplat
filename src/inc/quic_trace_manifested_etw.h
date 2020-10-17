@@ -7,7 +7,7 @@ _IRQL_requires_max_(PASSIVE_LEVEL)
 _IRQL_requires_same_
 void
 NTAPI
-QuicEtwCallback(
+CxPlatEtwCallback(
     _In_ LPCGUID SourceId,
     _In_ ULONG ControlCode,
     _In_ UCHAR Level,
@@ -21,7 +21,7 @@ QuicEtwCallback(
 // Defining MCGEN_PRIVATE_ENABLE_CALLBACK_V2, makes McGenControlCallbackV2
 // call our user-defined callback routine. See CxPlatEvents.h.
 //
-#define MCGEN_PRIVATE_ENABLE_CALLBACK_V2 QuicEtwCallback
+#define MCGEN_PRIVATE_ENABLE_CALLBACK_V2 CxPlatEtwCallback
 
 #pragma warning(push) // Don't care about warnings from generated files
 #pragma warning(disable:6001)
@@ -29,6 +29,6 @@ QuicEtwCallback(
 #include "CxPlatEtw.h"
 #pragma warning(pop)
 
-#define QuicTraceEventEnabled(Name) TRUE //EventEnabledQuic##Name()
+#define CxPlatTraceEventEnabled(Name) TRUE //EventEnabledCxPlat##Name()
 
 #define CLOG_BYTEARRAY(Len, Data) (uint8_t)(Len), (uint8_t*)(Data)

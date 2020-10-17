@@ -10,22 +10,22 @@
 #include "main.cpp.clog.h"
 #endif
 
-extern "C" _IRQL_requires_max_(PASSIVE_LEVEL) void QuicTraceRundown(void) { }
+extern "C" _IRQL_requires_max_(PASSIVE_LEVEL) void CxPlatTraceRundown(void) { }
 
-class QuicCoreTestEnvironment : public ::testing::Environment {
+class CxPlatCoreTestEnvironment : public ::testing::Environment {
 public:
     void SetUp() override {
-        QuicPlatformSystemLoad();
-        ASSERT_TRUE(CXPLAT_SUCCEEDED(QuicPlatformInitialize()));
+        CxPlatPlatformSystemLoad();
+        ASSERT_TRUE(CXPLAT_SUCCEEDED(CxPlatPlatformInitialize()));
     }
     void TearDown() override {
-        QuicPlatformUninitialize();
-        QuicPlatformSystemUnload();
+        CxPlatPlatformUninitialize();
+        CxPlatPlatformSystemUnload();
     }
 };
 
 int main(int argc, char** argv) {
-    ::testing::AddGlobalTestEnvironment(new QuicCoreTestEnvironment);
+    ::testing::AddGlobalTestEnvironment(new CxPlatCoreTestEnvironment);
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

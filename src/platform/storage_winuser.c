@@ -22,7 +22,7 @@ Environment:
 
 void
 NTAPI
-QuicStorageRegKeyChangeCallback(
+CxPlatStorageRegKeyChangeCallback(
     _Inout_     PTP_CALLBACK_INSTANCE Instance,
     _Inout_opt_ PVOID                 Context,
     _Inout_     PTP_WAIT              Wait,
@@ -44,7 +44,7 @@ typedef struct CXPLAT_STORAGE {
 
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicStorageOpen(
+CxPlatStorageOpen(
     _In_opt_z_ const char * Path,
     _In_ CXPLAT_STORAGE_CHANGE_CALLBACK_HANDLER Callback,
     _In_opt_ void* CallbackContext,
@@ -75,7 +75,7 @@ QuicStorageOpen(
         goto Exit;
     }
 
-    QuicZeroMemory(Storage, sizeof(CXPLAT_STORAGE));
+    CxPlatZeroMemory(Storage, sizeof(CXPLAT_STORAGE));
     Storage->Callback = Callback;
     Storage->CallbackContext = CallbackContext;
 
@@ -87,7 +87,7 @@ QuicStorageOpen(
 
     Storage->ThreadPoolWait =
         CreateThreadpoolWait(
-            QuicStorageRegKeyChangeCallback,
+            CxPlatStorageRegKeyChangeCallback,
             Storage,
             NULL);
     if (Storage->ThreadPoolWait == NULL) {
@@ -95,7 +95,7 @@ QuicStorageOpen(
         goto Exit;
     }
 
-    QuicTraceLogVerbose(
+    CxPlatTraceLogVerbose(
         StorageOpenKey,
         "[ reg] Opening %s",
         FullKeyName);
@@ -149,7 +149,7 @@ Exit:
 
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicStorageClose(
+CxPlatStorageClose(
     _In_opt_ CXPLAT_STORAGE* Storage
     )
 {
@@ -164,7 +164,7 @@ QuicStorageClose(
 
 void
 NTAPI
-QuicStorageRegKeyChangeCallback(
+CxPlatStorageRegKeyChangeCallback(
     _Inout_     PTP_CALLBACK_INSTANCE Instance,
     _Inout_opt_ PVOID                 Context,
     _Inout_     PTP_WAIT              Wait,
@@ -192,7 +192,7 @@ QuicStorageRegKeyChangeCallback(
 
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicStorageReadValue(
+CxPlatStorageReadValue(
     _In_ CXPLAT_STORAGE* Storage,
     _In_opt_z_ const char * Name,
     _Out_writes_bytes_to_opt_(*BufferLength, *BufferLength)

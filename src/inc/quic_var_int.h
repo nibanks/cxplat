@@ -38,7 +38,7 @@ typedef _In_range_(0, CXPLAT_VAR_INT_MAX) uint64_t CXPLAT_VAR_INT;
 // Helper to determine the number of bytes required to encode the value
 // in a variable-length encoding.
 //
-#define QuicVarIntSize(Value) \
+#define CxPlatVarIntSize(Value) \
     ((CXPLAT_VAR_INT)Value < 0x40 ? sizeof(uint8_t) : ((CXPLAT_VAR_INT)Value < 0x4000 ? sizeof(uint16_t) : ((CXPLAT_VAR_INT)Value < 0x40000000 ? sizeof(uint32_t) : sizeof(uint64_t))))
 
 //
@@ -50,7 +50,7 @@ _When_(Value >= 0x40 && Value < 0x4000, _Post_equal_to_(Buffer + sizeof(uint16_t
 _When_(Value >= 0x4000 && Value < 0x40000000, _Post_equal_to_(Buffer + sizeof(uint32_t)))
 _When_(Value >= 0x40000000, _Post_equal_to_(Buffer + sizeof(uint64_t)))
 uint8_t*
-QuicVarIntEncode(
+CxPlatVarIntEncode(
     _In_ CXPLAT_VAR_INT Value,
     _When_(Value < 0x40, _Out_writes_bytes_(sizeof(uint8_t)))
     _When_(Value >= 0x40 && Value < 0x4000, _Out_writes_bytes_(sizeof(uint16_t)))
@@ -65,15 +65,15 @@ QuicVarIntEncode(
         Buffer[0] = (uint8_t)Value;
         return Buffer + sizeof(uint8_t);
     } else if (Value < 0x4000) {
-        const uint16_t tmp = QuicByteSwapUint16((0x40 << 8) | (uint16_t)Value);
+        const uint16_t tmp = CxPlatByteSwapUint16((0x40 << 8) | (uint16_t)Value);
         memcpy(Buffer, &tmp, sizeof(tmp));
         return Buffer + sizeof(uint16_t);
     } else if (Value < 0x40000000) {
-        const uint32_t tmp = QuicByteSwapUint32((0x80UL << 24) | (uint32_t)Value);
+        const uint32_t tmp = CxPlatByteSwapUint32((0x80UL << 24) | (uint32_t)Value);
         memcpy(Buffer, &tmp, sizeof(tmp));
         return Buffer + sizeof(uint32_t);
     } else {
-        const uint64_t tmp = QuicByteSwapUint64((0xc0ULL << 56) | Value);
+        const uint64_t tmp = CxPlatByteSwapUint64((0xc0ULL << 56) | Value);
         memcpy(Buffer, &tmp, sizeof(tmp));
         return Buffer + sizeof(uint64_t);
     }
@@ -85,7 +85,7 @@ QuicVarIntEncode(
 inline
 _Post_equal_to_(Buffer + sizeof(uint16_t))
 uint8_t*
-QuicVarIntEncode2Bytes(
+CxPlatVarIntEncode2Bytes(
     _In_range_(0, 0x3FFF) CXPLAT_VAR_INT Value,
     _Out_writes_bytes_(sizeof(uint16_t))
         uint8_t* Buffer
@@ -93,7 +93,7 @@ QuicVarIntEncode2Bytes(
 {
     CXPLAT_DBG_ASSERT(Value < 0x4000);
 
-    const uint16_t tmp = QuicByteSwapUint16((0x40 << 8) | (uint16_t)Value);
+    const uint16_t tmp = CxPlatByteSwapUint16((0x40 << 8) | (uint16_t)Value);
     memcpy(Buffer, &tmp, sizeof(tmp));
     return Buffer + sizeof(uint16_t);
 }
@@ -104,7 +104,7 @@ QuicVarIntEncode2Bytes(
 inline
 _Success_(return != FALSE)
 BOOLEAN
-QuicVarIntDecode(
+CxPlatVarIntDecode(
     _In_ uint16_t BufferLength,
     _In_reads_bytes_(BufferLength)
         const uint8_t * const Buffer,
@@ -136,7 +136,7 @@ QuicVarIntDecode(
         }
         uint32_t v;
         memcpy(&v, Buffer + *Offset, sizeof(uint32_t));
-        *Value = QuicByteSwapUint32(v) & 0x3fffffffUL;
+        *Value = CxPlatByteSwapUint32(v) & 0x3fffffffUL;
         CXPLAT_ANALYSIS_ASSERT(*Value < 0x100000000ULL);
         *Offset += sizeof(uint32_t);
     } else {
@@ -145,7 +145,7 @@ QuicVarIntDecode(
         }
         uint64_t v;
         memcpy(&v, Buffer + *Offset, sizeof(uint64_t));
-        *Value = QuicByteSwapUint64(v) & 0x3fffffffffffffffULL;
+        *Value = CxPlatByteSwapUint64(v) & 0x3fffffffffffffffULL;
         *Offset += sizeof(uint64_t);
     }
     return TRUE;

@@ -32,7 +32,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -59,7 +59,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -86,7 +86,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -100,7 +100,7 @@
     },
     "CertCapiSign": {
       "ModuleProperites": {},
-      "TraceString": "[cert] QuicCertSign alg=0x%4.4x",
+      "TraceString": "[cert] CxPlatCertSign alg=0x%4.4x",
       "UniqueId": "CertCapiSign",
       "splitArgs": [
         {
@@ -113,7 +113,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -127,7 +127,7 @@
     },
     "CertCapiVerify": {
       "ModuleProperites": {},
-      "TraceString": "[cert] QuicCertVerify alg=0x%4.4x",
+      "TraceString": "[cert] CxPlatCertVerify alg=0x%4.4x",
       "UniqueId": "CertCapiVerify",
       "splitArgs": [
         {
@@ -140,7 +140,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -175,7 +175,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceEvent",
+        "MacroName": "CxPlatTraceEvent",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -202,7 +202,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceEvent",
+        "MacroName": "CxPlatTraceEvent",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -237,7 +237,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceEvent",
+        "MacroName": "CxPlatTraceEvent",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -272,7 +272,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -299,7 +299,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -326,7 +326,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -353,7 +353,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -380,7 +380,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -415,7 +415,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogError",
+        "MacroName": "CxPlatTraceLogError",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -458,7 +458,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceEvent",
+        "MacroName": "CxPlatTraceEvent",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -517,7 +517,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceEvent",
+        "MacroName": "CxPlatTraceEvent",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -584,7 +584,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceEvent",
+        "MacroName": "CxPlatTraceEvent",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -611,7 +611,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -638,7 +638,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -665,7 +665,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -692,7 +692,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -719,7 +719,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -746,7 +746,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -773,7 +773,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -800,7 +800,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -827,7 +827,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -854,7 +854,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -881,7 +881,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -908,7 +908,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -943,7 +943,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -970,7 +970,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -997,7 +997,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1024,7 +1024,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1051,7 +1051,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1078,7 +1078,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1113,7 +1113,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1140,7 +1140,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1175,7 +1175,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1202,7 +1202,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1229,7 +1229,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1256,7 +1256,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1283,7 +1283,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1310,7 +1310,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1353,7 +1353,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1388,7 +1388,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1431,7 +1431,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceEvent",
+        "MacroName": "CxPlatTraceEvent",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1449,7 +1449,7 @@
       "UniqueId": "WindowsKernelLoaded",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1467,7 +1467,7 @@
       "UniqueId": "WindowsKernelUnloaded",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1494,7 +1494,7 @@
         },
         {
           "VariableInfo": {
-            "UserSuppliedTrimmed": "QuicTotalMemory",
+            "UserSuppliedTrimmed": "CxPlatTotalMemory",
             "SuggestedTelemetryName": "arg3"
           },
           "DefinationEncoding": "llu",
@@ -1502,7 +1502,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1520,7 +1520,7 @@
       "UniqueId": "WindowsKernelUninitialized",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1538,7 +1538,7 @@
       "UniqueId": "WindowsUserLoaded",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1556,7 +1556,7 @@
       "UniqueId": "WindowsUserUnloaded",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1599,7 +1599,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1626,7 +1626,7 @@
         },
         {
           "VariableInfo": {
-            "UserSuppliedTrimmed": "QuicProcessorInfo[Index].Group",
+            "UserSuppliedTrimmed": "CxPlatProcessorInfo[Index].Group",
             "SuggestedTelemetryName": "arg3"
           },
           "DefinationEncoding": "hu",
@@ -1634,7 +1634,7 @@
         },
         {
           "VariableInfo": {
-            "UserSuppliedTrimmed": "QuicProcessorInfo[Index].Index",
+            "UserSuppliedTrimmed": "CxPlatProcessorInfo[Index].Index",
             "SuggestedTelemetryName": "arg4"
           },
           "DefinationEncoding": "u",
@@ -1642,7 +1642,7 @@
         },
         {
           "VariableInfo": {
-            "UserSuppliedTrimmed": "QuicProcessorInfo[Index].NumaNode",
+            "UserSuppliedTrimmed": "CxPlatProcessorInfo[Index].NumaNode",
             "SuggestedTelemetryName": "arg5"
           },
           "DefinationEncoding": "u",
@@ -1650,7 +1650,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1669,7 +1669,7 @@
       "splitArgs": [
         {
           "VariableInfo": {
-            "UserSuppliedTrimmed": "QuicTotalMemory",
+            "UserSuppliedTrimmed": "CxPlatTotalMemory",
             "SuggestedTelemetryName": "arg2"
           },
           "DefinationEncoding": "llu",
@@ -1677,7 +1677,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1695,7 +1695,7 @@
       "UniqueId": "WindowsUserUninitialized",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1730,7 +1730,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1765,7 +1765,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1783,7 +1783,7 @@
       "UniqueId": "CertOpenRsaKeySuccess",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1801,7 +1801,7 @@
       "UniqueId": "CertCreateRsaKeySuccess",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1819,7 +1819,7 @@
       "UniqueId": "CertCreationEventAlreadyCreated",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1846,7 +1846,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1864,7 +1864,7 @@
       "UniqueId": "miTlsInitialize",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1882,7 +1882,7 @@
       "UniqueId": "miTlsUninitialize",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1925,7 +1925,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -1968,7 +1968,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnError",
+        "MacroName": "CxPlatTraceLogConnError",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2011,7 +2011,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnError",
+        "MacroName": "CxPlatTraceLogConnError",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2038,7 +2038,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnWarning",
+        "MacroName": "CxPlatTraceLogConnWarning",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2081,7 +2081,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2108,7 +2108,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2143,7 +2143,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2170,7 +2170,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2205,7 +2205,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2248,7 +2248,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2275,7 +2275,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2302,7 +2302,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2329,7 +2329,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2356,7 +2356,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2383,7 +2383,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2418,7 +2418,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2445,7 +2445,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2472,7 +2472,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2499,7 +2499,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2526,7 +2526,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2553,7 +2553,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2580,7 +2580,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2615,7 +2615,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2650,7 +2650,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2685,7 +2685,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2712,7 +2712,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2739,7 +2739,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2774,7 +2774,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2801,7 +2801,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2828,7 +2828,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2855,7 +2855,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2906,7 +2906,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -2941,7 +2941,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceEvent",
+        "MacroName": "CxPlatTraceEvent",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -2976,7 +2976,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceEvent",
+        "MacroName": "CxPlatTraceEvent",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -3019,7 +3019,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -3062,7 +3062,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnError",
+        "MacroName": "CxPlatTraceLogConnError",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3097,7 +3097,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnError",
+        "MacroName": "CxPlatTraceLogConnError",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3132,7 +3132,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnError",
+        "MacroName": "CxPlatTraceLogConnError",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3159,7 +3159,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnError",
+        "MacroName": "CxPlatTraceLogConnError",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3186,7 +3186,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnError",
+        "MacroName": "CxPlatTraceLogConnError",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3213,7 +3213,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnError",
+        "MacroName": "CxPlatTraceLogConnError",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3240,7 +3240,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnError",
+        "MacroName": "CxPlatTraceLogConnError",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3275,7 +3275,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3310,7 +3310,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3337,7 +3337,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3364,7 +3364,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3399,7 +3399,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3442,7 +3442,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3469,7 +3469,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3496,7 +3496,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3531,7 +3531,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3566,7 +3566,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3584,7 +3584,7 @@
       "UniqueId": "SchannelInitialized",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -3602,7 +3602,7 @@
       "UniqueId": "SchannelUninitialized",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -3620,7 +3620,7 @@
       "UniqueId": "SchannelAchAsync",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -3638,7 +3638,7 @@
       "UniqueId": "SchannelAchWorkerStart",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -3656,7 +3656,7 @@
       "UniqueId": "SchannelAch",
       "splitArgs": [],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -3683,7 +3683,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -3726,7 +3726,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -3753,7 +3753,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3788,7 +3788,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3823,7 +3823,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3850,7 +3850,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3877,7 +3877,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3912,7 +3912,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3947,7 +3947,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -3982,7 +3982,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4017,7 +4017,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4044,7 +4044,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4071,7 +4071,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4122,7 +4122,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4157,7 +4157,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4192,7 +4192,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4235,7 +4235,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceEvent",
+        "MacroName": "CxPlatTraceEvent",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -4262,7 +4262,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnWarning",
+        "MacroName": "CxPlatTraceLogConnWarning",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4289,7 +4289,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4316,7 +4316,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4351,7 +4351,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4386,7 +4386,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4413,7 +4413,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4440,7 +4440,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4467,7 +4467,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4510,7 +4510,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4545,7 +4545,7 @@
         }
       ],
       "macro": {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4630,7 +4630,7 @@
     },
     "SourceCodeMacros": [
       {
-        "MacroName": "QuicTraceLogWarning",
+        "MacroName": "CxPlatTraceLogWarning",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -4642,7 +4642,7 @@
         "CustomSettings": null
       },
       {
-        "MacroName": "QuicTraceLogStreamWarning",
+        "MacroName": "CxPlatTraceLogStreamWarning",
         "EncodedPrefix": "[strm][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4654,7 +4654,7 @@
         "CustomSettings": null
       },
       {
-        "MacroName": "QuicTraceLogStreamInfo",
+        "MacroName": "CxPlatTraceLogStreamInfo",
         "EncodedPrefix": "[strm][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4666,7 +4666,7 @@
         "CustomSettings": null
       },
       {
-        "MacroName": "QuicTraceLogStreamVerbose",
+        "MacroName": "CxPlatTraceLogStreamVerbose",
         "EncodedPrefix": "[strm][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4678,7 +4678,7 @@
         "CustomSettings": null
       },
       {
-        "MacroName": "QuicTraceLogInfo",
+        "MacroName": "CxPlatTraceLogInfo",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -4690,7 +4690,7 @@
         "CustomSettings": null
       },
       {
-        "MacroName": "QuicTraceLogVerbose",
+        "MacroName": "CxPlatTraceLogVerbose",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -4702,7 +4702,7 @@
         "CustomSettings": null
       },
       {
-        "MacroName": "QuicTraceLogError",
+        "MacroName": "CxPlatTraceLogError",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -4714,7 +4714,7 @@
         "CustomSettings": null
       },
       {
-        "MacroName": "QuicTraceLogConnError",
+        "MacroName": "CxPlatTraceLogConnError",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4726,7 +4726,7 @@
         "CustomSettings": null
       },
       {
-        "MacroName": "QuicTraceLogConnWarning",
+        "MacroName": "CxPlatTraceLogConnWarning",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4738,7 +4738,7 @@
         "CustomSettings": null
       },
       {
-        "MacroName": "QuicTraceLogConnInfo",
+        "MacroName": "CxPlatTraceLogConnInfo",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4750,7 +4750,7 @@
         "CustomSettings": null
       },
       {
-        "MacroName": "QuicTraceLogConnVerbose",
+        "MacroName": "CxPlatTraceLogConnVerbose",
         "EncodedPrefix": "[conn][%p] ",
         "EncodedArgNumber": 2,
         "MacroConfiguration": {
@@ -4762,7 +4762,7 @@
         "CustomSettings": null
       },
       {
-        "MacroName": "QuicTraceEvent",
+        "MacroName": "CxPlatTraceEvent",
         "EncodedPrefix": null,
         "EncodedArgNumber": 1,
         "MacroConfiguration": {
@@ -4999,595 +4999,595 @@
   "ModuleUniqueness": {
     "TraceInformation": [
       {
-        "UniquenessHash": "6fb480dc-d71f-74f2-dc75-559a5591fe3d",
+        "UniquenessHash": "8c5aca2f-a5a8-0843-f8a6-d75c17925f53",
         "TraceID": "CertCapiVerifiedChain"
       },
       {
-        "UniquenessHash": "2e3530fe-5082-ce8a-7275-87755eb70c41",
+        "UniquenessHash": "25cd31c2-096f-8465-12c6-616c634e475f",
         "TraceID": "CertCapiParsedChain"
       },
       {
-        "UniquenessHash": "bc118133-e7f5-68c2-fd22-5dba9202e2eb",
+        "UniquenessHash": "572c1e30-375c-bdda-827d-3d43ecc50b01",
         "TraceID": "CertCapiFormattedChain"
       },
       {
-        "UniquenessHash": "827a6a52-50a7-a1f6-8caa-5f1aea644206",
+        "UniquenessHash": "09dc77bd-13ce-9b48-756b-76a364be9558",
         "TraceID": "CertCapiSign"
       },
       {
-        "UniquenessHash": "d53212c8-2068-d598-a55f-1b238ec86ad1",
+        "UniquenessHash": "a879014c-32db-c88c-a737-87c42381a4e3",
         "TraceID": "CertCapiVerify"
       },
       {
-        "UniquenessHash": "f8608b33-99de-87fb-58fc-7a0f6dfe385c",
+        "UniquenessHash": "c4d46f27-766f-ec0b-3b12-ee153312b97e",
         "TraceID": "LibraryErrorStatus"
       },
       {
-        "UniquenessHash": "2cbc406b-c1c0-ba4d-eee8-669f30330f4a",
+        "UniquenessHash": "9e15aab3-cd64-d308-8091-34e5ebf2743f",
         "TraceID": "LibraryError"
       },
       {
-        "UniquenessHash": "335643ef-1fdb-099b-6672-4452222524ff",
+        "UniquenessHash": "4ab7b142-2057-3c71-2d2c-ca45c9159bf4",
         "TraceID": "AllocFailure"
       },
       {
-        "UniquenessHash": "f11702ec-fc18-f5bb-c732-90e621e3356d",
+        "UniquenessHash": "d9bd254a-d0da-8d05-996f-13191d6387b4",
         "TraceID": "CertOpenSslGetProcessAddressFailure"
       },
       {
-        "UniquenessHash": "eca69f63-4fd1-2302-5724-89ca1189754e",
+        "UniquenessHash": "867ce754-f163-5c93-d64a-ee66f71fac27",
         "TraceID": "DatapathCreate"
       },
       {
-        "UniquenessHash": "8200b193-6dab-1cc4-e8c0-c7963434388c",
+        "UniquenessHash": "f2d8e680-2290-978c-842e-9c313dd578fd",
         "TraceID": "DatapathWorkerThreadStart"
       },
       {
-        "UniquenessHash": "8db9f276-e7e4-a879-8d66-04c080b4ed22",
+        "UniquenessHash": "b2412d1d-c23f-418b-6c03-9bd95b06b4bb",
         "TraceID": "DatapathWorkerThreadStop"
       },
       {
-        "UniquenessHash": "5b32401b-1842-9af0-ebab-67d1baf8fc7a",
+        "UniquenessHash": "aa3209a5-a992-ff75-0bb2-c6e5d7cad053",
         "TraceID": "DatapathShuttingDown"
       },
       {
-        "UniquenessHash": "8c0dc882-517e-cd8f-df0b-0b892d83bb00",
+        "UniquenessHash": "31c65d43-ba54-ff5e-94f8-aa1e6fdb64aa",
         "TraceID": "DatapathResolveHostNameFailed"
       },
       {
-        "UniquenessHash": "0592002f-39b9-c666-727b-d92cd6fb7eeb",
+        "UniquenessHash": "dd9abe17-4bee-b297-1432-e86b5278b7cf",
         "TraceID": "DatapathErrorStatus"
       },
       {
-        "UniquenessHash": "4a17af8c-bd56-a1f2-d3d6-b28b75030213",
+        "UniquenessHash": "81943560-c760-7ce6-0a29-1165e0b31aee",
         "TraceID": "DatapathRecv"
       },
       {
-        "UniquenessHash": "94b78b13-9aec-bd06-569d-6b47607c66be",
+        "UniquenessHash": "5d0d1fe0-f743-185b-8c9f-809c470f46c3",
         "TraceID": "DatapathSend"
       },
       {
-        "UniquenessHash": "b24b16a3-d334-7fa7-5991-5361737fa9a5",
+        "UniquenessHash": "f384ec13-b62e-9106-8d3c-f8608d8f1586",
         "TraceID": "DatapathOpenTcpSocketFailed"
       },
       {
-        "UniquenessHash": "19716fe5-c9e9-01cf-c8fe-adaa001f1096",
+        "UniquenessHash": "a2cc5110-0412-9ed9-dc3f-be0714b28a1b",
         "TraceID": "DatapathOpenTcpSocketFailedAsync"
       },
       {
-        "UniquenessHash": "e199bbc2-944b-b1c2-6013-67e8818f2e13",
+        "UniquenessHash": "3ca432ce-2cc4-9b3d-5d69-4e13fde4e581",
         "TraceID": "DatapathQueryRssScalabilityInfoFailed"
       },
       {
-        "UniquenessHash": "3d57fa5f-a053-b239-52cb-febd154ffd26",
+        "UniquenessHash": "477737d2-c078-4e52-2bc5-7890970c4c4c",
         "TraceID": "DatapathQueryRssScalabilityInfoFailedAsync"
       },
       {
-        "UniquenessHash": "71af3614-5dc0-62a2-c723-6f31838c3400",
+        "UniquenessHash": "656e5cb8-71d1-d13b-892d-41cead9897d5",
         "TraceID": "DatapathOpenUdpSocketFailed"
       },
       {
-        "UniquenessHash": "d1b57f51-d0dc-7fe1-82ba-ccde7926e0cc",
+        "UniquenessHash": "454056e9-bc15-731c-5abf-f91cb9104320",
         "TraceID": "DatapathOpenUdpSocketFailedAsync"
       },
       {
-        "UniquenessHash": "71ede21d-777c-2e7a-9260-26fd3efc8601",
+        "UniquenessHash": "ffad009a-d7b7-c6cd-488f-132de7b9527a",
         "TraceID": "DatapathQueryUdpSendMsgFailed"
       },
       {
-        "UniquenessHash": "8703c474-c698-92fe-cb33-28ca924e6b98",
+        "UniquenessHash": "1760812f-a428-8ced-94e1-8d57fd5595f4",
         "TraceID": "DatapathQueryUdpSendMsgFailedAsync"
       },
       {
-        "UniquenessHash": "9c74edde-b4c6-c412-a4aa-615ad0321ac3",
+        "UniquenessHash": "fc3b8eae-6937-c0f8-0cd0-397bfa35b86d",
         "TraceID": "DatapathQueryRecvMaxCoalescedSizeFailed"
       },
       {
-        "UniquenessHash": "8f820ed1-ce50-5793-0bd4-ae115f172b66",
+        "UniquenessHash": "7d9f1523-5272-b6e4-1766-52160e99384a",
         "TraceID": "DatapathQueryRecvMaxCoalescedSizeFailedAsync"
       },
       {
-        "UniquenessHash": "b503f2a8-8676-cb38-1cab-733b1b6168c4",
+        "UniquenessHash": "9d9d030b-6e63-677d-a3f6-b6379b1b1387",
         "TraceID": "DatapathDropEmptyMdl"
       },
       {
-        "UniquenessHash": "93ba4ba0-a056-754c-13bd-4d57d0f1d5f4",
+        "UniquenessHash": "30c75d6c-c4cd-1dae-c816-b7c27a74c18e",
         "TraceID": "DatapathDropMissingInfo"
       },
       {
-        "UniquenessHash": "e2a52ac0-8148-8ba4-8ea5-bab2cbf1a43c",
+        "UniquenessHash": "4002cd9a-3f97-d9ad-fbec-4853771256af",
         "TraceID": "DatapathDropTooBig"
       },
       {
-        "UniquenessHash": "177e3d8f-353c-329c-6b7c-638649a7d3ef",
+        "UniquenessHash": "e6359f3b-f731-9380-ee59-41b1fa6f2f6a",
         "TraceID": "DatapathDropMdlMapFailure"
       },
       {
-        "UniquenessHash": "b940eb8b-74ec-f569-8167-e95ccc36510e",
+        "UniquenessHash": "93426ec0-335c-ad8c-8f38-9f04b3c1ef5c",
         "TraceID": "DatapathFragmented"
       },
       {
-        "UniquenessHash": "a3d48581-00d1-fbbf-3ede-f8e9a4a22187",
+        "UniquenessHash": "bf044510-6887-d01e-24cd-aa1b60e90946",
         "TraceID": "DatapathDropAllocRecvContextFailure"
       },
       {
-        "UniquenessHash": "977ca100-03bb-010a-09ab-0a04d33a7dfd",
+        "UniquenessHash": "0e782715-0d79-c45c-cc9c-3ac6dab4532d",
         "TraceID": "DatapathDropAllocRecvBufferFailure"
       },
       {
-        "UniquenessHash": "9ab36cd5-f082-c444-283c-9b8354ecedb5",
+        "UniquenessHash": "e5d0f5a8-df97-8130-2e19-9a519ffb5946",
         "TraceID": "DatapathUroExceeded"
       },
       {
-        "UniquenessHash": "37423b13-b9e3-7961-07d6-137252085127",
+        "UniquenessHash": "52ead2b7-eab0-b988-a668-2c6b9599785f",
         "TraceID": "DatapathUnreachable"
       },
       {
-        "UniquenessHash": "73d44c65-66ff-f29f-bb76-28617b93d44b",
+        "UniquenessHash": "87bda412-5638-5145-b304-a55feb9aa085",
         "TraceID": "DatapathQueryRssProcessorInfoFailed"
       },
       {
-        "UniquenessHash": "113c84ef-50cb-cb52-931e-bf57bcabe3c4",
+        "UniquenessHash": "c4ab8037-4d6e-9463-e113-3434ec311453",
         "TraceID": "DatapathQueryProcessorAffinityFailed"
       },
       {
-        "UniquenessHash": "4823f9ea-3d4b-3896-96e5-438ed9e7226d",
+        "UniquenessHash": "b3282855-66d4-2df4-2c2c-197055a7fe01",
         "TraceID": "DatapathMissingInfo"
       },
       {
-        "UniquenessHash": "e460ace3-ef66-a745-4bc5-76eee2744d3e",
+        "UniquenessHash": "94309504-e0db-9f18-89bb-ca4fab7dd596",
         "TraceID": "DatapathRecvEmpty"
       },
       {
-        "UniquenessHash": "fe61acb5-853e-cb16-5c4a-1e0173785458",
+        "UniquenessHash": "09ce561e-c986-7cf0-d5e5-8f598dc5d9aa",
         "TraceID": "DatapathUroPreallocExceeded"
       },
       {
-        "UniquenessHash": "fd58fa11-aba1-7179-7742-223f6d568030",
+        "UniquenessHash": "4386815b-8b30-f566-b332-1fc44f6f7a68",
         "TraceID": "DatapathShutDownReturn"
       },
       {
-        "UniquenessHash": "1c3083a0-c3d9-e546-87d3-006f97a1f0e0",
+        "UniquenessHash": "0913688c-bc05-5810-8807-d570ba4fd6e0",
         "TraceID": "DatapathShutDownComplete"
       },
       {
-        "UniquenessHash": "7a22a16e-f913-2343-79f3-1686b66e5e6c",
+        "UniquenessHash": "4c70a22d-b28d-c2c5-803d-3ac67f947e3b",
         "TraceID": "DatapathUnreachableWithError"
       },
       {
-        "UniquenessHash": "2266b6a6-3223-3a10-348c-e3c811fa0818",
+        "UniquenessHash": "eab2cec6-0458-dfc7-40ea-4bc27d04f26b",
         "TraceID": "DatapathTooLarge"
       },
       {
-        "UniquenessHash": "681db658-c247-7951-8110-1c361bf69097",
+        "UniquenessHash": "63cfe148-3adc-981f-7412-69d047b551cd",
         "TraceID": "LibraryAssert"
       },
       {
-        "UniquenessHash": "bddd082e-fd86-4e92-2b3f-ed831dad41eb",
+        "UniquenessHash": "3a92c9e9-adf9-fd44-c84a-4e36d6f61036",
         "TraceID": "WindowsKernelLoaded"
       },
       {
-        "UniquenessHash": "99b1ad83-0cbf-8b42-36e2-86e505bf6b76",
+        "UniquenessHash": "bb60d965-dc5f-1c4d-b33a-5914c612aacb",
         "TraceID": "WindowsKernelUnloaded"
       },
       {
-        "UniquenessHash": "09622250-6902-8f51-16a4-41a81d9cfc14",
+        "UniquenessHash": "906a3d58-68f4-f27a-77df-21e15c09507a",
         "TraceID": "WindowsKernelInitialized"
       },
       {
-        "UniquenessHash": "7d3c84e1-4c84-fd6e-19b0-5210f45719fe",
+        "UniquenessHash": "eaf1a11d-5686-aaf4-555a-d27b31f604bf",
         "TraceID": "WindowsKernelUninitialized"
       },
       {
-        "UniquenessHash": "b34bba29-c6d5-e31d-a099-d73a62330504",
+        "UniquenessHash": "8dd308d9-9342-111b-8fa0-1f049b87dfcc",
         "TraceID": "WindowsUserLoaded"
       },
       {
-        "UniquenessHash": "98edbe6f-c588-a919-3251-cd78aa291751",
+        "UniquenessHash": "44bb4e2d-778b-ab17-8a77-6ce8cabf7b50",
         "TraceID": "WindowsUserUnloaded"
       },
       {
-        "UniquenessHash": "c900bbe4-0bbe-349f-7ad7-9ece1080a288",
+        "UniquenessHash": "897b5785-76dd-5238-e8ca-e43f52122c51",
         "TraceID": "WindowsUserProcessorState"
       },
       {
-        "UniquenessHash": "fe92afed-9594-4ca6-5fca-ea13e79da91c",
+        "UniquenessHash": "29b1a9b4-9177-bec4-8aca-619705de09e6",
         "TraceID": "ProcessorInfo"
       },
       {
-        "UniquenessHash": "cdce2126-524a-0cae-e4d3-c8bd5ef39930",
+        "UniquenessHash": "53b2ea79-552e-c606-f8ca-5652367d668d",
         "TraceID": "WindowsUserInitialized"
       },
       {
-        "UniquenessHash": "19b21f4a-a6e8-3b9b-c4da-e303c8f108b1",
+        "UniquenessHash": "5bcc0afb-d26c-421e-3288-d25d923db325",
         "TraceID": "WindowsUserUninitialized"
       },
       {
-        "UniquenessHash": "b3f755ee-8d5e-ee68-77ce-d28d21c60214",
+        "UniquenessHash": "b44dfcd5-3c41-775f-7dc2-073463120fc0",
         "TraceID": "CertWaitForCreationEvent"
       },
       {
-        "UniquenessHash": "1d49a12c-2001-fbe8-e111-80da9c0c330f",
+        "UniquenessHash": "916ea75d-b9b2-69ba-f686-b5283b9c7279",
         "TraceID": "CertCleanTestCerts"
       },
       {
-        "UniquenessHash": "77982893-1b1e-c8f4-2410-5885f9f9debc",
+        "UniquenessHash": "d47f8d5e-e32f-4618-e137-9bfa1c052433",
         "TraceID": "CertOpenRsaKeySuccess"
       },
       {
-        "UniquenessHash": "41f32b3e-24fa-9aea-be99-143d45142d0b",
+        "UniquenessHash": "9b0e776a-cc20-3829-881c-8c0141ba1219",
         "TraceID": "CertCreateRsaKeySuccess"
       },
       {
-        "UniquenessHash": "43fb9236-e276-a71e-ab43-b1b026b31cfd",
+        "UniquenessHash": "049da77b-3e1f-10d7-db51-380dbf495342",
         "TraceID": "CertCreationEventAlreadyCreated"
       },
       {
-        "UniquenessHash": "86a081de-c71a-7043-b507-672561f5fd36",
+        "UniquenessHash": "3db936ed-a0a9-7e1b-24f5-116942468630",
         "TraceID": "StorageOpenKey"
       },
       {
-        "UniquenessHash": "892901ea-49a8-594b-6e05-edb0fc36be3d",
+        "UniquenessHash": "78f6fdff-934a-767b-e8e5-0700f9f4a7c4",
         "TraceID": "miTlsInitialize"
       },
       {
-        "UniquenessHash": "912c1707-c315-0036-76ca-602ae12a94b7",
+        "UniquenessHash": "4b4a9d2a-7d03-2fc3-da1f-8b29af21c528",
         "TraceID": "miTlsUninitialize"
       },
       {
-        "UniquenessHash": "e0e483e0-e15e-e93b-6ec0-cb084e300cb3",
+        "UniquenessHash": "75e86bb0-58c3-1cb0-0975-402898f8b8ec",
         "TraceID": "miTlsLogSecret"
       },
       {
-        "UniquenessHash": "fc766c70-8cec-7846-ba14-63bc930b4e06",
+        "UniquenessHash": "893d93f7-78e4-e5d7-839b-34de6d565de6",
         "TraceID": "miTlsFfiProcessFailed"
       },
       {
-        "UniquenessHash": "0e9054b4-02e7-dad9-6893-dd902ebb0dd4",
+        "UniquenessHash": "5702c954-9f97-c518-8301-2cf78b3c891a",
         "TraceID": "miTlsFfiGetHelloSummaryFailed"
       },
       {
-        "UniquenessHash": "76420f88-75d8-6a13-f42b-bea06884e542",
+        "UniquenessHash": "3aee22cc-50a3-d30b-480a-4d6bf69733c2",
         "TraceID": "miTlsCertValidationDisabled"
       },
       {
-        "UniquenessHash": "adbd41df-cab6-b314-1ceb-dc00def1c425",
+        "UniquenessHash": "0b848f98-94d1-6619-0e33-7f3cdc424b81",
         "TraceID": "miTlsCertSelected"
       },
       {
-        "UniquenessHash": "0eb36a7a-47b3-271a-054b-94a5ebf6c257",
+        "UniquenessHash": "50d8c1d3-0b66-360c-47a7-affca5e8025b",
         "TraceID": "miTlsUsing0Rtt"
       },
       {
-        "UniquenessHash": "4cb2a299-89dc-7245-b116-4dcc9875d5fe",
+        "UniquenessHash": "02e071e9-029c-87b3-2469-3f9693b44f06",
         "TraceID": "miTlsProcess"
       },
       {
-        "UniquenessHash": "54a1f582-7b8d-434a-143e-9df24a874f95",
+        "UniquenessHash": "1c134e72-4a30-1d29-ec6f-522cdfbe003a",
         "TraceID": "miTlsSend0RttTicket"
       },
       {
-        "UniquenessHash": "bdbaac9e-6abe-7c57-d354-df78a89838ce",
+        "UniquenessHash": "f9562820-6325-0098-5d27-c293ac0511bb",
         "TraceID": "miTlsFfiProces"
       },
       {
-        "UniquenessHash": "27d4a0a4-4e32-0043-3d90-166d1b378f92",
+        "UniquenessHash": "b26b01f1-6c77-f7fe-f1bb-2255c2992e0a",
         "TraceID": "miTlsFfiProcessResult"
       },
       {
-        "UniquenessHash": "cbc269aa-13ca-8f88-d61e-db9403a335de",
+        "UniquenessHash": "1bd96499-7694-7352-f908-ddb16a47e14e",
         "TraceID": "miTlsHandshakeComplete"
       },
       {
-        "UniquenessHash": "4833606e-5d9c-82d2-86e1-875d57efdaf6",
+        "UniquenessHash": "d60f1469-ae08-f540-13d0-0d3497fa9839",
         "TraceID": "miTlsEarlyDataRejected"
       },
       {
-        "UniquenessHash": "18f82502-f22b-ca5d-6393-cdd01c7bd873",
+        "UniquenessHash": "2e90237a-e5aa-4e57-95df-600b6f22f702",
         "TraceID": "miTlsEarlyDataAccepted"
       },
       {
-        "UniquenessHash": "717e49dd-7942-4cae-f517-3f001e43e7b5",
+        "UniquenessHash": "3fb92a1e-6326-48d1-4a4e-a5c8e02aa5e8",
         "TraceID": "miTlsEarlyDataNotAttempted"
       },
       {
-        "UniquenessHash": "21c32d30-e5c5-164a-e1ee-e9485d64813f",
+        "UniquenessHash": "43829a69-8e39-2573-a5d3-7a1c1e191e79",
         "TraceID": "miTlsEarlyDataAttempted"
       },
       {
-        "UniquenessHash": "9a6e2c4c-9ed2-e2d4-56d1-f3453c281a20",
+        "UniquenessHash": "526622e9-5f92-cf53-535c-e33e84295601",
         "TraceID": "miTlsKeySchedule"
       },
       {
-        "UniquenessHash": "a18ddb89-8c56-1236-6421-a14072f160f8",
+        "UniquenessHash": "62924ed1-3df5-0f9a-6224-84c982bc8f11",
         "TraceID": "miTls0RttReadKeyExported"
       },
       {
-        "UniquenessHash": "dfaeb8b5-339e-c0e7-7289-15228d5f084a",
+        "UniquenessHash": "8d41ac17-cc19-ff30-416c-12ae7c923697",
         "TraceID": "miTlsHandshakeReadKeyExported"
       },
       {
-        "UniquenessHash": "9d6d3263-01ca-a734-569a-07f0f9b5d3da",
+        "UniquenessHash": "9599bdf5-f88d-1c55-14e0-002504275857",
         "TraceID": "miTls1RttReadKeyExported"
       },
       {
-        "UniquenessHash": "6baedb0e-b86a-72c2-b3ec-341ef8235aa9",
+        "UniquenessHash": "c32ce9ed-2718-9c21-3941-0d396f310b07",
         "TraceID": "miTls0RttWriteKeyExported"
       },
       {
-        "UniquenessHash": "f42df196-45dc-9a31-96ef-31226467df0e",
+        "UniquenessHash": "19e92a4e-f285-ba6b-07b1-da02fca2abc1",
         "TraceID": "miTlsHandshakeWriteKeyExported"
       },
       {
-        "UniquenessHash": "74e3e2f2-0fb6-e892-57ac-85fcda2a4a7a",
+        "UniquenessHash": "a3d889c0-6287-a952-5ffc-962baba3f385",
         "TraceID": "miTls1RttWriteKeyExported"
       },
       {
-        "UniquenessHash": "d4d7056c-435c-b5b8-900c-f95f770ddb9d",
+        "UniquenessHash": "1de93daf-f0cc-3526-cfb2-991710ce62e7",
         "TraceID": "miTlsHandshakeWriteOffsetSet"
       },
       {
-        "UniquenessHash": "dbd24fcc-7265-6088-8693-f8fdfc7030b5",
+        "UniquenessHash": "3bd9fddf-61dd-c6d1-7a9c-556bc3fd3f36",
         "TraceID": "miTls1RttWriteOffsetSet"
       },
       {
-        "UniquenessHash": "71ed54f4-e631-7f1d-2d2e-65e1b533d8e5",
+        "UniquenessHash": "fd3bc330-21b0-5f55-a0b8-fbce37d05f7f",
         "TraceID": "miTlsFfiProcesComplete"
       },
       {
-        "UniquenessHash": "0bd9bfa0-b1eb-3e4a-234b-bf10c2013d9c",
+        "UniquenessHash": "2f9d4ff3-9bc0-b4ac-9af9-7b471979d88e",
         "TraceID": "miTlsOnCertSelect"
       },
       {
-        "UniquenessHash": "36f092f6-9fee-e5ec-bd11-6e3418458161",
+        "UniquenessHash": "b81c1737-2e57-74ea-0d6f-bdfc56f9dbe0",
         "TraceID": "miTlsOnNegotiate"
       },
       {
-        "UniquenessHash": "7f747d9f-de9d-f24e-44e1-a097950c0429",
+        "UniquenessHash": "961df930-03d7-f7b0-b465-131b9fc947c2",
         "TraceID": "miTlsProcessServerAlpn"
       },
       {
-        "UniquenessHash": "db04d0d6-a7a5-38c6-37a6-fa059a2b11f3",
+        "UniquenessHash": "1e62b183-ac78-836c-9477-ff59de86f05a",
         "TraceID": "miTlsOnCertFormat"
       },
       {
-        "UniquenessHash": "e175542b-2cfb-6134-82ad-89a84cb3a964",
+        "UniquenessHash": "bb8f34dc-4c0a-0098-1808-5c01c3617c46",
         "TraceID": "miTlsOnCertSign"
       },
       {
-        "UniquenessHash": "22fc0283-1a6e-1ee5-1c6e-901b14517e07",
+        "UniquenessHash": "5cd149f0-920f-642f-b028-a71e6e344763",
         "TraceID": "miTlsOnCertVerify"
       },
       {
-        "UniquenessHash": "deb3fa41-4cad-e7b7-a02c-478a669346bd",
+        "UniquenessHash": "6fe23659-1dd1-6708-5d2e-72652d95cebb",
         "TraceID": "miTlsRecvNewSessionTicket"
       },
       {
-        "UniquenessHash": "71d0a82e-145c-f936-f56e-7dcb4099b96e",
+        "UniquenessHash": "f9ad10ac-a0ce-3091-a8ea-c74b2d24f7f4",
         "TraceID": "TlsMessage"
       },
       {
-        "UniquenessHash": "9eac4540-061f-ff2b-c104-5c1e1b8b22b6",
+        "UniquenessHash": "f66e8f8c-3e9b-355b-2bf8-6d0b2ac0ca32",
         "TraceID": "TlsError"
       },
       {
-        "UniquenessHash": "69c5c25e-ab70-9800-8260-aa93a193bd8b",
+        "UniquenessHash": "3b179512-c860-d703-f964-a7a3762d9162",
         "TraceID": "OpenSslLogSecret"
       },
       {
-        "UniquenessHash": "c7b17ffc-7649-6294-b6d0-cf4bbf4bc8cb",
+        "UniquenessHash": "fe9ea809-2a72-df55-bad4-bf73ab20ca0d",
         "TraceID": "OpenSslAlert"
       },
       {
-        "UniquenessHash": "04956959-ecb5-9bea-dd79-ca22765f2c95",
+        "UniquenessHash": "40e48d77-b680-8f31-7bfa-92e21ce66659",
         "TraceID": "OpenSslHandshakeErrorStr"
       },
       {
-        "UniquenessHash": "f80224e1-7ca4-27b8-154f-fc7e85e79ec7",
+        "UniquenessHash": "d115a549-db65-6434-cbbb-fb98b7a9dbe2",
         "TraceID": "OpenSslHandshakeError"
       },
       {
-        "UniquenessHash": "c279cde0-f02f-b00b-6d26-e4b9b7a7f136",
+        "UniquenessHash": "64113458-a5f2-7784-d0c5-cada066c444d",
         "TraceID": "OpenSslAlpnNegotiationFailure"
       },
       {
-        "UniquenessHash": "9db25efa-f88e-4060-209f-1512595e2e48",
+        "UniquenessHash": "feddf111-1bdf-c726-0378-937c8c22eae6",
         "TraceID": "OpenSslInvalidAlpnLength"
       },
       {
-        "UniquenessHash": "ae3edb31-740c-da1e-7beb-1413f94a5af4",
+        "UniquenessHash": "f58ebc1c-2205-f709-e4b5-53fd67387dc1",
         "TraceID": "OpenSslNoMatchingAlpn"
       },
       {
-        "UniquenessHash": "b75cb1a1-4f18-b079-1f2f-c85b209e0bb2",
+        "UniquenessHash": "2edcc9da-4740-6549-5b9d-bab571f66c65",
         "TraceID": "OpenSslMissingTransportParameters"
       },
       {
-        "UniquenessHash": "adea8fef-9bdf-e9d9-63f2-64fefaea1bde",
+        "UniquenessHash": "3aa9759e-9a2a-8662-1c38-5b5558bbe4c2",
         "TraceID": "OpenSslHandshakeDataStart"
       },
       {
-        "UniquenessHash": "eaede67a-124b-3b3f-95ba-363d08546d2a",
+        "UniquenessHash": "0670c971-2a1a-123c-e5dc-46873b44a7d8",
         "TraceID": "OpenSsl1RttDataStart"
       },
       {
-        "UniquenessHash": "c4429bfe-e7df-7623-090b-4ab09187da8f",
+        "UniquenessHash": "95a44e80-7daf-6bbd-39dd-de0fa32cd1d4",
         "TraceID": "OpenSslContextReset"
       },
       {
-        "UniquenessHash": "a02a0e9d-57cd-0abf-1cd9-5a46076919b2",
+        "UniquenessHash": "656bc5e2-8058-607c-c6b2-8a5197764ddf",
         "TraceID": "OpenSslHandshakeComplete"
       },
       {
-        "UniquenessHash": "e9fe92dd-5582-f430-a385-ab63ebfd22c8",
+        "UniquenessHash": "4d3197dd-7d78-c99a-9377-71be8ca86a63",
         "TraceID": "OpenSslNewEncryptionSecrets"
       },
       {
-        "UniquenessHash": "286da584-4057-1b9b-c98f-83b7b936af68",
+        "UniquenessHash": "8d3b4706-c823-7bfd-8c88-160e6b0716d8",
         "TraceID": "OpenSslAddHandshakeData"
       },
       {
-        "UniquenessHash": "e1629f75-f460-8951-5138-b0602b8f4db0",
+        "UniquenessHash": "97739f61-0c3f-0003-e41d-426f7de44e67",
         "TraceID": "OpenSslContextCreated"
       },
       {
-        "UniquenessHash": "a241a44d-19e5-3ddd-03b3-2e65b093720f",
+        "UniquenessHash": "30191461-3a15-0637-816b-024f6a9e4565",
         "TraceID": "OpenSslContextCleaningUp"
       },
       {
-        "UniquenessHash": "cc5e9bc2-359a-36f2-27f3-a319e5aee533",
+        "UniquenessHash": "ea402784-dc4e-6e7b-fb83-a3c3733b3f90",
         "TraceID": "OpenSsslIgnoringTicket"
       },
       {
-        "UniquenessHash": "ff332af9-4ba2-95a8-bb2c-c5c729be4ccd",
+        "UniquenessHash": "05a8b43e-8d02-9fa9-6951-1ecd662864a6",
         "TraceID": "OpenSslProcessData"
       },
       {
-        "UniquenessHash": "a0f9d887-3cc8-3dd3-f2c7-8143878abe6e",
+        "UniquenessHash": "98b42db6-423b-a3a3-738b-8fea2738caf3",
         "TraceID": "SchannelInitialized"
       },
       {
-        "UniquenessHash": "b21a8d0d-c484-ac00-8081-90d5e8de9d1f",
+        "UniquenessHash": "dc4d33c7-36fd-a33f-aed4-5c3b0389d3c6",
         "TraceID": "SchannelUninitialized"
       },
       {
-        "UniquenessHash": "fd2f4dda-2c95-a301-6a5e-8dda859fd5c5",
+        "UniquenessHash": "e15e4e17-7b88-175a-3694-dfaef24ee5f1",
         "TraceID": "SchannelAchAsync"
       },
       {
-        "UniquenessHash": "03c8b552-99e5-6c8b-a95f-ba31e7b3149b",
+        "UniquenessHash": "3c4dd04f-0ac9-1bbd-ceeb-01e9acd8ef2d",
         "TraceID": "SchannelAchWorkerStart"
       },
       {
-        "UniquenessHash": "a1f31b13-badd-4de3-0620-3c8d413e7d49",
+        "UniquenessHash": "207b781c-3ff1-e536-138a-7538f2f8ea15",
         "TraceID": "SchannelAch"
       },
       {
-        "UniquenessHash": "7a6ea81a-5491-2148-a007-711c5a641acc",
+        "UniquenessHash": "1efea129-8130-92cc-88d8-7a8f4ff54a59",
         "TraceID": "SchannelAchCompleteInline"
       },
       {
-        "UniquenessHash": "c04de4b9-64de-c415-dda2-b07f295f9897",
+        "UniquenessHash": "f1a0ae1b-dcad-05bf-8529-afbd6d6a890f",
         "TraceID": "SchannelLogSecret"
       },
       {
-        "UniquenessHash": "d1939214-2593-326a-34c8-0b05b89e7468",
+        "UniquenessHash": "506fff07-fe65-8c0b-4bda-8c89c9e28d65",
         "TraceID": "SchannelContextReset"
       },
       {
-        "UniquenessHash": "799852e0-2f39-43d4-6888-98a33178b844",
+        "UniquenessHash": "d6b7a56b-33fe-62a5-f39b-60f6b4c4adcc",
         "TraceID": "SchannelHandshakeComplete"
       },
       {
-        "UniquenessHash": "4fd0cb41-bb79-5d9a-c799-172bb467970d",
+        "UniquenessHash": "f22637ab-adcb-550c-e090-d0a73a53cf05",
         "TraceID": "SchannelConsumedBytes"
       },
       {
-        "UniquenessHash": "eb856414-e192-4e49-572c-18139925d342",
+        "UniquenessHash": "8c0206ce-f2eb-7bcc-2b76-50e77f73d934",
         "TraceID": "SchannelReadHandshakeStart"
       },
       {
-        "UniquenessHash": "6c7d08b4-8448-c087-743f-73690c501946",
+        "UniquenessHash": "85048197-5fbd-3962-8b67-90400a88ca99",
         "TraceID": "SchannelRead1RttStart"
       },
       {
-        "UniquenessHash": "38faedd2-85a9-6145-38fb-11ec25de8777",
+        "UniquenessHash": "419efb6c-a250-ad71-8a68-4e5a0b8a971d",
         "TraceID": "SchannelWriteHandshakeStart"
       },
       {
-        "UniquenessHash": "59d54505-6178-e02b-252e-a09308888444",
+        "UniquenessHash": "137a1d42-ecda-c308-1e0c-a2eb5c9a0b89",
         "TraceID": "SchannelWrite1RttStart"
       },
       {
-        "UniquenessHash": "376c2752-488a-f7aa-91ef-900cfc5c9105",
+        "UniquenessHash": "275da90b-4c6f-b666-afd1-a2da835c53a6",
         "TraceID": "SchannelProducedData"
       },
       {
-        "UniquenessHash": "1197fc0e-03e3-58cf-6637-f912c96fa67b",
+        "UniquenessHash": "ce73a8de-6954-fc71-3511-f73139ee5f82",
         "TraceID": "SchannelMissingData"
       },
       {
-        "UniquenessHash": "18fa206f-59b9-158c-7fa9-904ae6cb9663",
+        "UniquenessHash": "ce3a82c8-d1dc-8640-92bb-1c98838c4e47",
         "TraceID": "SchannelContextCreated"
       },
       {
-        "UniquenessHash": "771d2d3f-b8cd-0a3d-ac59-eac4d476390e",
+        "UniquenessHash": "2f852515-67b2-f114-e9c2-1991c404ffaa",
         "TraceID": "SchannelContextCleaningUp"
       },
       {
-        "UniquenessHash": "d5458244-ce44-333d-c01e-4739a7e39567",
+        "UniquenessHash": "f64b18f3-d445-0c78-32a3-97bdb91bb19a",
         "TraceID": "SchannelKeyReady"
       },
       {
-        "UniquenessHash": "8fcfd765-ba83-53f1-a0bc-6992c51d42bd",
+        "UniquenessHash": "d918f86b-28e8-473e-19e9-eb353e901404",
         "TraceID": "SchannelIgnoringTicket"
       },
       {
-        "UniquenessHash": "183e91b7-6ad7-7a8b-0d77-94004bde6757",
+        "UniquenessHash": "0111c5ef-d097-ae5b-8a50-1cbd57dad113",
         "TraceID": "SchannelProcessingData"
       },
       {
-        "UniquenessHash": "7312d23f-2305-b54b-e1da-81597fabe281",
+        "UniquenessHash": "893eacd8-8c6d-e2dd-6b89-24c5b1d7baa5",
         "TraceID": "TlsErrorStatus"
       },
       {
-        "UniquenessHash": "64ef2389-7553-24d5-62f5-94fa1ab55eac",
+        "UniquenessHash": "e6d20ffc-7fe5-e6c9-8740-78db39cbc0a4",
         "TraceID": "StubTlsCertValidationDisabled"
       },
       {
-        "UniquenessHash": "ae0cc427-609d-ce4f-004d-6ef2c2d6c540",
+        "UniquenessHash": "fefe2cb6-5fe6-f8fe-25e1-4c34c6f0b2b8",
         "TraceID": "StubTlsContextReset"
       },
       {
-        "UniquenessHash": "2ca06c46-059c-c3e2-a6db-dc8f0d6292eb",
+        "UniquenessHash": "5ceeaa61-4667-1a33-8022-d3204c4f1d25",
         "TraceID": "StubTlsHandshakeComplete"
       },
       {
-        "UniquenessHash": "27a202b6-2090-aed6-26c8-4b193f0cb901",
+        "UniquenessHash": "b664a536-1337-1d5b-392e-d7a052211fb9",
         "TraceID": "StubTlsConsumedData"
       },
       {
-        "UniquenessHash": "8671265f-83a7-8d8f-4fac-ea0d14b9da84",
+        "UniquenessHash": "48f223d0-a7a3-e95d-caf4-5d5726427168",
         "TraceID": "StubTlsProducedData"
       },
       {
-        "UniquenessHash": "d3788ab1-cacd-d552-e06c-2e7bee8b6da9",
+        "UniquenessHash": "a80c1d38-ffee-fe37-15c1-8b000347d7e6",
         "TraceID": "StubTlsContextCreated"
       },
       {
-        "UniquenessHash": "16a301c5-8f8d-0d34-6fb9-0a608367097e",
+        "UniquenessHash": "0eba0e1c-f57e-1a98-f0a1-0ea7b01aabe3",
         "TraceID": "StubTlsUsing0Rtt"
       },
       {
-        "UniquenessHash": "068a93f4-8ad9-2eae-53e9-44da62c39494",
+        "UniquenessHash": "502bedcb-6afa-1f65-66e1-ae3024cd97fe",
         "TraceID": "StubTlsContextCleaningUp"
       },
       {
-        "UniquenessHash": "9ca0fd16-2037-7132-3b3f-25691460af7f",
+        "UniquenessHash": "aad34237-16ae-931a-f112-4ad18311f785",
         "TraceID": "StubTlsRecvNewSessionTicket"
       },
       {
-        "UniquenessHash": "9b5f99a0-b1b6-bae7-12fd-89f89d1f1667",
+        "UniquenessHash": "18adf10d-4f00-518d-e368-45cf5573970e",
         "TraceID": "StubTlsProcessData"
       }
     ]

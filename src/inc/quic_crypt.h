@@ -75,7 +75,7 @@ typedef enum CXPLAT_AEAD_TYPE_SIZE {
 
 inline
 uint16_t
-QuicKeyLength(
+CxPlatKeyLength(
     CXPLAT_AEAD_TYPE Type
     )
 {
@@ -112,7 +112,7 @@ typedef enum CXPLAT_HASH_TYPE_SIZE {
 
 inline
 uint16_t
-QuicHashLength(
+CxPlatHashLength(
     CXPLAT_HASH_TYPE Type
     )
 {
@@ -167,7 +167,7 @@ _IRQL_requires_max_(DISPATCH_LEVEL)
 _When_(ReadKey != NULL, _At_(*ReadKey, __drv_allocatesMem(Mem)))
 _When_(WriteKey != NULL, _At_(*WriteKey, __drv_allocatesMem(Mem)))
 CXPLAT_STATUS
-QuicPacketKeyCreateInitial(
+CxPlatPacketKeyCreateInitial(
     _In_ BOOLEAN IsServer,
     _In_reads_(CXPLAT_VERSION_SALT_LENGTH)
         const uint8_t* const Salt,  // Version Specific
@@ -183,7 +183,7 @@ QuicPacketKeyCreateInitial(
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 void
-QuicPacketKeyFree(
+CxPlatPacketKeyFree(
     _In_opt_ __drv_freesMem(Mem) CXPLAT_PACKET_KEY* Key
     );
 
@@ -193,14 +193,14 @@ QuicPacketKeyFree(
 _IRQL_requires_max_(DISPATCH_LEVEL)
 _At_(*NewKey, __drv_allocatesMem(Mem))
 CXPLAT_STATUS
-QuicPacketKeyUpdate(
+CxPlatPacketKeyUpdate(
     _In_ CXPLAT_PACKET_KEY* OldKey,
     _Out_ CXPLAT_PACKET_KEY** NewKey
     );
 
 _IRQL_requires_max_(DISPATCH_LEVEL)
 CXPLAT_STATUS
-QuicKeyCreate(
+CxPlatKeyCreate(
     _In_ CXPLAT_AEAD_TYPE AeadType,
     _When_(AeadType == CXPLAT_AEAD_AES_128_GCM, _In_reads_(16))
     _When_(AeadType == CXPLAT_AEAD_AES_256_GCM, _In_reads_(32))
@@ -211,7 +211,7 @@ QuicKeyCreate(
 
 _IRQL_requires_max_(DISPATCH_LEVEL)
 CXPLAT_STATUS
-QuicPacketKeyDerive(
+CxPlatPacketKeyDerive(
     _In_ CXPLAT_PACKET_KEY_TYPE KeyType,
     _In_ const CXPLAT_SECRET* const Secret,
     _In_z_ const char* const SecretName,
@@ -221,7 +221,7 @@ QuicPacketKeyDerive(
 
 _IRQL_requires_max_(DISPATCH_LEVEL)
 void
-QuicKeyFree(
+CxPlatKeyFree(
     _In_opt_ CXPLAT_KEY* Key
     );
 
@@ -231,7 +231,7 @@ static_assert(
 
 inline
 void
-QuicCryptoCombineIvAndPacketNumber(
+CxPlatCryptoCombineIvAndPacketNumber(
     _In_reads_bytes_(CXPLAT_IV_LENGTH)
         const uint8_t* const IvIn,
     _In_reads_bytes_(sizeof(uint64_t))
@@ -268,7 +268,7 @@ QuicCryptoCombineIvAndPacketNumber(
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 CXPLAT_STATUS
-QuicEncrypt(
+CxPlatEncrypt(
     _In_ CXPLAT_KEY* Key,
     _In_reads_bytes_(CXPLAT_IV_LENGTH)
         const uint8_t* const Iv,
@@ -288,7 +288,7 @@ QuicEncrypt(
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 CXPLAT_STATUS
-QuicDecrypt(
+CxPlatDecrypt(
     _In_ CXPLAT_KEY* Key,
     _In_reads_bytes_(CXPLAT_IV_LENGTH)
         const uint8_t* const Iv,
@@ -302,7 +302,7 @@ QuicDecrypt(
 
 _IRQL_requires_max_(DISPATCH_LEVEL)
 CXPLAT_STATUS
-QuicHpKeyCreate(
+CxPlatHpKeyCreate(
     _In_ CXPLAT_AEAD_TYPE AeadType,
     _When_(AeadType == CXPLAT_AEAD_AES_128_GCM, _In_reads_(16))
     _When_(AeadType == CXPLAT_AEAD_AES_256_GCM, _In_reads_(32))
@@ -313,7 +313,7 @@ QuicHpKeyCreate(
 
 _IRQL_requires_max_(DISPATCH_LEVEL)
 void
-QuicHpKeyFree(
+CxPlatHpKeyFree(
     _In_opt_ CXPLAT_HP_KEY* Key
     );
 
@@ -323,7 +323,7 @@ QuicHpKeyFree(
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 CXPLAT_STATUS
-QuicHpComputeMask(
+CxPlatHpComputeMask(
     _In_ CXPLAT_HP_KEY* Key,
     _In_ uint8_t BatchSize,
     _In_reads_bytes_(CXPLAT_HP_SAMPLE_LENGTH * BatchSize)
@@ -334,7 +334,7 @@ QuicHpComputeMask(
 
 _IRQL_requires_max_(DISPATCH_LEVEL)
 CXPLAT_STATUS
-QuicHashCreate(
+CxPlatHashCreate(
     _In_ CXPLAT_HASH_TYPE HashType,
     _In_reads_(SaltLength)
         const uint8_t* const Salt,
@@ -344,18 +344,18 @@ QuicHashCreate(
 
 _IRQL_requires_max_(DISPATCH_LEVEL)
 void
-QuicHashFree(
+CxPlatHashFree(
     _In_opt_ CXPLAT_HASH* Hash
     );
 
 _IRQL_requires_max_(DISPATCH_LEVEL)
 CXPLAT_STATUS
-QuicHashCompute(
+CxPlatHashCompute(
     _In_ CXPLAT_HASH* Hash,
     _In_reads_(InputLength)
         const uint8_t* const Input,
     _In_ uint32_t InputLength,
-    _In_ uint32_t OutputLength, // QuicHashLength(HashType)
+    _In_ uint32_t OutputLength, // CxPlatHashLength(HashType)
     _Out_writes_all_(OutputLength)
         uint8_t* const Output
     );

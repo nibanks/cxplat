@@ -96,14 +96,14 @@ DEFINE_ENUM_FLAG_OPERATORS(CXPLAT_THREAD_FLAGS);
 #error "Unsupported Platform"
 #endif
 
-#define QuicListEntryValidate(Entry) \
+#define CxPlatListEntryValidate(Entry) \
     CXPLAT_DBG_ASSERT( \
         (((Entry->Flink)->Blink) == Entry) && \
         (((Entry->Blink)->Flink) == Entry))
 
 FORCEINLINE
 void
-QuicListInitializeHead(
+CxPlatListInitializeHead(
     _Out_ CXPLAT_LIST_ENTRY* ListHead
     )
 {
@@ -113,7 +113,7 @@ QuicListInitializeHead(
 _Must_inspect_result_
 FORCEINLINE
 BOOLEAN
-QuicListIsEmpty(
+CxPlatListIsEmpty(
     _In_ const CXPLAT_LIST_ENTRY* ListHead
     )
 {
@@ -122,12 +122,12 @@ QuicListIsEmpty(
 
 FORCEINLINE
 void
-QuicListInsertHead(
+CxPlatListInsertHead(
     _Inout_ CXPLAT_LIST_ENTRY* ListHead,
     _Out_ __drv_aliasesMem CXPLAT_LIST_ENTRY* Entry
     )
 {
-    QuicListEntryValidate(ListHead);
+    CxPlatListEntryValidate(ListHead);
     CXPLAT_LIST_ENTRY* Flink = ListHead->Flink;
     Entry->Flink = Flink;
     Entry->Blink = ListHead;
@@ -137,12 +137,12 @@ QuicListInsertHead(
 
 FORCEINLINE
 void
-QuicListInsertTail(
+CxPlatListInsertTail(
     _Inout_ CXPLAT_LIST_ENTRY* ListHead,
     _Inout_ __drv_aliasesMem CXPLAT_LIST_ENTRY* Entry
     )
 {
-    QuicListEntryValidate(ListHead);
+    CxPlatListEntryValidate(ListHead);
     CXPLAT_LIST_ENTRY* Blink = ListHead->Blink;
     Entry->Flink = ListHead;
     Entry->Blink = Blink;
@@ -152,11 +152,11 @@ QuicListInsertTail(
 
 FORCEINLINE
 CXPLAT_LIST_ENTRY*
-QuicListRemoveHead(
+CxPlatListRemoveHead(
     _Inout_ CXPLAT_LIST_ENTRY* ListHead
     )
 {
-    QuicListEntryValidate(ListHead);
+    CxPlatListEntryValidate(ListHead);
     CXPLAT_LIST_ENTRY* Entry = ListHead->Flink;
     CXPLAT_LIST_ENTRY* Flink = Entry->Flink;
     ListHead->Flink = Flink;
@@ -166,11 +166,11 @@ QuicListRemoveHead(
 
 FORCEINLINE
 BOOLEAN
-QuicListEntryRemove(
+CxPlatListEntryRemove(
     _In_ CXPLAT_LIST_ENTRY* Entry
     )
 {
-    QuicListEntryValidate(Entry);
+    CxPlatListEntryValidate(Entry);
     CXPLAT_LIST_ENTRY* Flink = Entry->Flink;
     CXPLAT_LIST_ENTRY* Blink = Entry->Blink;
     Blink->Flink = Flink;
@@ -180,7 +180,7 @@ QuicListEntryRemove(
 
 inline
 void
-QuicListMoveItems(
+CxPlatListMoveItems(
     _Inout_ CXPLAT_LIST_ENTRY* Source,
     _Inout_ CXPLAT_LIST_ENTRY* Destination
     )
@@ -188,9 +188,9 @@ QuicListMoveItems(
     //
     // If there are items, copy them.
     //
-    if (!QuicListIsEmpty(Source)) {
+    if (!CxPlatListIsEmpty(Source)) {
 
-        if (QuicListIsEmpty(Destination)) {
+        if (CxPlatListIsEmpty(Destination)) {
 
             //
             // Copy the links of the Source.
@@ -223,13 +223,13 @@ QuicListMoveItems(
         //
         // Reset the Source to empty list.
         //
-        QuicListInitializeHead(Source);
+        CxPlatListInitializeHead(Source);
     }
 }
 
 FORCEINLINE
 void
-QuicListPushEntry(
+CxPlatListPushEntry(
     _Inout_ CXPLAT_SINGLE_LIST_ENTRY* ListHead,
     _Inout_ __drv_aliasesMem CXPLAT_SINGLE_LIST_ENTRY* Entry
     )
@@ -240,7 +240,7 @@ QuicListPushEntry(
 
 FORCEINLINE
 CXPLAT_SINGLE_LIST_ENTRY*
-QuicListPopEntry(
+CxPlatListPopEntry(
     _Inout_ CXPLAT_SINGLE_LIST_ENTRY* ListHead
     )
 {
@@ -273,13 +273,13 @@ typedef enum CXPLAT_SELF_SIGN_CERT_TYPE {
 
 _IRQL_requires_max_(PASSIVE_LEVEL)
 const CXPLAT_CREDENTIAL_CONFIG*
-QuicPlatGetSelfSignedCert(
+CxPlatPlatGetSelfSignedCert(
     _In_ CXPLAT_SELF_SIGN_CERT_TYPE Type
     );
 
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicPlatFreeSelfSignedCert(
+CxPlatPlatFreeSelfSignedCert(
     _In_ const CXPLAT_CREDENTIAL_CONFIG* CredConfig
     );
 

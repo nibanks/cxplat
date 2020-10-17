@@ -28,7 +28,7 @@ Abstract:
 // Generates a self signed cert using low level OpenSSL APIs.
 //
 CXPLAT_STATUS
-QuicTlsGenerateSelfSignedCert(
+CxPlatTlsGenerateSelfSignedCert(
     _In_z_ char *CertFileName,
     _In_z_ char *PrivateKeyFileName,
     _In_z_ char *SNI
@@ -45,7 +45,7 @@ QuicTlsGenerateSelfSignedCert(
     PKey = EVP_PKEY_new();
 
     if (PKey == NULL) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "EVP_PKEY_new() failed");
@@ -55,7 +55,7 @@ QuicTlsGenerateSelfSignedCert(
 
     EcKeyCtx = EVP_PKEY_CTX_new_id(EVP_PKEY_RSA, NULL);
     if (EcKeyCtx == NULL) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "EVP_PKEY_CTX_new_id() failed");
@@ -65,7 +65,7 @@ QuicTlsGenerateSelfSignedCert(
 
     Ret = EVP_PKEY_keygen_init(EcKeyCtx);
     if (Ret != 1) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "EVP_PKEY_keygen_init() failed");
@@ -75,7 +75,7 @@ QuicTlsGenerateSelfSignedCert(
 
     Ret = EVP_PKEY_keygen(EcKeyCtx, &PKey);
     if (Ret != 1) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "EVP_PKEY_keygen() failed");
@@ -86,7 +86,7 @@ QuicTlsGenerateSelfSignedCert(
     X509 = X509_new();
 
     if (X509 == NULL) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "X509_new() failed");
@@ -97,7 +97,7 @@ QuicTlsGenerateSelfSignedCert(
     Ret = ASN1_INTEGER_set(X509_get_serialNumber(X509), 1);
 
     if (Ret != 1) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "ASN1_INTEGER_set() failed");
@@ -123,7 +123,7 @@ QuicTlsGenerateSelfSignedCert(
             0);
 
     if (Ret != 1) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "X509_NAME_add_entry_by_txt() failed");
@@ -142,7 +142,7 @@ QuicTlsGenerateSelfSignedCert(
             0);
 
     if (Ret != 1) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "X509_NAME_add_entry_by_txt() failed");
@@ -161,7 +161,7 @@ QuicTlsGenerateSelfSignedCert(
             0);
 
     if (Ret != 1) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "X509_NAME_add_entry_by_txt() failed");
@@ -172,7 +172,7 @@ QuicTlsGenerateSelfSignedCert(
     Ret = X509_set_issuer_name(X509, Name);
 
     if (Ret != 1) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "X509_set_issuer_name() failed");
@@ -183,7 +183,7 @@ QuicTlsGenerateSelfSignedCert(
     Ret = X509_sign(X509, PKey, EVP_sha256());
 
     if (Ret <= 0) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "X509_sign() failed");
@@ -194,7 +194,7 @@ QuicTlsGenerateSelfSignedCert(
     Fd = fopen(PrivateKeyFileName, "wb");
 
     if (Fd == NULL) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "fopen() failed");
@@ -205,7 +205,7 @@ QuicTlsGenerateSelfSignedCert(
     Ret = PEM_write_PrivateKey(Fd, PKey, NULL, NULL, 0, NULL, NULL);
 
     if (Ret != 1) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "PEM_write_PrivateKey() failed");
@@ -219,7 +219,7 @@ QuicTlsGenerateSelfSignedCert(
     Fd = fopen(CertFileName, "wb");
 
     if (Fd == NULL) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "fopen() failed");
@@ -230,7 +230,7 @@ QuicTlsGenerateSelfSignedCert(
     Ret = PEM_write_X509(Fd, X509);
 
     if (Ret != 1) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "PEM_write_X509() failed");
@@ -266,8 +266,8 @@ Exit:
     return Status;
 }
 
-static char* QuicTestCertFilename = (char*)"localhost_cert.pem";
-static char* QuicTestPrivateKeyFilename = (char*)"localhost_key.pem";
+static char* CxPlatTestCertFilename = (char*)"localhost_cert.pem";
+static char* CxPlatTestPrivateKeyFilename = (char*)"localhost_key.pem";
 
 #ifndef MAX_PATH
 #define MAX_PATH 50
@@ -290,7 +290,7 @@ typedef struct CXPLAT_CREDENTIAL_CONFIG_INTERNAL {
 
 _IRQL_requires_max_(PASSIVE_LEVEL)
 const CXPLAT_CREDENTIAL_CONFIG*
-QuicPlatGetSelfSignedCert(
+CxPlatPlatGetSelfSignedCert(
     _In_ CXPLAT_SELF_SIGN_CERT_TYPE Type
     )
 {
@@ -302,7 +302,7 @@ QuicPlatGetSelfSignedCert(
         return NULL;
     }
 
-    QuicZeroMemory(Params, sizeof(*Params));
+    CxPlatZeroMemory(Params, sizeof(*Params));
     Params->Type = CXPLAT_CREDENTIAL_TYPE_CERTIFICATE_FILE;
     Params->CertificateFile = &Params->CertFile;
     Params->CertFile.CertificateFile = Params->CertFilepath;
@@ -312,7 +312,7 @@ QuicPlatGetSelfSignedCert(
 
     DWORD PathStatus = GetTempPathA(sizeof(Params->TempPath), Params->TempPath);
     if (PathStatus > MAX_PATH || PathStatus <= 0) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "GetTempPathA failed");
@@ -326,7 +326,7 @@ QuicPlatGetSelfSignedCert(
             0,
             Params->CertFilepath);
     if (TempFileStatus == 0) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "GetTempFileNameA Cert Path failed");
@@ -340,7 +340,7 @@ QuicPlatGetSelfSignedCert(
             0,
             Params->PrivateKeyFilepath);
     if (TempFileStatus == 0) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "GetTempFileNameA Private Key failed");
@@ -353,41 +353,41 @@ QuicPlatGetSelfSignedCert(
 
     Params->TempDir = mkdtemp(Template);
     if (Params->TempDir == NULL) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "mkdtemp failed");
         goto Error;
     }
 
-    QuicCopyMemory(
+    CxPlatCopyMemory(
         Params->CertFilepath,
         Params->TempDir,
         strlen(Params->TempDir));
-    QuicCopyMemory(
+    CxPlatCopyMemory(
         Params->CertFilepath + strlen(Params->TempDir),
         "/",
         1);
-    QuicCopyMemory(
+    CxPlatCopyMemory(
         Params->CertFilepath + strlen(Params->TempDir) + 1,
-        QuicTestCertFilename,
-        strlen(QuicTestCertFilename));
-    QuicCopyMemory(
+        CxPlatTestCertFilename,
+        strlen(CxPlatTestCertFilename));
+    CxPlatCopyMemory(
         Params->PrivateKeyFilepath,
         Params->TempDir,
         strlen(Params->TempDir));
-    QuicCopyMemory(
+    CxPlatCopyMemory(
         Params->PrivateKeyFilepath + strlen(Params->TempDir),
         "/",
         1);
-    QuicCopyMemory(
+    CxPlatCopyMemory(
         Params->PrivateKeyFilepath + strlen(Params->TempDir) + 1,
-        QuicTestPrivateKeyFilename,
-        strlen(QuicTestPrivateKeyFilename));
+        CxPlatTestPrivateKeyFilename,
+        strlen(CxPlatTestPrivateKeyFilename));
 #endif
 
     if (CXPLAT_FAILED(
-        QuicTlsGenerateSelfSignedCert(
+        CxPlatTlsGenerateSelfSignedCert(
             Params->CertFilepath,
             Params->PrivateKeyFilepath,
             (char *)"localhost"))) {
@@ -409,7 +409,7 @@ Error:
 
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicPlatFreeSelfSignedCert(
+CxPlatPlatFreeSelfSignedCert(
     _In_ const CXPLAT_CREDENTIAL_CONFIG* _Params
     )
 {
@@ -424,7 +424,7 @@ QuicPlatFreeSelfSignedCert(
     strncpy(RmCmd, "rm -rf ", 7 + 1);
     strcat(RmCmd, Params->TempDir);
     if (system(RmCmd) == -1) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "Tempdir del error");

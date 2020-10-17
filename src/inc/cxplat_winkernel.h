@@ -103,9 +103,9 @@ typedef UINT64 uint64_t;
 // Swaps byte orders between host and network endianness.
 //
 #ifdef RtlUshortByteSwap
-#define QuicNetByteSwapShort(x) RtlUshortByteSwap(x)
+#define CxPlatNetByteSwapShort(x) RtlUshortByteSwap(x)
 #else
-#define QuicNetByteSwapShort(x) ((uint16_t)((((x) & 0x00ff) << 8) | (((x) & 0xff00) >> 8)))
+#define CxPlatNetByteSwapShort(x) ((uint16_t)((((x) & 0x00ff) << 8) | (((x) & 0xff00) >> 8)))
 #endif
 
 //
@@ -127,7 +127,7 @@ typedef SOCKADDR_INET CXPLAT_ADDR;
 
 inline
 BOOLEAN
-QuicAddrIsValid(
+CxPlatAddrIsValid(
     _In_ const CXPLAT_ADDR* const Addr
     )
 {
@@ -139,7 +139,7 @@ QuicAddrIsValid(
 
 inline
 BOOLEAN
-QuicAddrCompareIp(
+CxPlatAddrCompareIp(
     _In_ const CXPLAT_ADDR* const Addr1,
     _In_ const CXPLAT_ADDR* const Addr2
     )
@@ -153,7 +153,7 @@ QuicAddrCompareIp(
 
 inline
 BOOLEAN
-QuicAddrCompare(
+CxPlatAddrCompare(
     _In_ const CXPLAT_ADDR* const Addr1,
     _In_ const CXPLAT_ADDR* const Addr2
     )
@@ -162,12 +162,12 @@ QuicAddrCompare(
         Addr1->Ipv4.sin_port != Addr2->Ipv4.sin_port) {
         return FALSE;
     }
-    return QuicAddrCompareIp(Addr1, Addr2);
+    return CxPlatAddrCompareIp(Addr1, Addr2);
 }
 
 inline
 BOOLEAN
-QuicAddrIsWildCard(
+CxPlatAddrIsWildCard(
     _In_ const CXPLAT_ADDR* const Addr
     )
 {
@@ -184,7 +184,7 @@ QuicAddrIsWildCard(
 
 inline
 CXPLAT_ADDRESS_FAMILY
-QuicAddrGetFamily(
+CxPlatAddrGetFamily(
     _In_ const CXPLAT_ADDR* const Addr
     )
 {
@@ -193,7 +193,7 @@ QuicAddrGetFamily(
 
 inline
 void
-QuicAddrSetFamily(
+CxPlatAddrSetFamily(
     _Out_ CXPLAT_ADDR* Addr,
     _In_ CXPLAT_ADDRESS_FAMILY Family
     )
@@ -203,26 +203,26 @@ QuicAddrSetFamily(
 
 inline
 uint16_t // Returns in host byte order.
-QuicAddrGetPort(
+CxPlatAddrGetPort(
     _In_ const CXPLAT_ADDR* const Addr
     )
 {
-    return QuicNetByteSwapShort(Addr->Ipv4.sin_port);
+    return CxPlatNetByteSwapShort(Addr->Ipv4.sin_port);
 }
 
 inline
 void
-QuicAddrSetPort(
+CxPlatAddrSetPort(
     _Inout_ CXPLAT_ADDR* Addr,
     _In_ uint16_t Port // Host byte order
     )
 {
-    Addr->Ipv4.sin_port = QuicNetByteSwapShort(Port);
+    Addr->Ipv4.sin_port = CxPlatNetByteSwapShort(Port);
 }
 
 inline
 void
-QuicAddrSetToLoopback(
+CxPlatAddrSetToLoopback(
     _Inout_ CXPLAT_ADDR* Addr
     )
 {
@@ -239,7 +239,7 @@ QuicAddrSetToLoopback(
 //
 inline
 void
-QuicAddrIncrement(
+CxPlatAddrIncrement(
     _Inout_ CXPLAT_ADDR* Addr
     )
 {
@@ -252,7 +252,7 @@ QuicAddrIncrement(
 
 inline
 uint32_t
-QuicAddrHash(
+CxPlatAddrHash(
     _In_ const CXPLAT_ADDR* Addr
     )
 {
@@ -278,13 +278,13 @@ QuicAddrHash(
 
 inline
 BOOLEAN
-QuicAddrFromString(
+CxPlatAddrFromString(
     _In_z_ const char* AddrStr,
     _In_ uint16_t Port, // Host byte order
     _Out_ CXPLAT_ADDR* Addr
     )
 {
-    Addr->Ipv4.sin_port = QuicNetByteSwapShort(Port);
+    Addr->Ipv4.sin_port = CxPlatNetByteSwapShort(Port);
     if (RtlIpv4StringToAddressExA(AddrStr, FALSE, &Addr->Ipv4.sin_addr, &Addr->Ipv4.sin_port) == STATUS_SUCCESS) {
         Addr->si_family = CXPLAT_ADDRESS_FAMILY_INET;
     } else if (RtlIpv6StringToAddressExA(AddrStr, &Addr->Ipv6.sin6_addr, &Addr->Ipv6.sin6_scope_id, &Addr->Ipv6.sin6_port) == STATUS_SUCCESS) {
@@ -304,7 +304,7 @@ typedef struct CXPLAT_ADDR_STR {
 
 inline
 BOOLEAN
-QuicAddrToString(
+CxPlatAddrToString(
     _In_ const CXPLAT_ADDR* Addr,
     _Out_ CXPLAT_ADDR_STR* AddrStr
     )

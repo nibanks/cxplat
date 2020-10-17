@@ -273,7 +273,7 @@ PopulatePaddingParams(
 }
 
 BOOLEAN
-QuicCertMatchHash(
+CxPlatCertMatchHash(
     _In_ PCCERT_CONTEXT CertContext,
     _In_reads_(20) const UINT8 InputCertHash[20]
     )
@@ -285,7 +285,7 @@ QuicCertMatchHash(
             CERT_HASH_PROP_ID,
             CertHash,
             &CertHashLength)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             GetLastError(),
@@ -293,7 +293,7 @@ QuicCertMatchHash(
         return FALSE;
     }
     if (CertHashLength != sizeof(CertHash)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             CertHashLength,
@@ -304,7 +304,7 @@ QuicCertMatchHash(
 }
 
 BOOLEAN
-QuicCertMatchPrincipal(
+CxPlatCertMatchPrincipal(
     _In_ PCCERT_CONTEXT CertContext,
     _In_z_ const char* Principal
     )
@@ -361,7 +361,7 @@ Exit:
 }
 
 PCCERT_CONTEXT
-QuicCertStoreFind(
+CxPlatCertStoreFind(
     _In_ HCERTSTORE CertStore,
     _In_reads_opt_(20) const UINT8 CertHash[20],
     _In_opt_z_ const char* Principal
@@ -384,11 +384,11 @@ QuicCertStoreFind(
                 PrevCertCtx)) != NULL;
         PrevCertCtx = CertCtx) {
 
-        if (CertHash != NULL && !QuicCertMatchHash(CertCtx, CertHash)) {
+        if (CertHash != NULL && !CxPlatCertMatchHash(CertCtx, CertHash)) {
             continue;
         }
 
-        if (Principal != NULL && !QuicCertMatchPrincipal(CertCtx, Principal)) {
+        if (Principal != NULL && !CxPlatCertMatchPrincipal(CertCtx, Principal)) {
             continue;
         }
 
@@ -399,7 +399,7 @@ QuicCertStoreFind(
 }
 
 CXPLAT_STATUS
-QuicCertLookupHash(
+CxPlatCertLookupHash(
     _In_opt_ const CXPLAT_CERTIFICATE_HASH* CertHash,
     _In_opt_z_ const char* Principal,
     _Out_ CXPLAT_CERTIFICATE** NewCertificate
@@ -423,7 +423,7 @@ QuicCertLookupHash(
     }
 
     PCCERT_CONTEXT CertCtx =
-        QuicCertStoreFind(
+        CxPlatCertStoreFind(
             CertStore,
             CertHash == NULL ? NULL : CertHash->ShaHash,
             Principal);
@@ -445,7 +445,7 @@ Exit:
 }
 
 CXPLAT_STATUS
-QuicCertLookupHashStore(
+CxPlatCertLookupHashStore(
     _In_ const CXPLAT_CERTIFICATE_HASH_STORE* CertHashStore,
     _In_opt_z_ const char* Principal,
     _Out_ CXPLAT_CERTIFICATE** NewCertificate
@@ -469,7 +469,7 @@ QuicCertLookupHashStore(
             CertHashStore->StoreName);
     if (CertStore == NULL) {
         Status = HRESULT_FROM_WIN32(GetLastError());
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             Status,
@@ -478,7 +478,7 @@ QuicCertLookupHashStore(
     }
 
     PCCERT_CONTEXT CertCtx =
-        QuicCertStoreFind(
+        CxPlatCertStoreFind(
             CertStore,
             CertHashStore->ShaHash,
             Principal);
@@ -500,7 +500,7 @@ Exit:
 }
 
 CXPLAT_STATUS
-QuicCertCreate(
+CxPlatCertCreate(
     _In_ const CXPLAT_CREDENTIAL_CONFIG* CredConfig,
     _Out_ CXPLAT_CERTIFICATE** NewCertificate
     )
@@ -512,7 +512,7 @@ QuicCertCreate(
             Status = CXPLAT_STATUS_INVALID_PARAMETER;
         } else {
             Status =
-                QuicCertLookupHash(
+                CxPlatCertLookupHash(
                     CredConfig->CertificateHash,
                     CredConfig->Principal,
                     NewCertificate);
@@ -523,7 +523,7 @@ QuicCertCreate(
             Status = CXPLAT_STATUS_INVALID_PARAMETER;
         } else {
             Status =
-                QuicCertLookupHashStore(
+                CxPlatCertLookupHashStore(
                     CredConfig->CertificateHashStore,
                     CredConfig->Principal,
                     NewCertificate);
@@ -545,7 +545,7 @@ QuicCertCreate(
 }
 
 void
-QuicCertFree(
+CxPlatCertFree(
     _In_ CXPLAT_CERTIFICATE* Certificate
     )
 {
@@ -554,7 +554,7 @@ QuicCertFree(
 
 _Success_(return != FALSE)
 BOOLEAN
-QuicCertSelect(
+CxPlatCertSelect(
     _In_opt_ PCCERT_CONTEXT CertCtx,
     _In_reads_(SignatureAlgorithmsLength)
         const UINT16 *SignatureAlgorithms,
@@ -590,7 +590,7 @@ QuicCertSelect(
 
 _Success_(return != NULL)
 CXPLAT_CERTIFICATE*
-QuicCertParseChain(
+CxPlatCertParseChain(
     _In_ size_t ChainBufferLength,
     _In_reads_(ChainBufferLength) const BYTE *ChainBuffer
     )
@@ -605,7 +605,7 @@ QuicCertParseChain(
             CERT_STORE_DEFER_CLOSE_UNTIL_LAST_FREE_FLAG,
             0);
     if (TempStore == NULL) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             GetLastError(),
@@ -631,7 +631,7 @@ QuicCertParseChain(
                 CertLength,
                 CERT_STORE_ADD_USE_EXISTING,
                 &CertCtx)) {
-            QuicTraceEvent(
+            CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             GetLastError(),
@@ -650,14 +650,14 @@ QuicCertParseChain(
     }
 
     if (ChainBufferLength != 0) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "Not all cert bytes were processed");
         goto Error;
     }
 
-    QuicTraceLogVerbose(
+    CxPlatTraceLogVerbose(
         CertCapiParsedChain,
         "[cert] Successfully parsed chain of %u certificate(s)",
         CertNumber);
@@ -682,7 +682,7 @@ Exit:
 
 _Success_(return != 0)
 size_t
-QuicCertFormat(
+CxPlatCertFormat(
     _In_opt_ CXPLAT_CERTIFICATE* Certificate,
     _In_ size_t BufferLength,
     _Out_writes_to_(BufferLength, return)
@@ -700,7 +700,7 @@ QuicCertFormat(
 
     if (CertCtx == NULL) {
         if (BufferLength < SIZEOF_CERT_CHAIN_LIST_LENGTH) {
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryError,
                 "[ lib] ERROR, %s.",
                 "Insufficient buffer to store the empty formatted chain");
@@ -709,7 +709,7 @@ QuicCertFormat(
         //
         // Just encode list of zero cert chains.
         //
-        QuicZeroMemory(Offset, SIZEOF_CERT_CHAIN_LIST_LENGTH);
+        CxPlatZeroMemory(Offset, SIZEOF_CERT_CHAIN_LIST_LENGTH);
         Offset += SIZEOF_CERT_CHAIN_LIST_LENGTH;
         goto Exit;
     }
@@ -730,7 +730,7 @@ QuicCertFormat(
             0,
             NULL,
             &ChainContext)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             GetLastError(),
@@ -744,7 +744,7 @@ QuicCertFormat(
             PCERT_CHAIN_ELEMENT Element = SimpleChain->rgpElement[j];
             PCCERT_CONTEXT EncodedCert = Element->pCertContext;
             if (EncodedCert->cbCertEncoded + SIZEOF_CERT_CHAIN_LIST_LENGTH > BufferLength) {
-                QuicTraceEvent(
+                CxPlatTraceEvent(
                     LibraryError,
                     "[ lib] ERROR, %s.",
                     "Insufficient buffer to store the formatted chain");
@@ -766,7 +766,7 @@ QuicCertFormat(
 
 Exit:
 
-    QuicTraceLogVerbose(
+    CxPlatTraceLogVerbose(
         CertCapiFormattedChain,
         "[cert] Successfully formatted chain of %u certificate(s)",
         CertNumber);
@@ -776,7 +776,7 @@ Exit:
 
 _Success_(return == NO_ERROR)
 DWORD
-QuicCertVerifyCertChainPolicy(
+CxPlatCertVerifyCertChainPolicy(
     _In_ PCCERT_CHAIN_CONTEXT ChainContext,
     _In_opt_ PWSTR ServerName,
     _In_ ULONG IgnoreFlags
@@ -807,7 +807,7 @@ QuicCertVerifyCertChainPolicy(
             &PolicyPara,
             &PolicyStatus)) {
         Status = GetLastError();
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             Status,
@@ -817,7 +817,7 @@ QuicCertVerifyCertChainPolicy(
     } else if (PolicyStatus.dwError != NO_ERROR) {
 
         Status = PolicyStatus.dwError;
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             Status,
@@ -827,7 +827,7 @@ QuicCertVerifyCertChainPolicy(
 
 Exit:
 
-    QuicTraceLogInfo(
+    CxPlatTraceLogInfo(
         CertCapiVerifiedChain,
         "CertVerifyChain: %S 0x%x, result=0x%x",
         ServerName,
@@ -839,7 +839,7 @@ Exit:
 
 _Success_(return != FALSE)
 BOOLEAN
-QuicCertValidateChain(
+CxPlatCertValidateChain(
     _In_ CXPLAT_CERTIFICATE* Certificate,
     _In_opt_z_ PCSTR Host,
     _In_ uint32_t IgnoreFlags
@@ -874,7 +874,7 @@ QuicCertValidateChain(
             0,
             NULL,
             &ChainContext)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             GetLastError(),
@@ -885,7 +885,7 @@ QuicCertValidateChain(
     if (Host != NULL) {
         int ServerNameLength = MultiByteToWideChar(CP_UTF8, 0, Host, -1, NULL, 0);
         if (ServerNameLength == 0) {
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryErrorStatus,
                 "[ lib] ERROR, %u, %s.",
                 GetLastError(),
@@ -895,7 +895,7 @@ QuicCertValidateChain(
 
         ServerName = (LPWSTR)CXPLAT_ALLOC_PAGED(ServerNameLength * sizeof(WCHAR));
         if (ServerName == NULL) {
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 AllocFailure,
                 "Allocation of '%s' failed. (%llu bytes)",
                 "ServerName",
@@ -905,7 +905,7 @@ QuicCertValidateChain(
 
         ServerNameLength = MultiByteToWideChar(CP_UTF8, 0, Host, -1, ServerName, ServerNameLength);
         if (ServerNameLength == 0) {
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryErrorStatus,
                 "[ lib] ERROR, %u, %s.",
                 GetLastError(),
@@ -916,7 +916,7 @@ QuicCertValidateChain(
 
     Result =
         NO_ERROR ==
-        QuicCertVerifyCertChainPolicy(
+        CxPlatCertVerifyCertChainPolicy(
             ChainContext,
             ServerName,
             IgnoreFlags);
@@ -935,7 +935,7 @@ Exit:
 
 _Success_(return != NULL)
 void*
-QuicCertGetPrivateKey(
+CxPlatCertGetPrivateKey(
     _In_ CXPLAT_CERTIFICATE* Certificate
     )
 {
@@ -951,7 +951,7 @@ QuicCertGetPrivateKey(
             &KeyProv,
             &KeySpec,
             &FreeKey)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             GetLastError(),
@@ -962,7 +962,7 @@ QuicCertGetPrivateKey(
     CXPLAT_DBG_ASSERT(FreeKey);
 
     if (KeySpec != CERT_NCRYPT_KEY_SPEC) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             KeySpec,
@@ -978,7 +978,7 @@ Exit:
 }
 
 void
-QuicCertDeletePrivateKey(
+CxPlatCertDeletePrivateKey(
     _In_ void* PrivateKey
     )
 {
@@ -988,7 +988,7 @@ QuicCertDeletePrivateKey(
 
 _Success_(return != FALSE)
 BOOLEAN
-QuicCertSign(
+CxPlatCertSign(
     _In_ void* PrivateKey,
     _In_ const UINT16 SignatureAlgorithm,
     _In_reads_(CertListToSignLength)
@@ -1001,14 +1001,14 @@ QuicCertSign(
 {
     NCRYPT_KEY_HANDLE KeyProv = (NCRYPT_KEY_HANDLE)PrivateKey;
 
-    QuicTraceLogVerbose(
+    CxPlatTraceLogVerbose(
         CertCapiSign,
-        "[cert] QuicCertSign alg=0x%4.4x",
+        "[cert] CxPlatCertSign alg=0x%4.4x",
         SignatureAlgorithm);
 
     _Null_terminated_ const wchar_t * HashAlg = HashAlgFromTLS(SignatureAlgorithm);
     if (HashAlg == NULL) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             SignatureAlgorithm,
@@ -1018,7 +1018,7 @@ QuicCertSign(
 
     BCRYPT_ALG_HANDLE HashProv = HashHandleFromTLS(SignatureAlgorithm);
     if (HashProv == NULL) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             SignatureAlgorithm,
@@ -1028,7 +1028,7 @@ QuicCertSign(
 
     DWORD HashSize = HashSizeFromTLS(SignatureAlgorithm);
     if (HashSize == 0 || HashSize > CXPLAT_CERTIFICATE_MAX_HASH_SIZE) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             SignatureAlgorithm,
@@ -1038,7 +1038,7 @@ QuicCertSign(
 
     DWORD PaddingScheme = PaddingTypeFromTLS(SignatureAlgorithm);
     if (PaddingScheme == ~0u) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             SignatureAlgorithm,
@@ -1060,7 +1060,7 @@ QuicCertSign(
             HashBuf,
             HashSize);
     if (!NT_SUCCESS(Status)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             Status,
@@ -1092,7 +1092,7 @@ QuicCertSign(
             &NewSignatureLength,
             SignFlags);
     if (!NT_SUCCESS(Status)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             Status,
@@ -1113,7 +1113,7 @@ Exit:
 
 _Success_(return != FALSE)
 BOOLEAN
-QuicCertVerify(
+CxPlatCertVerify(
     _In_ CXPLAT_CERTIFICATE* Certificate,
     _In_ const UINT16 SignatureAlgorithm,
     _In_reads_(CertListToVerifyLength)
@@ -1126,13 +1126,13 @@ QuicCertVerify(
 {
     PCCERT_CONTEXT CertCtx = (PCCERT_CONTEXT)Certificate;
 
-    QuicTraceLogVerbose(
+    CxPlatTraceLogVerbose(
         CertCapiVerify,
-        "[cert] QuicCertVerify alg=0x%4.4x",
+        "[cert] CxPlatCertVerify alg=0x%4.4x",
         SignatureAlgorithm);
 
     if (CertListToVerifyLength > MAXUINT32 || SignatureLength > MAXUINT32) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "CertListToVerify or Signature too large");
@@ -1141,7 +1141,7 @@ QuicCertVerify(
 
     _Null_terminated_ const wchar_t * HashAlg = HashAlgFromTLS(SignatureAlgorithm);
     if (HashAlg == NULL) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             SignatureAlgorithm,
@@ -1151,7 +1151,7 @@ QuicCertVerify(
 
     DWORD PaddingScheme = PaddingTypeFromTLS(SignatureAlgorithm);
     if (PaddingScheme == ~0u) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             SignatureAlgorithm,
@@ -1161,7 +1161,7 @@ QuicCertVerify(
 
     BCRYPT_ALG_HANDLE HashProv = HashHandleFromTLS(SignatureAlgorithm);
     if (HashProv == NULL) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             SignatureAlgorithm,
@@ -1171,7 +1171,7 @@ QuicCertVerify(
 
     DWORD HashSize = HashSizeFromTLS(SignatureAlgorithm);
     if (HashSize == 0 || HashSize > CXPLAT_CERTIFICATE_MAX_HASH_SIZE) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             SignatureAlgorithm,
@@ -1194,7 +1194,7 @@ QuicCertVerify(
             HashBuf,
             HashSize);
     if (!NT_SUCCESS(Status)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             Status,
@@ -1208,7 +1208,7 @@ QuicCertVerify(
             0,
             NULL,
             &PublicKey)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             Status,
@@ -1239,7 +1239,7 @@ QuicCertVerify(
             (ULONG)SignatureLength,
             SignFlags);
     if (!NT_SUCCESS(Status)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             Status,

@@ -40,7 +40,7 @@ typedef CXPLAT_STORAGE_CHANGE_CALLBACK *CXPLAT_STORAGE_CHANGE_CALLBACK_HANDLER;
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicStorageOpen(
+CxPlatStorageOpen(
     _In_opt_z_ const char * Path,
     _In_ CXPLAT_STORAGE_CHANGE_CALLBACK_HANDLER Callback,
     _In_opt_ void* CallbackContext,
@@ -52,7 +52,7 @@ QuicStorageOpen(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicStorageClose(
+CxPlatStorageClose(
     _In_opt_ CXPLAT_STORAGE* Storage
     );
 
@@ -61,7 +61,7 @@ QuicStorageClose(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicStorageReadValue(
+CxPlatStorageReadValue(
     _In_ CXPLAT_STORAGE* Storage,
     _In_z_ const char * Name,
     _Out_writes_bytes_to_opt_(*BufferLength, *BufferLength)

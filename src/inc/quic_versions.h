@@ -49,7 +49,7 @@ Abstract:
 
 inline
 BOOLEAN
-QuicIsVersionSupported(
+CxPlatIsVersionSupported(
     _In_ uint32_t Version // Network Byte Order
     )
 {
@@ -68,7 +68,7 @@ QuicIsVersionSupported(
 
 inline
 BOOLEAN
-QuicIsVersionReserved(
+CxPlatIsVersionReserved(
     _In_ uint32_t Version // Either Byte Order
     )
 {

@@ -257,7 +257,7 @@ typedef struct CXPLAT_BUFFER {
 // All the available information describing a new incoming connection.
 //
 typedef struct CXPLAT_NEW_CONNECTION_INFO {
-    uint32_t QuicVersion;
+    uint32_t CxPlatVersion;
     const CXPLAT_ADDR* LocalAddress;
     const CXPLAT_ADDR* RemoteAddress;
     uint32_t CryptoBufferLength;
@@ -1140,7 +1140,7 @@ _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
 CXPLAT_API
 CxPlatOpen(
-    _Out_ _Pre_defensive_ const CXPLAT_API_TABLE** QuicApi
+    _Out_ _Pre_defensive_ const CXPLAT_API_TABLE** CxPlatApi
     );
 
 //
@@ -1151,7 +1151,7 @@ _IRQL_requires_max_(PASSIVE_LEVEL)
 void
 CXPLAT_API
 CxPlatClose(
-    _In_ _Pre_defensive_ const CXPLAT_API_TABLE* QuicApi
+    _In_ _Pre_defensive_ const CXPLAT_API_TABLE* CxPlatApi
     );
 
 #if defined(__cplusplus)

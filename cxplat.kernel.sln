@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "platform.kernel", "src\platform\platform.kernel.vcxproj", "{5F99F713-BF5F-44EB-90FE-FEA03906BBA9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C1ADB76F-7005-4516-BADB-2A60797EF912} = {C1ADB76F-7005-4516-BADB-2A60797EF912}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "manifest.kernel", "src\manifest\manifest.kernel.vcxproj", "{C1ADB76F-7005-4516-BADB-2A60797EF912}"
 EndProject

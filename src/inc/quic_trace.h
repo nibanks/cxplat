@@ -117,25 +117,25 @@ extern "C"
 #endif
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicTraceRundown(
+CxPlatTraceRundown(
     void
     );
 
 #ifdef CXPLAT_CLOG
 
-#define QuicTraceLogStreamVerboseEnabled() TRUE
-#define QuicTraceLogErrorEnabled()   TRUE
-#define QuicTraceLogWarningEnabled() TRUE
-#define QuicTraceLogInfoEnabled()    TRUE
-#define QuicTraceLogVerboseEnabled() TRUE
-#define QuicTraceEventEnabled(x) TRUE
+#define CxPlatTraceLogStreamVerboseEnabled() TRUE
+#define CxPlatTraceLogErrorEnabled()   TRUE
+#define CxPlatTraceLogWarningEnabled() TRUE
+#define CxPlatTraceLogInfoEnabled()    TRUE
+#define CxPlatTraceLogVerboseEnabled() TRUE
+#define CxPlatTraceEventEnabled(x) TRUE
 
 #else
 
 #ifdef CXPLAT_EVENTS_STUB
 
-#define QuicTraceEventEnabled(Name) FALSE
-#define QuicTraceEvent(Name, Fmt, ...)
+#define CxPlatTraceEventEnabled(Name) FALSE
+#define CxPlatTraceEvent(Name, Fmt, ...)
 
 #define CLOG_BYTEARRAY(Len, Data)
 
@@ -152,7 +152,7 @@ _IRQL_requires_max_(PASSIVE_LEVEL)
 _IRQL_requires_same_
 void
 NTAPI
-QuicEtwCallback(
+CxPlatEtwCallback(
     _In_ LPCGUID SourceId,
     _In_ ULONG ControlCode,
     _In_ UCHAR Level,
@@ -166,7 +166,7 @@ QuicEtwCallback(
 // Defining MCGEN_PRIVATE_ENABLE_CALLBACK_V2, makes McGenControlCallbackV2
 // call our user-defined callback routine. See CxPlatEvents.h.
 //
-#define MCGEN_PRIVATE_ENABLE_CALLBACK_V2 QuicEtwCallback
+#define MCGEN_PRIVATE_ENABLE_CALLBACK_V2 CxPlatEtwCallback
 
 #pragma warning(push) // Don't care about warnings from generated files
 #pragma warning(disable:6001)
@@ -174,9 +174,9 @@ QuicEtwCallback(
 #include "CxPlatEtw.h"
 #pragma warning(pop)
 
-#define QuicTraceEventEnabled(Name) EventEnabledQuic##Name()
-#define _QuicTraceEvent(Name, Args) EventWriteQuic##Name##Args
-#define QuicTraceEvent(Name, Fmt, ...) _QuicTraceEvent(Name, (__VA_ARGS__))
+#define CxPlatTraceEventEnabled(Name) EventEnabledCxPlat##Name()
+#define _CxPlatTraceEvent(Name, Args) EventWriteCxPlat##Name##Args
+#define CxPlatTraceEvent(Name, Fmt, ...) _CxPlatTraceEvent(Name, (__VA_ARGS__))
 
 #define CLOG_BYTEARRAY(Len, Data) (uint8_t)(Len), (uint8_t*)(Data)
 
@@ -184,14 +184,14 @@ QuicEtwCallback(
 
 #ifdef CXPLAT_LOGS_STUB
 
-#define QuicTraceLogErrorEnabled()   FALSE
-#define QuicTraceLogWarningEnabled() FALSE
-#define QuicTraceLogInfoEnabled()    FALSE
-#define QuicTraceLogVerboseEnabled() FALSE
+#define CxPlatTraceLogErrorEnabled()   FALSE
+#define CxPlatTraceLogWarningEnabled() FALSE
+#define CxPlatTraceLogInfoEnabled()    FALSE
+#define CxPlatTraceLogVerboseEnabled() FALSE
 
 inline
 void
-QuicTraceStubVarArgs(
+CxPlatTraceStubVarArgs(
     _In_ const void* Fmt,
     ...
     )
@@ -199,22 +199,22 @@ QuicTraceStubVarArgs(
     UNREFERENCED_PARAMETER(Fmt);
 }
 
-#define QuicTraceLogError(X,...)            QuicTraceStubVarArgs(__VA_ARGS__)
-#define QuicTraceLogWarning(X,...)          QuicTraceStubVarArgs(__VA_ARGS__)
-#define QuicTraceLogInfo(X,...)             QuicTraceStubVarArgs(__VA_ARGS__)
-#define QuicTraceLogVerbose(X,...)          QuicTraceStubVarArgs(__VA_ARGS__)
+#define CxPlatTraceLogError(X,...)            CxPlatTraceStubVarArgs(__VA_ARGS__)
+#define CxPlatTraceLogWarning(X,...)          CxPlatTraceStubVarArgs(__VA_ARGS__)
+#define CxPlatTraceLogInfo(X,...)             CxPlatTraceStubVarArgs(__VA_ARGS__)
+#define CxPlatTraceLogVerbose(X,...)          CxPlatTraceStubVarArgs(__VA_ARGS__)
 
-#define QuicTraceLogConnError(X,...)        QuicTraceStubVarArgs(__VA_ARGS__)
-#define QuicTraceLogConnWarning(X,...)      QuicTraceStubVarArgs(__VA_ARGS__)
-#define QuicTraceLogConnInfo(X,...)         QuicTraceStubVarArgs(__VA_ARGS__)
-#define QuicTraceLogConnVerbose(X,...)      QuicTraceStubVarArgs(__VA_ARGS__)
+#define CxPlatTraceLogConnError(X,...)        CxPlatTraceStubVarArgs(__VA_ARGS__)
+#define CxPlatTraceLogConnWarning(X,...)      CxPlatTraceStubVarArgs(__VA_ARGS__)
+#define CxPlatTraceLogConnInfo(X,...)         CxPlatTraceStubVarArgs(__VA_ARGS__)
+#define CxPlatTraceLogConnVerbose(X,...)      CxPlatTraceStubVarArgs(__VA_ARGS__)
 
-#define QuicTraceLogStreamVerboseEnabled() FALSE
+#define CxPlatTraceLogStreamVerboseEnabled() FALSE
 
-#define QuicTraceLogStreamError(X,...)      QuicTraceStubVarArgs(__VA_ARGS__)
-#define QuicTraceLogStreamWarning(X,...)    QuicTraceStubVarArgs(__VA_ARGS__)
-#define QuicTraceLogStreamInfo(X,...)       QuicTraceStubVarArgs(__VA_ARGS__)
-#define QuicTraceLogStreamVerbose(X,...)    QuicTraceStubVarArgs(__VA_ARGS__)
+#define CxPlatTraceLogStreamError(X,...)      CxPlatTraceStubVarArgs(__VA_ARGS__)
+#define CxPlatTraceLogStreamWarning(X,...)    CxPlatTraceStubVarArgs(__VA_ARGS__)
+#define CxPlatTraceLogStreamInfo(X,...)       CxPlatTraceStubVarArgs(__VA_ARGS__)
+#define CxPlatTraceLogStreamVerbose(X,...)    CxPlatTraceStubVarArgs(__VA_ARGS__)
 
 #endif // CXPLAT_LOGS_STUB
 
@@ -228,43 +228,43 @@ QuicTraceStubVarArgs(
 
 #include <stdio.h>
 
-#define QuicTraceLogErrorEnabled()   EventEnabledQuicLogError()
-#define QuicTraceLogWarningEnabled() EventEnabledQuicLogWarning()
-#define QuicTraceLogInfoEnabled()    EventEnabledQuicLogInfo()
-#define QuicTraceLogVerboseEnabled() EventEnabledQuicLogVerbose()
+#define CxPlatTraceLogErrorEnabled()   EventEnabledCxPlatLogError()
+#define CxPlatTraceLogWarningEnabled() EventEnabledCxPlatLogWarning()
+#define CxPlatTraceLogInfoEnabled()    EventEnabledCxPlatLogInfo()
+#define CxPlatTraceLogVerboseEnabled() EventEnabledCxPlatLogVerbose()
 
 #define CXPLAT_ETW_BUFFER_LENGTH 128
 
 #define LogEtw(EventName, Fmt, ...) \
-    if (EventEnabledQuicLog##EventName()) { \
+    if (EventEnabledCxPlatLog##EventName()) { \
         char EtwBuffer[CXPLAT_ETW_BUFFER_LENGTH]; \
         _snprintf_s(EtwBuffer, sizeof(EtwBuffer), _TRUNCATE, Fmt, ##__VA_ARGS__); \
-        EventWriteQuicLog##EventName##_AssumeEnabled(EtwBuffer); \
+        EventWriteCxPlatLog##EventName##_AssumeEnabled(EtwBuffer); \
     }
 
 #define LogEtwType(Type, EventName, Ptr, Fmt, ...) \
-    if (EventEnabledQuic##Type##Log##EventName()) { \
+    if (EventEnabledCxPlat##Type##Log##EventName()) { \
         char EtwBuffer[CXPLAT_ETW_BUFFER_LENGTH]; \
         _snprintf_s(EtwBuffer, sizeof(EtwBuffer), _TRUNCATE, Fmt, ##__VA_ARGS__); \
-        EventWriteQuic##Type##Log##EventName##_AssumeEnabled(Ptr, EtwBuffer); \
+        EventWriteCxPlat##Type##Log##EventName##_AssumeEnabled(Ptr, EtwBuffer); \
     }
 
-#define QuicTraceLogError(Name, Fmt, ...)               LogEtw(Error, Fmt, ##__VA_ARGS__)
-#define QuicTraceLogWarning(Name, Fmt, ...)             LogEtw(Warning, Fmt, ##__VA_ARGS__)
-#define QuicTraceLogInfo(Name, Fmt, ...)                LogEtw(Info, Fmt, ##__VA_ARGS__)
-#define QuicTraceLogVerbose(Name, Fmt, ...)             LogEtw(Verbose, Fmt, ##__VA_ARGS__)
+#define CxPlatTraceLogError(Name, Fmt, ...)               LogEtw(Error, Fmt, ##__VA_ARGS__)
+#define CxPlatTraceLogWarning(Name, Fmt, ...)             LogEtw(Warning, Fmt, ##__VA_ARGS__)
+#define CxPlatTraceLogInfo(Name, Fmt, ...)                LogEtw(Info, Fmt, ##__VA_ARGS__)
+#define CxPlatTraceLogVerbose(Name, Fmt, ...)             LogEtw(Verbose, Fmt, ##__VA_ARGS__)
 
-#define QuicTraceLogConnError(Name, Ptr, Fmt, ...)      LogEtwType(Conn, Error, Ptr, Fmt, ##__VA_ARGS__)
-#define QuicTraceLogConnWarning(Name, Ptr, Fmt, ...)    LogEtwType(Conn, Warning, Ptr, Fmt, ##__VA_ARGS__)
-#define QuicTraceLogConnInfo(Name, Ptr, Fmt, ...)       LogEtwType(Conn, Info, Ptr, Fmt, ##__VA_ARGS__)
-#define QuicTraceLogConnVerbose(Name, Ptr, Fmt, ...)    LogEtwType(Conn, Verbose, Ptr, Fmt, ##__VA_ARGS__)
+#define CxPlatTraceLogConnError(Name, Ptr, Fmt, ...)      LogEtwType(Conn, Error, Ptr, Fmt, ##__VA_ARGS__)
+#define CxPlatTraceLogConnWarning(Name, Ptr, Fmt, ...)    LogEtwType(Conn, Warning, Ptr, Fmt, ##__VA_ARGS__)
+#define CxPlatTraceLogConnInfo(Name, Ptr, Fmt, ...)       LogEtwType(Conn, Info, Ptr, Fmt, ##__VA_ARGS__)
+#define CxPlatTraceLogConnVerbose(Name, Ptr, Fmt, ...)    LogEtwType(Conn, Verbose, Ptr, Fmt, ##__VA_ARGS__)
 
-#define QuicTraceLogStreamVerboseEnabled() EventEnabledQuicStreamLogVerbose()
+#define CxPlatTraceLogStreamVerboseEnabled() EventEnabledCxPlatStreamLogVerbose()
 
-#define QuicTraceLogStreamError(Name, Ptr, Fmt, ...)    LogEtwType(Stream, Error, Ptr, Fmt, ##__VA_ARGS__)
-#define QuicTraceLogStreamWarning(Name, Ptr, Fmt, ...)  LogEtwType(Stream, Warning, Ptr, Fmt, ##__VA_ARGS__)
-#define QuicTraceLogStreamInfo(Name, Ptr, Fmt, ...)     LogEtwType(Stream, Info, Ptr, Fmt, ##__VA_ARGS__)
-#define QuicTraceLogStreamVerbose(Name, Ptr, Fmt, ...)  LogEtwType(Stream, Verbose, Ptr, Fmt, ##__VA_ARGS__)
+#define CxPlatTraceLogStreamError(Name, Ptr, Fmt, ...)    LogEtwType(Stream, Error, Ptr, Fmt, ##__VA_ARGS__)
+#define CxPlatTraceLogStreamWarning(Name, Ptr, Fmt, ...)  LogEtwType(Stream, Warning, Ptr, Fmt, ##__VA_ARGS__)
+#define CxPlatTraceLogStreamInfo(Name, Ptr, Fmt, ...)     LogEtwType(Stream, Info, Ptr, Fmt, ##__VA_ARGS__)
+#define CxPlatTraceLogStreamVerbose(Name, Ptr, Fmt, ...)  LogEtwType(Stream, Verbose, Ptr, Fmt, ##__VA_ARGS__)
 
 #endif // CXPLAT_LOGS_MANIFEST_ETW
 

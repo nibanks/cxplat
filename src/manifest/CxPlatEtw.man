@@ -9,7 +9,7 @@
       <provider
           guid="{ff15e657-4f26-570e-88ab-0796b258d11c}"
           messageFileName="%WinDir%\system32\drivers\cxplat.sys"
-          name="Microsoft-Quic"
+          name="Microsoft-CxPlat"
           resourceFileName="%WinDir%\system32\drivers\cxplat.sys"
           symbol="MICROSOFT_MSCXPLAT_PROVIDER"
           >
@@ -953,7 +953,7 @@
                 />
             <data
                 inType="win:UInt8"
-                name="IsQuicStatus"
+                name="IsCxPlatStatus"
                 />
           </template>
           <template tid="tid_CONN_APP_SHUTDOWN">
@@ -1635,7 +1635,7 @@
               level="win:Informational"
               message="$(string.Etw.LibraryInitialized)"
               opcode="win:Info"
-              symbol="QuicLibraryInitialized"
+              symbol="CxPlatLibraryInitialized"
               template="tid_LIBRARY_INIT"
               value="1"
               />
@@ -1644,7 +1644,7 @@
               level="win:Informational"
               message="$(string.Etw.LibraryUninitialized)"
               opcode="win:Info"
-              symbol="QuicLibraryUninitialized"
+              symbol="CxPlatLibraryUninitialized"
               value="2"
               />
           <event
@@ -1652,7 +1652,7 @@
               level="win:Informational"
               message="$(string.Etw.LibraryAddRef)"
               opcode="win:Info"
-              symbol="QuicLibraryAddRef"
+              symbol="CxPlatLibraryAddRef"
               value="3"
               />
           <event
@@ -1660,7 +1660,7 @@
               level="win:Informational"
               message="$(string.Etw.LibraryRelease)"
               opcode="win:Info"
-              symbol="QuicLibraryRelease"
+              symbol="CxPlatLibraryRelease"
               value="4"
               />
           <event
@@ -1668,7 +1668,7 @@
               level="win:Informational"
               message="$(string.Etw.LibraryServerInit)"
               opcode="win:Info"
-              symbol="QuicLibraryServerInit"
+              symbol="CxPlatLibraryServerInit"
               value="5"
               />
           <event
@@ -1676,7 +1676,7 @@
               level="win:Warning"
               message="$(string.Etw.AllocFailure)"
               opcode="win:Info"
-              symbol="QuicAllocFailure"
+              symbol="CxPlatAllocFailure"
               template="tid_DESC_COUNT"
               value="6"
               />
@@ -1685,7 +1685,7 @@
               level="win:Informational"
               message="$(string.Etw.LibraryRundown)"
               opcode="win:Info"
-              symbol="QuicLibraryRundown"
+              symbol="CxPlatLibraryRundown"
               template="tid_LIBRARY_INIT"
               value="7"
               />
@@ -1694,7 +1694,7 @@
               level="win:Error"
               message="$(string.Etw.LibraryError)"
               opcode="win:Info"
-              symbol="QuicLibraryError"
+              symbol="CxPlatLibraryError"
               template="tid_LIBRARY_ERROR"
               value="8"
               />
@@ -1703,7 +1703,7 @@
               level="win:Error"
               message="$(string.Etw.LibraryErrorStatus)"
               opcode="win:Info"
-              symbol="QuicLibraryErrorStatus"
+              symbol="CxPlatLibraryErrorStatus"
               template="tid_LIBRARY_STATUS_ERROR"
               value="9"
               />
@@ -1712,7 +1712,7 @@
               level="win:Error"
               message="$(string.Etw.LibraryAssert)"
               opcode="win:Info"
-              symbol="QuicLibraryAssert"
+              symbol="CxPlatLibraryAssert"
               template="tid_LIBRARY_ASSERT"
               value="10"
               />
@@ -1721,7 +1721,7 @@
               level="win:Verbose"
               message="$(string.Etw.ApiEnter)"
               opcode="win:Info"
-              symbol="QuicApiEnter"
+              symbol="CxPlatApiEnter"
               template="tid_API_ENTER"
               value="11"
               />
@@ -1730,7 +1730,7 @@
               level="win:Verbose"
               message="$(string.Etw.ApiExit)"
               opcode="win:Info"
-              symbol="QuicApiExit"
+              symbol="CxPlatApiExit"
               value="12"
               />
           <event
@@ -1738,7 +1738,7 @@
               level="win:Verbose"
               message="$(string.Etw.ApiExitStatus)"
               opcode="win:Info"
-              symbol="QuicApiExitStatus"
+              symbol="CxPlatApiExitStatus"
               template="tid_API_EXIT_STATUS"
               value="13"
               />
@@ -1747,7 +1747,7 @@
               level="win:Verbose"
               message="$(string.Etw.ApiWaitOperation)"
               opcode="win:Info"
-              symbol="QuicApiWaitOperation"
+              symbol="CxPlatApiWaitOperation"
               value="14"
               />
           <event
@@ -1755,7 +1755,7 @@
               level="win:Informational"
               message="$(string.Etw.PerfCountersRundown)"
               opcode="win:Info"
-              symbol="QuicPerfCountersRundown"
+              symbol="CxPlatPerfCountersRundown"
               template="tid_LIBRARY_PERF_COUNTERS"
               value="15"
               />
@@ -1765,7 +1765,7 @@
               level="win:Informational"
               message="$(string.Etw.RegistrationCreated)"
               opcode="win:Info"
-              symbol="QuicRegistrationCreated"
+              symbol="CxPlatRegistrationCreated"
               template="tid_REGISTRATION_STRING"
               value="1024"
               />
@@ -1774,7 +1774,7 @@
               level="win:Informational"
               message="$(string.Etw.RegistrationDestroyed)"
               opcode="win:Info"
-              symbol="QuicRegistrationDestroyed"
+              symbol="CxPlatRegistrationDestroyed"
               template="tid_REGISTRATION"
               value="1025"
               />
@@ -1783,7 +1783,7 @@
               level="win:Informational"
               message="$(string.Etw.RegistrationCleanup)"
               opcode="win:Info"
-              symbol="QuicRegistrationCleanup"
+              symbol="CxPlatRegistrationCleanup"
               template="tid_REGISTRATION"
               value="1026"
               />
@@ -1792,7 +1792,7 @@
               level="win:Informational"
               message="$(string.Etw.RegistrationRundown)"
               opcode="win:Info"
-              symbol="QuicRegistrationRundown"
+              symbol="CxPlatRegistrationRundown"
               template="tid_REGISTRATION_STRING"
               value="1027"
               />
@@ -1801,7 +1801,7 @@
               level="win:Error"
               message="$(string.Etw.RegistrationError)"
               opcode="win:Info"
-              symbol="QuicRegistrationError"
+              symbol="CxPlatRegistrationError"
               template="tid_REGISTRATION_ERROR"
               value="1028"
               />
@@ -1810,7 +1810,7 @@
               level="win:Error"
               message="$(string.Etw.RegistrationErrorStatus)"
               opcode="win:Info"
-              symbol="QuicRegistrationErrorStatus"
+              symbol="CxPlatRegistrationErrorStatus"
               template="tid_REGISTRATION_STATUS_ERROR"
               value="1029"
               />
@@ -1819,7 +1819,7 @@
               level="win:Informational"
               message="$(string.Etw.RegistrationShutdown)"
               opcode="win:Info"
-              symbol="QuicRegistrationShutdown"
+              symbol="CxPlatRegistrationShutdown"
               template="tid_REGISTRATION_FLAGS_ERRORCODE"
               value="1030"
               />
@@ -1829,7 +1829,7 @@
               level="win:Informational"
               message="$(string.Etw.WorkerCreated)"
               opcode="win:Info"
-              symbol="QuicWorkerCreated"
+              symbol="CxPlatWorkerCreated"
               template="tid_WORKER_BEGIN"
               value="2048"
               />
@@ -1838,7 +1838,7 @@
               level="win:Informational"
               message="$(string.Etw.WorkerStart)"
               opcode="win:Info"
-              symbol="QuicWorkerStart"
+              symbol="CxPlatWorkerStart"
               template="tid_WORKER"
               value="2049"
               />
@@ -1847,7 +1847,7 @@
               level="win:Informational"
               message="$(string.Etw.WorkerStop)"
               opcode="win:Info"
-              symbol="QuicWorkerStop"
+              symbol="CxPlatWorkerStop"
               template="tid_WORKER"
               value="2050"
               />
@@ -1856,7 +1856,7 @@
               level="win:Verbose"
               message="$(string.Etw.WorkerActivityStateUpdated)"
               opcode="win:Info"
-              symbol="QuicWorkerActivityStateUpdated"
+              symbol="CxPlatWorkerActivityStateUpdated"
               template="tid_WORKER_ACTIVITY_STATE"
               value="2051"
               />
@@ -1865,7 +1865,7 @@
               level="win:Verbose"
               message="$(string.Etw.WorkerQueueDelayUpdated)"
               opcode="win:Info"
-              symbol="QuicWorkerQueueDelayUpdated"
+              symbol="CxPlatWorkerQueueDelayUpdated"
               template="tid_WORKER_QUEUE_DELAY"
               value="2052"
               />
@@ -1874,7 +1874,7 @@
               level="win:Informational"
               message="$(string.Etw.WorkerDestroyed)"
               opcode="win:Info"
-              symbol="QuicWorkerDestroyed"
+              symbol="CxPlatWorkerDestroyed"
               template="tid_WORKER"
               value="2053"
               />
@@ -1883,7 +1883,7 @@
               level="win:Informational"
               message="$(string.Etw.WorkerCleanup)"
               opcode="win:Info"
-              symbol="QuicWorkerCleanup"
+              symbol="CxPlatWorkerCleanup"
               template="tid_WORKER"
               value="2054"
               />
@@ -1892,7 +1892,7 @@
               level="win:Error"
               message="$(string.Etw.WorkerError)"
               opcode="win:Info"
-              symbol="QuicWorkerError"
+              symbol="CxPlatWorkerError"
               template="tid_WORKER_ERROR"
               value="2055"
               />
@@ -1901,7 +1901,7 @@
               level="win:Error"
               message="$(string.Etw.WorkerErrorStatus)"
               opcode="win:Info"
-              symbol="QuicWorkerErrorStatus"
+              symbol="CxPlatWorkerErrorStatus"
               template="tid_WORKER_STATUS_ERROR"
               value="2056"
               />
@@ -1911,7 +1911,7 @@
               level="win:Informational"
               message="$(string.Etw.ConfigurationCreated)"
               opcode="win:Info"
-              symbol="QuicConfigurationCreated"
+              symbol="CxPlatConfigurationCreated"
               template="tid_CONFIGURATION_REGISTRATION"
               value="3072"
               />
@@ -1920,7 +1920,7 @@
               level="win:Informational"
               message="$(string.Etw.ConfigurationDestroyed)"
               opcode="win:Info"
-              symbol="QuicConfigurationDestroyed"
+              symbol="CxPlatConfigurationDestroyed"
               template="tid_CONFIGURATION"
               value="3073"
               />
@@ -1929,7 +1929,7 @@
               level="win:Informational"
               message="$(string.Etw.ConfigurationCleanup)"
               opcode="win:Info"
-              symbol="QuicConfigurationCleanup"
+              symbol="CxPlatConfigurationCleanup"
               template="tid_CONFIGURATION"
               value="3074"
               />
@@ -1939,7 +1939,7 @@
               level="win:Informational"
               message="$(string.Etw.ConfigurationRundown)"
               opcode="win:Info"
-              symbol="QuicConfigurationRundown"
+              symbol="CxPlatConfigurationRundown"
               template="tid_CONFIGURATION_REGISTRATION"
               value="3076"
               />
@@ -1948,7 +1948,7 @@
               level="win:Error"
               message="$(string.Etw.ConfigurationError)"
               opcode="win:Info"
-              symbol="QuicConfigurationError"
+              symbol="CxPlatConfigurationError"
               template="tid_CONFIGURATION_ERROR"
               value="3077"
               />
@@ -1957,7 +1957,7 @@
               level="win:Error"
               message="$(string.Etw.ConfigurationErrorStatus)"
               opcode="win:Info"
-              symbol="QuicConfigurationErrorStatus"
+              symbol="CxPlatConfigurationErrorStatus"
               template="tid_CONFIGURATION_STATUS_ERROR"
               value="3078"
               />
@@ -1967,7 +1967,7 @@
               level="win:Informational"
               message="$(string.Etw.ListenerCreated)"
               opcode="win:Info"
-              symbol="QuicListenerCreated"
+              symbol="CxPlatListenerCreated"
               template="tid_LISTENER_REGISTRATION"
               value="4096"
               />
@@ -1976,7 +1976,7 @@
               level="win:Informational"
               message="$(string.Etw.ListenerDestroyed)"
               opcode="win:Info"
-              symbol="QuicListenerDestroyed"
+              symbol="CxPlatListenerDestroyed"
               template="tid_LISTENER"
               value="4097"
               />
@@ -1985,7 +1985,7 @@
               level="win:Informational"
               message="$(string.Etw.ListenerStarted)"
               opcode="win:Info"
-              symbol="QuicListenerStarted"
+              symbol="CxPlatListenerStarted"
               template="tid_LISTENER_IP_ADDR_BINDING"
               value="4098"
               />
@@ -1994,7 +1994,7 @@
               level="win:Informational"
               message="$(string.Etw.ListenerStopped)"
               opcode="win:Info"
-              symbol="QuicListenerStopped"
+              symbol="CxPlatListenerStopped"
               template="tid_LISTENER"
               value="4099"
               />
@@ -2003,7 +2003,7 @@
               level="win:Informational"
               message="$(string.Etw.ListenerRundown)"
               opcode="win:Info"
-              symbol="QuicListenerRundown"
+              symbol="CxPlatListenerRundown"
               template="tid_LISTENER_REGISTRATION"
               value="4100"
               />
@@ -2012,7 +2012,7 @@
               level="win:Error"
               message="$(string.Etw.ListenerError)"
               opcode="win:Info"
-              symbol="QuicListenerError"
+              symbol="CxPlatListenerError"
               template="tid_LISTENER_ERROR"
               value="4101"
               />
@@ -2021,7 +2021,7 @@
               level="win:Error"
               message="$(string.Etw.ListenerErrorStatus)"
               opcode="win:Info"
-              symbol="QuicListenerErrorStatus"
+              symbol="CxPlatListenerErrorStatus"
               template="tid_LISTENER_STATUS_ERROR"
               value="4102"
               />
@@ -2031,7 +2031,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnCreated)"
               opcode="win:Info"
-              symbol="QuicConnCreated"
+              symbol="CxPlatConnCreated"
               template="tid_CONN_BEGIN"
               value="5120"
               />
@@ -2040,7 +2040,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnDestroyed)"
               opcode="win:Info"
-              symbol="QuicConnDestroyed"
+              symbol="CxPlatConnDestroyed"
               template="tid_CONN"
               value="5121"
               />
@@ -2049,7 +2049,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnHandshakeComplete)"
               opcode="win:Info"
-              symbol="QuicConnHandshakeComplete"
+              symbol="CxPlatConnHandshakeComplete"
               template="tid_CONN"
               value="5122"
               />
@@ -2058,7 +2058,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnScheduleState)"
               opcode="win:Info"
-              symbol="QuicConnScheduleState"
+              symbol="CxPlatConnScheduleState"
               template="tid_CONN_SCHEDULE_STATE"
               value="5123"
               />
@@ -2067,7 +2067,7 @@
               level="win:Verbose"
               message="$(string.Etw.ConnExecOper)"
               opcode="win:Info"
-              symbol="QuicConnExecOper"
+              symbol="CxPlatConnExecOper"
               template="tid_CONN_OPER"
               value="5124"
               />
@@ -2076,7 +2076,7 @@
               level="win:Verbose"
               message="$(string.Etw.ConnExecOper)"
               opcode="win:Info"
-              symbol="QuicConnExecApiOper"
+              symbol="CxPlatConnExecApiOper"
               template="tid_CONN_API_OPER"
               value="5125"
               />
@@ -2085,7 +2085,7 @@
               level="win:Verbose"
               message="$(string.Etw.ConnExecOper)"
               opcode="win:Info"
-              symbol="QuicConnExecTimerOper"
+              symbol="CxPlatConnExecTimerOper"
               template="tid_CONN_TIMER_OPER"
               value="5126"
               />
@@ -2094,7 +2094,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnLocalAddrAdd)"
               opcode="win:Info"
-              symbol="QuicConnLocalAddrAdded"
+              symbol="CxPlatConnLocalAddrAdded"
               template="tid_CONN_IP_ADDR"
               value="5127"
               />
@@ -2103,7 +2103,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnRemoteAddrAdd)"
               opcode="win:Info"
-              symbol="QuicConnRemoteAddrAdded"
+              symbol="CxPlatConnRemoteAddrAdded"
               template="tid_CONN_IP_ADDR"
               value="5128"
               />
@@ -2112,7 +2112,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnLocalAddrRemove)"
               opcode="win:Info"
-              symbol="QuicConnLocalAddrRemoved"
+              symbol="CxPlatConnLocalAddrRemoved"
               template="tid_CONN_IP_ADDR"
               value="5129"
               />
@@ -2121,7 +2121,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnRemoteAddrRemove)"
               opcode="win:Info"
-              symbol="QuicConnRemoteAddrRemoved"
+              symbol="CxPlatConnRemoteAddrRemoved"
               template="tid_CONN_IP_ADDR"
               value="5130"
               />
@@ -2130,7 +2130,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnAssignWorker)"
               opcode="win:Info"
-              symbol="QuicConnAssignWorker"
+              symbol="CxPlatConnAssignWorker"
               template="tid_CONN_WORKER"
               value="5131"
               />
@@ -2139,7 +2139,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnHandshakeStart)"
               opcode="win:Info"
-              symbol="QuicConnHandshakeStart"
+              symbol="CxPlatConnHandshakeStart"
               template="tid_CONN"
               value="5132"
               />
@@ -2148,7 +2148,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnRegistered)"
               opcode="win:Info"
-              symbol="QuicConnRegistered"
+              symbol="CxPlatConnRegistered"
               template="tid_CONN_REGISTRATION"
               value="5133"
               />
@@ -2157,7 +2157,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnUnregistered)"
               opcode="win:Info"
-              symbol="QuicConnUnregistered"
+              symbol="CxPlatConnUnregistered"
               template="tid_CONN_REGISTRATION"
               value="5134"
               />
@@ -2166,7 +2166,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnTransportShutdown)"
               opcode="win:Info"
-              symbol="QuicConnTransportShutdown"
+              symbol="CxPlatConnTransportShutdown"
               template="tid_CONN_TRANSPORT_SHUTDOWN"
               value="5135"
               />
@@ -2175,7 +2175,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnAppShutdown)"
               opcode="win:Info"
-              symbol="QuicConnAppShutdown"
+              symbol="CxPlatConnAppShutdown"
               template="tid_CONN_APP_SHUTDOWN"
               value="5136"
               />
@@ -2184,7 +2184,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnInitializeComplete)"
               opcode="win:Info"
-              symbol="QuicConnInitializeComplete"
+              symbol="CxPlatConnInitializeComplete"
               template="tid_CONN"
               value="5137"
               />
@@ -2193,7 +2193,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnHandleClosed)"
               opcode="win:Info"
-              symbol="QuicConnHandleClosed"
+              symbol="CxPlatConnHandleClosed"
               template="tid_CONN"
               value="5138"
               />
@@ -2202,7 +2202,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnVersionSet)"
               opcode="win:Info"
-              symbol="QuicConnVersionSet"
+              symbol="CxPlatConnVersionSet"
               template="tid_CONN_UINT32"
               value="5139"
               />
@@ -2211,7 +2211,7 @@
               level="win:Verbose"
               message="$(string.Etw.ConnOutFlowStats)"
               opcode="win:Info"
-              symbol="QuicConnOutFlowStats"
+              symbol="CxPlatConnOutFlowStats"
               template="tid_CONN_OUT_FLOW_STATS"
               value="5140"
               />
@@ -2220,7 +2220,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnOutFlowBlocked)"
               opcode="win:Info"
-              symbol="QuicConnOutFlowBlocked"
+              symbol="CxPlatConnOutFlowBlocked"
               template="tid_CONN_OUT_FLOW_BLOCKED"
               value="5141"
               />
@@ -2229,7 +2229,7 @@
               level="win:Verbose"
               message="$(string.Etw.ConnInFlowStats)"
               opcode="win:Info"
-              symbol="QuicConnInFlowStats"
+              symbol="CxPlatConnInFlowStats"
               template="tid_CONN_IN_FLOW_STATS"
               value="5142"
               />
@@ -2238,7 +2238,7 @@
               level="win:Verbose"
               message="$(string.Etw.Cubic)"
               opcode="win:Info"
-              symbol="QuicConnCubic"
+              symbol="CxPlatConnCubic"
               template="tid_CONN_CUBIC"
               value="5143"
               />
@@ -2247,7 +2247,7 @@
               level="win:Verbose"
               message="$(string.Etw.CongestionEvent)"
               opcode="win:Info"
-              symbol="QuicConnCongestion"
+              symbol="CxPlatConnCongestion"
               template="tid_CONN"
               value="5144"
               />
@@ -2256,7 +2256,7 @@
               level="win:Informational"
               message="$(string.Etw.PersistentCongestionEvent)"
               opcode="win:Info"
-              symbol="QuicConnPersistentCongestion"
+              symbol="CxPlatConnPersistentCongestion"
               template="tid_CONN"
               value="5145"
               />
@@ -2265,7 +2265,7 @@
               level="win:Informational"
               message="$(string.Etw.RecoveryExit)"
               opcode="win:Info"
-              symbol="QuicConnRecoveryExit"
+              symbol="CxPlatConnRecoveryExit"
               template="tid_CONN"
               value="5146"
               />
@@ -2274,7 +2274,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnRundown)"
               opcode="win:Info"
-              symbol="QuicConnRundown"
+              symbol="CxPlatConnRundown"
               template="tid_CONN_BEGIN"
               value="5147"
               />
@@ -2283,7 +2283,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnSourceCidAdd)"
               opcode="win:Info"
-              symbol="QuicConnSourceCidAdded"
+              symbol="CxPlatConnSourceCidAdded"
               template="tid_CONN_CID"
               value="5148"
               />
@@ -2292,7 +2292,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnDestCidAdd)"
               opcode="win:Info"
-              symbol="QuicConnDestCidAdded"
+              symbol="CxPlatConnDestCidAdded"
               template="tid_CONN_CID"
               value="5149"
               />
@@ -2301,7 +2301,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnSourceCidRemove)"
               opcode="win:Info"
-              symbol="QuicConnSourceCidRemoved"
+              symbol="CxPlatConnSourceCidRemoved"
               template="tid_CONN_CID"
               value="5150"
               />
@@ -2310,7 +2310,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnDestCidRemove)"
               opcode="win:Info"
-              symbol="QuicConnDestCidRemoved"
+              symbol="CxPlatConnDestCidRemoved"
               template="tid_CONN_CID"
               value="5151"
               />
@@ -2319,7 +2319,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnLossDetectionTimerSet)"
               opcode="win:Info"
-              symbol="QuicConnLossDetectionTimerSet"
+              symbol="CxPlatConnLossDetectionTimerSet"
               template="tid_CONN_LOSS_TIMER"
               value="5152"
               />
@@ -2328,7 +2328,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnLossDetectionTimerCancel)"
               opcode="win:Info"
-              symbol="QuicConnLossDetectionTimerCancel"
+              symbol="CxPlatConnLossDetectionTimerCancel"
               template="tid_CONN"
               value="5153"
               />
@@ -2337,7 +2337,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnDropPacket)"
               opcode="win:Info"
-              symbol="QuicConnDropPacket"
+              symbol="CxPlatConnDropPacket"
               template="tid_PACKET_DROP"
               value="5154"
               />
@@ -2346,7 +2346,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnDropPacketEx)"
               opcode="win:Info"
-              symbol="QuicConnDropPacketEx"
+              symbol="CxPlatConnDropPacketEx"
               template="tid_PACKET_DROP_EX"
               value="5155"
               />
@@ -2355,7 +2355,7 @@
               level="win:Error"
               message="$(string.Etw.ConnError)"
               opcode="win:Info"
-              symbol="QuicConnError"
+              symbol="CxPlatConnError"
               template="tid_CONN_ERROR"
               value="5156"
               />
@@ -2364,7 +2364,7 @@
               level="win:Error"
               message="$(string.Etw.ConnErrorStatus)"
               opcode="win:Info"
-              symbol="QuicConnErrorStatus"
+              symbol="CxPlatConnErrorStatus"
               template="tid_CONN_STATUS_ERROR"
               value="5157"
               />
@@ -2373,7 +2373,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnNewPacketKeys)"
               opcode="win:Info"
-              symbol="QuicConnNewPacketKeys"
+              symbol="CxPlatConnNewPacketKeys"
               template="tid_CONN"
               value="5158"
               />
@@ -2382,7 +2382,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnKeyPhaseChange)"
               opcode="win:Info"
-              symbol="QuicConnKeyPhaseChange"
+              symbol="CxPlatConnKeyPhaseChange"
               template="tid_CONN_KEY_PHASE"
               value="5159"
               />
@@ -2391,7 +2391,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnStats)"
               opcode="win:Info"
-              symbol="QuicConnStats"
+              symbol="CxPlatConnStats"
               template="tid_CONN_STATISTICS"
               value="5160"
               />
@@ -2400,7 +2400,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnShutdownComplete)"
               opcode="win:Info"
-              symbol="QuicConnShutdownComplete"
+              symbol="CxPlatConnShutdownComplete"
               template="tid_CONN_BOOL"
               value="5161"
               />
@@ -2409,7 +2409,7 @@
               level="win:Verbose"
               message="$(string.Etw.ConnReadKeyUpdated)"
               opcode="win:Info"
-              symbol="QuicConnReadKeyUpdated"
+              symbol="CxPlatConnReadKeyUpdated"
               template="tid_CONN_KEY_UPDATE"
               value="5162"
               />
@@ -2418,7 +2418,7 @@
               level="win:Verbose"
               message="$(string.Etw.ConnWriteKeyUpdated)"
               opcode="win:Info"
-              symbol="QuicConnWriteKeyUpdated"
+              symbol="CxPlatConnWriteKeyUpdated"
               template="tid_CONN_KEY_UPDATE"
               value="5163"
               />
@@ -2427,7 +2427,7 @@
               level="win:Verbose"
               message="$(string.Etw.ConnPacketSent)"
               opcode="win:Info"
-              symbol="QuicConnPacketSent"
+              symbol="CxPlatConnPacketSent"
               template="tid_PACKET_SENT"
               value="5164"
               />
@@ -2436,7 +2436,7 @@
               level="win:Verbose"
               message="$(string.Etw.ConnPacketRecv)"
               opcode="win:Info"
-              symbol="QuicConnPacketRecv"
+              symbol="CxPlatConnPacketRecv"
               template="tid_PACKET_RECV"
               value="5165"
               />
@@ -2445,7 +2445,7 @@
               level="win:Verbose"
               message="$(string.Etw.ConnPacketLost)"
               opcode="win:Info"
-              symbol="QuicConnPacketLost"
+              symbol="CxPlatConnPacketLost"
               template="tid_PACKET_LOST"
               value="5166"
               />
@@ -2454,7 +2454,7 @@
               level="win:Verbose"
               message="$(string.Etw.ConnPacketAcked)"
               opcode="win:Info"
-              symbol="QuicConnPacketACKed"
+              symbol="CxPlatConnPacketACKed"
               template="tid_PACKET_ACKED"
               value="5167"
               />
@@ -2463,7 +2463,7 @@
               level="win:Error"
               message="$(string.Etw.ConnMessage)"
               opcode="win:Info"
-              symbol="QuicConnLogError"
+              symbol="CxPlatConnLogError"
               template="tid_CONN_MESSAGE"
               value="5168"
               />
@@ -2472,7 +2472,7 @@
               level="win:Warning"
               message="$(string.Etw.ConnMessage)"
               opcode="win:Info"
-              symbol="QuicConnLogWarning"
+              symbol="CxPlatConnLogWarning"
               template="tid_CONN_MESSAGE"
               value="5169"
               />
@@ -2481,7 +2481,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnMessage)"
               opcode="win:Info"
-              symbol="QuicConnLogInfo"
+              symbol="CxPlatConnLogInfo"
               template="tid_CONN_MESSAGE"
               value="5170"
               />
@@ -2490,7 +2490,7 @@
               level="win:Verbose"
               message="$(string.Etw.ConnMessage)"
               opcode="win:Info"
-              symbol="QuicConnLogVerbose"
+              symbol="CxPlatConnLogVerbose"
               template="tid_CONN_MESSAGE"
               value="5171"
               />
@@ -2499,7 +2499,7 @@
               level="win:Verbose"
               message="$(string.Etw.ConnQueueSendFlush)"
               opcode="win:Info"
-              symbol="QuicConnQueueSendFlush"
+              symbol="CxPlatConnQueueSendFlush"
               template="tid_CONN_FLUSH_REASON"
               value="5172"
               />
@@ -2508,7 +2508,7 @@
               level="win:Verbose"
               message="$(string.Etw.ConnOutFlowStreamStats)"
               opcode="win:Info"
-              symbol="QuicConnOutFlowStreamStats"
+              symbol="CxPlatConnOutFlowStreamStats"
               template="tid_CONN_OUT_FLOW_STREAM_STATS"
               value="5173"
               />
@@ -2517,7 +2517,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnPacketStats)"
               opcode="win:Info"
-              symbol="QuicConnPacketStats"
+              symbol="CxPlatConnPacketStats"
               template="tid_CONN_PACKET_STATISTICS"
               value="5174"
               />
@@ -2526,7 +2526,7 @@
               level="win:Informational"
               message="$(string.Etw.ConnServerResumeTicket)"
               opcode="win:Info"
-              symbol="QuicConnServerResumeTicket"
+              symbol="CxPlatConnServerResumeTicket"
               template="tid_CONN_SERVER_RESUME_TICKET"
               value="5175"
               />
@@ -2536,7 +2536,7 @@
               level="win:Informational"
               message="$(string.Etw.StreamCreated)"
               opcode="win:Info"
-              symbol="QuicStreamCreated"
+              symbol="CxPlatStreamCreated"
               template="tid_STREAM_BEGIN"
               value="6144"
               />
@@ -2545,7 +2545,7 @@
               level="win:Informational"
               message="$(string.Etw.StreamDestroyed)"
               opcode="win:Info"
-              symbol="QuicStreamDestroyed"
+              symbol="CxPlatStreamDestroyed"
               template="tid_STREAM"
               value="6145"
               />
@@ -2554,7 +2554,7 @@
               level="win:Informational"
               message="$(string.Etw.StreamOutFlowBlocked)"
               opcode="win:Info"
-              symbol="QuicStreamOutFlowBlocked"
+              symbol="CxPlatStreamOutFlowBlocked"
               template="tid_STREAM_OUT_FLOW_BLOCKED"
               value="6146"
               />
@@ -2563,7 +2563,7 @@
               level="win:Informational"
               message="$(string.Etw.StreamRundown)"
               opcode="win:Info"
-              symbol="QuicStreamRundown"
+              symbol="CxPlatStreamRundown"
               template="tid_STREAM_BEGIN"
               value="6147"
               />
@@ -2572,7 +2572,7 @@
               level="win:Informational"
               message="$(string.Etw.StreamSendState)"
               opcode="win:Info"
-              symbol="QuicStreamSendState"
+              symbol="CxPlatStreamSendState"
               template="tid_STREAM_SEND_STATE"
               value="6148"
               />
@@ -2581,7 +2581,7 @@
               level="win:Informational"
               message="$(string.Etw.StreamRecvState)"
               opcode="win:Info"
-              symbol="QuicStreamRecvState"
+              symbol="CxPlatStreamRecvState"
               template="tid_STREAM_RECV_STATE"
               value="6149"
               />
@@ -2590,7 +2590,7 @@
               level="win:Error"
               message="$(string.Etw.StreamError)"
               opcode="win:Info"
-              symbol="QuicStreamError"
+              symbol="CxPlatStreamError"
               template="tid_STREAM_ERROR"
               value="6150"
               />
@@ -2599,7 +2599,7 @@
               level="win:Error"
               message="$(string.Etw.StreamErrorStatus)"
               opcode="win:Info"
-              symbol="QuicStreamErrorStatus"
+              symbol="CxPlatStreamErrorStatus"
               template="tid_STREAM_STATUS_ERROR"
               value="6151"
               />
@@ -2608,7 +2608,7 @@
               level="win:Error"
               message="$(string.Etw.StreamMessage)"
               opcode="win:Info"
-              symbol="QuicStreamLogError"
+              symbol="CxPlatStreamLogError"
               template="tid_STREAM_MESSAGE"
               value="6152"
               />
@@ -2617,7 +2617,7 @@
               level="win:Warning"
               message="$(string.Etw.StreamMessage)"
               opcode="win:Info"
-              symbol="QuicStreamLogWarning"
+              symbol="CxPlatStreamLogWarning"
               template="tid_STREAM_MESSAGE"
               value="6153"
               />
@@ -2626,7 +2626,7 @@
               level="win:Informational"
               message="$(string.Etw.StreamMessage)"
               opcode="win:Info"
-              symbol="QuicStreamLogInfo"
+              symbol="CxPlatStreamLogInfo"
               template="tid_STREAM_MESSAGE"
               value="6154"
               />
@@ -2635,7 +2635,7 @@
               level="win:Verbose"
               message="$(string.Etw.StreamMessage)"
               opcode="win:Info"
-              symbol="QuicStreamLogVerbose"
+              symbol="CxPlatStreamLogVerbose"
               template="tid_STREAM_MESSAGE"
               value="6155"
               />
@@ -2645,7 +2645,7 @@
               level="win:Informational"
               message="$(string.Etw.BindingCreated)"
               opcode="win:Info"
-              symbol="QuicBindingCreated"
+              symbol="CxPlatBindingCreated"
               template="tid_BINDING_CREATED"
               value="7168"
               />
@@ -2654,7 +2654,7 @@
               level="win:Informational"
               message="$(string.Etw.BindingRundown)"
               opcode="win:Info"
-              symbol="QuicBindingRundown"
+              symbol="CxPlatBindingRundown"
               template="tid_BINDING_CREATED"
               value="7169"
               />
@@ -2663,7 +2663,7 @@
               level="win:Informational"
               message="$(string.Etw.BindingDestroyed)"
               opcode="win:Info"
-              symbol="QuicBindingDestroyed"
+              symbol="CxPlatBindingDestroyed"
               template="tid_BINDING"
               value="7170"
               />
@@ -2672,7 +2672,7 @@
               level="win:Informational"
               message="$(string.Etw.BindingCleanup)"
               opcode="win:Info"
-              symbol="QuicBindingCleanup"
+              symbol="CxPlatBindingCleanup"
               template="tid_BINDING"
               value="7171"
               />
@@ -2681,7 +2681,7 @@
               level="win:Informational"
               message="$(string.Etw.BindingDropPacket)"
               opcode="win:Info"
-              symbol="QuicBindingDropPacket"
+              symbol="CxPlatBindingDropPacket"
               template="tid_PACKET_DROP"
               value="7172"
               />
@@ -2690,7 +2690,7 @@
               level="win:Informational"
               message="$(string.Etw.BindingDropPacketEx)"
               opcode="win:Info"
-              symbol="QuicBindingDropPacketEx"
+              symbol="CxPlatBindingDropPacketEx"
               template="tid_PACKET_DROP_EX"
               value="7173"
               />
@@ -2699,7 +2699,7 @@
               level="win:Error"
               message="$(string.Etw.BindingError)"
               opcode="win:Info"
-              symbol="QuicBindingError"
+              symbol="CxPlatBindingError"
               template="tid_BINDING_ERROR"
               value="7174"
               />
@@ -2708,7 +2708,7 @@
               level="win:Error"
               message="$(string.Etw.BindingErrorStatus)"
               opcode="win:Info"
-              symbol="QuicBindingErrorStatus"
+              symbol="CxPlatBindingErrorStatus"
               template="tid_BINDING_STATUS_ERROR"
               value="7175"
               />
@@ -2717,7 +2717,7 @@
               level="win:Verbose"
               message="$(string.Etw.BindingExecOper)"
               opcode="win:Info"
-              symbol="QuicBindingExecOper"
+              symbol="CxPlatBindingExecOper"
               template="tid_BINDING_OPER"
               value="7176"
               />
@@ -2727,7 +2727,7 @@
               level="win:Error"
               message="$(string.Etw.TlsError)"
               opcode="win:Info"
-              symbol="QuicTlsError"
+              symbol="CxPlatTlsError"
               template="tid_CONN_ERROR"
               value="8192"
               />
@@ -2736,7 +2736,7 @@
               level="win:Error"
               message="$(string.Etw.TlsErrorStatus)"
               opcode="win:Info"
-              symbol="QuicTlsErrorStatus"
+              symbol="CxPlatTlsErrorStatus"
               template="tid_CONN_STATUS_ERROR"
               value="8193"
               />
@@ -2745,7 +2745,7 @@
               level="win:Verbose"
               message="$(string.Etw.TlsMessage)"
               opcode="win:Info"
-              symbol="QuicTlsMessage"
+              symbol="CxPlatTlsMessage"
               template="tid_CONN_MESSAGE"
               value="8194"
               />
@@ -2755,7 +2755,7 @@
               level="win:Verbose"
               message="$(string.Etw.DatapathSend)"
               opcode="win:Info"
-              symbol="QuicDatapathSend"
+              symbol="CxPlatDatapathSend"
               template="tid_DATA_SEND"
               value="9217"
               />
@@ -2764,7 +2764,7 @@
               level="win:Verbose"
               message="$(string.Etw.DatapathRecv)"
               opcode="win:Info"
-              symbol="QuicDatapathRecv"
+              symbol="CxPlatDatapathRecv"
               template="tid_DATA_SEND_RECV"
               value="9218"
               />
@@ -2773,7 +2773,7 @@
               level="win:Error"
               message="$(string.Etw.DatapathError)"
               opcode="win:Info"
-              symbol="QuicDatapathError"
+              symbol="CxPlatDatapathError"
               template="tid_UDP_ERROR"
               value="9219"
               />
@@ -2782,7 +2782,7 @@
               level="win:Error"
               message="$(string.Etw.DatapathErrorStatus)"
               opcode="win:Info"
-              symbol="QuicDatapathErrorStatus"
+              symbol="CxPlatDatapathErrorStatus"
               template="tid_UDP_STATUS_ERROR"
               value="9220"
               />
@@ -2792,7 +2792,7 @@
               level="win:Error"
               message="$(string.Etw.Message)"
               opcode="win:Info"
-              symbol="QuicLogError"
+              symbol="CxPlatLogError"
               template="tid_MESSAGE"
               value="10240"
               />
@@ -2801,7 +2801,7 @@
               level="win:Warning"
               message="$(string.Etw.Message)"
               opcode="win:Info"
-              symbol="QuicLogWarning"
+              symbol="CxPlatLogWarning"
               template="tid_MESSAGE"
               value="10241"
               />
@@ -2810,7 +2810,7 @@
               level="win:Informational"
               message="$(string.Etw.Message)"
               opcode="win:Info"
-              symbol="QuicLogInfo"
+              symbol="CxPlatLogInfo"
               template="tid_MESSAGE"
               value="10242"
               />
@@ -2819,7 +2819,7 @@
               level="win:Verbose"
               message="$(string.Etw.Message)"
               opcode="win:Info"
-              symbol="QuicLogVerbose"
+              symbol="CxPlatLogVerbose"
               template="tid_MESSAGE"
               value="10243"
               />

@@ -36,7 +36,7 @@ typedef struct CXPLAT_CREDENTIAL_CONFIG_HELPER {
 inline
 _Null_terminated_
 const char*
-QuicStatusToString(
+CxPlatStatusToString(
     _In_ CXPLAT_STATUS Status
     )
 {
@@ -128,14 +128,14 @@ GetRemoteAddr(
             &addrLen,
             &addr);
     if (CXPLAT_SUCCEEDED(status)) {
-        QuicAddrToString(&addr, &addrStr);
+        CxPlatAddrToString(&addr, &addrStr);
     }
     return addrStr;
 }
 
 inline
 CXPLAT_STATUS
-QuicForceRetry(
+CxPlatForceRetry(
     _In_ const CXPLAT_API_TABLE* CxPlat,
     _In_ BOOLEAN Enabled
     )
@@ -209,12 +209,12 @@ ConvertArgToAddress(
         //
         // Explicitly zero, otherwise kernel mode errors
         //
-        QuicZeroMemory(Address, sizeof(*Address));
-        QuicAddrSetFamily(Address, CXPLAT_ADDRESS_FAMILY_UNSPEC);
-        QuicAddrSetPort(Address, Port);
+        CxPlatZeroMemory(Address, sizeof(*Address));
+        CxPlatAddrSetFamily(Address, CXPLAT_ADDRESS_FAMILY_UNSPEC);
+        CxPlatAddrSetPort(Address, Port);
         return TRUE;
     }
-    return QuicAddrFromString(Arg, Port, Address);
+    return CxPlatAddrFromString(Arg, Port, Address);
 }
 
 inline uint8_t DecodeHexChar(char c)
@@ -397,7 +397,7 @@ GetServerConfigurationFromArgs(
     )
 {
     CXPLAT_CREDENTIAL_CONFIG_HELPER Helper;
-    QuicZeroMemory(&Helper, sizeof(Helper));
+    CxPlatZeroMemory(&Helper, sizeof(Helper));
     const CXPLAT_CREDENTIAL_CONFIG* Config = &Helper.CredConfig;
     Helper.CredConfig.Flags = CXPLAT_CREDENTIAL_FLAG_NONE;
 
@@ -435,7 +435,7 @@ GetServerConfigurationFromArgs(
 
 #ifdef CXPLAT_TEST_APIS
     } else if (GetValue(argc, argv, "selfsign")) {
-        Config = QuicPlatGetSelfSignedCert(CXPLAT_SELF_SIGN_CERT_USER);
+        Config = CxPlatPlatGetSelfSignedCert(CXPLAT_SELF_SIGN_CERT_USER);
         if (!Config) {
             return nullptr;
         }
@@ -471,7 +471,7 @@ GetServerConfigurationFromArgs(
 
 #ifdef CXPLAT_TEST_APIS
     if (!Configuration && Config != &Helper.CredConfig) {
-        QuicPlatFreeSelfSignedCert(Config);
+        CxPlatPlatFreeSelfSignedCert(Config);
     }
 #endif
 
@@ -488,7 +488,7 @@ FreeServerConfiguration(
 #ifdef CXPLAT_TEST_APIS
     auto SelfSignedConfig = (const CXPLAT_CREDENTIAL_CONFIG*)CxPlat->GetContext(Configuration);
     if (SelfSignedConfig) {
-        QuicPlatFreeSelfSignedCert(SelfSignedConfig);
+        CxPlatPlatFreeSelfSignedCert(SelfSignedConfig);
     }
 #endif
     CxPlat->ConfigurationClose(Configuration);

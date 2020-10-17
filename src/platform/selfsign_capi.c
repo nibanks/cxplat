@@ -41,7 +41,7 @@ CleanTestCertificatesFromStore(BOOLEAN UserStore)
             UserStore ? CERT_SYSTEM_STORE_CURRENT_USER : CERT_SYSTEM_STORE_LOCAL_MACHINE,
             "MY");
     if (CertStore == NULL) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             GetLastError(),
@@ -73,7 +73,7 @@ CleanTestCertificatesFromStore(BOOLEAN UserStore)
         CertDeleteCertificateFromStore(CertDuplicateCertificateContext(Cert));
         ++Deleted;
     }
-    QuicTraceLogInfo(
+    CxPlatTraceLogInfo(
         CertCleanTestCerts,
         "[cert] %d test certificates found, and %d deleted",
         Found,
@@ -117,7 +117,7 @@ AllocateAndEncodeObject(
             NULL,
             &CryptDataBlob->cbData)) {
         hr = HRESULT_FROM_WIN32(GetLastError());
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -132,7 +132,7 @@ AllocateAndEncodeObject(
         HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, CryptDataBlob->cbData);
     hr = CryptDataBlob->pbData ? S_OK : E_OUTOFMEMORY;
     if (FAILED(hr)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             AllocFailure,
             "Allocation of '%s' failed. (%llu bytes)",
             "CryptDataBlob",
@@ -150,7 +150,7 @@ AllocateAndEncodeObject(
             CryptDataBlob->pbData,
             &CryptDataBlob->cbData)) {
         hr = HRESULT_FROM_WIN32(GetLastError());
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -187,7 +187,7 @@ CreateEnhancedKeyUsageCertExtension(
             X509_ENHANCED_KEY_USAGE,
             &CertEnhKeyUsage);
     if (FAILED(hr)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -220,7 +220,7 @@ CreateKeyUsageCertExtension(
             X509_KEY_USAGE,
             &KeyUsageBlob);
     if (FAILED(hr)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -255,7 +255,7 @@ CreateSubjAltNameExtension(
             szOID_SUBJECT_ALT_NAME,
             &NameInfo);
     if (FAILED(hr)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -290,7 +290,7 @@ CreateSubjectNameBlob(
             &BufferLength,
             NULL)) {
         hr = HRESULT_FROM_WIN32(GetLastError());
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -301,7 +301,7 @@ CreateSubjectNameBlob(
     Buffer = (PBYTE)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, BufferLength);
     hr = Buffer ? S_OK : E_OUTOFMEMORY;
     if (FAILED(hr)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             AllocFailure,
             "Allocation of '%s' failed. (%llu bytes)",
             "SubjectNameBlob",
@@ -318,7 +318,7 @@ CreateSubjectNameBlob(
             &BufferLength,
             NULL)) {
         hr = HRESULT_FROM_WIN32(GetLastError());
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -380,7 +380,7 @@ CreateCertificateExtensions(
         (PCERT_EXTENSION)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof(CERT_EXTENSION) * cTmpCertExtension);
     hr = TmpCertExtensions ? S_OK : E_OUTOFMEMORY;
     if (FAILED(hr)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             AllocFailure,
             "Allocation of '%s' failed. (%llu bytes)",
             "TmpCertExtensions",
@@ -397,7 +397,7 @@ CreateCertificateExtensions(
     //
     hr = CreateEnhancedKeyUsageCertExtension(&TmpCertExtensions[0]);
     if (FAILED(hr)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -411,7 +411,7 @@ CreateCertificateExtensions(
     //
     hr = CreateKeyUsageCertExtension(&TmpCertExtensions[1]);
     if (FAILED(hr)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -424,7 +424,7 @@ CreateCertificateExtensions(
     //
     hr = CreateSubjAltNameExtension(&TmpCertExtensions[2]);
     if (FAILED(hr)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -458,7 +458,7 @@ GetPrivateRsaKey(
             &Provider,
             MS_KEY_STORAGE_PROVIDER,
             0))) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -479,12 +479,12 @@ ReadKey:
             0,
             NCRYPT_SILENT_FLAG);
     if (hr == ERROR_SUCCESS) {
-        QuicTraceLogInfo(
+        CxPlatTraceLogInfo(
             CertOpenRsaKeySuccess,
             "[cert] Successfully opened RSA key");
         goto Cleanup;
     } else if (hr != NTE_BAD_KEYSET) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -506,7 +506,7 @@ ReadKey:
     if (hr == NTE_EXISTS) {
         goto ReadKey; // Key already created, in other thread/process.
     } else if (FAILED(hr)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -520,7 +520,7 @@ ReadKey:
             (PBYTE)&KeySize,
             sizeof(KeySize),
             0))) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -534,7 +534,7 @@ ReadKey:
             (PBYTE)&KeyUsageProperty,
             sizeof(KeyUsageProperty),
             0))) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -543,7 +543,7 @@ ReadKey:
     }
 
     if (FAILED(hr = NCryptFinalizeKey(*Key, 0))) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -551,7 +551,7 @@ ReadKey:
         goto Cleanup;
     }
 
-    QuicTraceLogInfo(
+    CxPlatTraceLogInfo(
         CertCreateRsaKeySuccess,
         "[cert] Successfully created key");
 
@@ -595,7 +595,7 @@ CreateSelfSignedCertificate(
     //
     hr = CreateSubjectNameBlob(SubjectName, &SubjectNameBlob);
     if (FAILED(hr)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -609,7 +609,7 @@ CreateSelfSignedCertificate(
     //
     hr = GetPrivateRsaKey(&Key);
     if (FAILED(hr)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -625,7 +625,7 @@ CreateSelfSignedCertificate(
     hr = CreateCertificateExtensions(&extensions);
     if (FAILED(hr)) {
         hr = HRESULT_FROM_WIN32(GetLastError());
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -642,7 +642,7 @@ CreateSelfSignedCertificate(
     FILETIME ExpiredFileTime;
     if (!SystemTimeToFileTime(&Now, &ExpiredFileTime)) {
         hr = HRESULT_FROM_WIN32(GetLastError());
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -659,7 +659,7 @@ CreateSelfSignedCertificate(
     ExpiredFileTime.dwHighDateTime = FiveYearsFromNowLargeInt.HighPart;
     if (!FileTimeToSystemTime(&ExpiredFileTime, &Expiration)) {
         hr = HRESULT_FROM_WIN32(GetLastError());
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -690,7 +690,7 @@ CreateSelfSignedCertificate(
             &extensions);
     if (NULL == CertContext) {
         hr = HRESULT_FROM_WIN32(GetLastError());
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -708,7 +708,7 @@ CreateSelfSignedCertificate(
             0,
             &FriendlyNameBlob)) {
         hr = HRESULT_FROM_WIN32(GetLastError());
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             hr,
@@ -762,7 +762,7 @@ CreateServerCertificate(
                 CertContext,
                 CERT_STORE_ADD_NEW,
                 NULL)) {
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryErrorStatus,
                 "[ lib] ERROR, %u, %s.",
                 GetLastError(),
@@ -799,7 +799,7 @@ FindOrCreateCertificate(
     BOOLEAN First = FALSE;
     HANDLE Event = CreateEventW(NULL, TRUE, FALSE, CXPLAT_CERT_CREATION_EVENT_NAME);
     if (Event == NULL) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryError,
             "[ lib] ERROR, %s.",
             "CreateEvent failed");
@@ -817,12 +817,12 @@ FindOrCreateCertificate(
     // continue anyway.
     //
     if (GetLastError() == ERROR_ALREADY_EXISTS) {
-        QuicTraceLogInfo(
+        CxPlatTraceLogInfo(
             CertCreationEventAlreadyCreated,
             "[test] CreateEvent opened existing event");
         DWORD WaitResult = WaitForSingleObject(Event, CXPLAT_CERT_CREATION_EVENT_WAIT);
         if (WaitResult != WAIT_OBJECT_0) {
-            QuicTraceLogWarning(
+            CxPlatTraceLogWarning(
                 CertWaitForCreationEvent,
                 "[test] WaitForSingleObject returned 0x%x, proceeding without caution... (GLE: 0x%x)",
                 WaitResult,
@@ -840,7 +840,7 @@ FindOrCreateCertificate(
             UserStore ? CERT_SYSTEM_STORE_CURRENT_USER : CERT_SYSTEM_STORE_LOCAL_MACHINE,
             "MY");
     if (CertStore == NULL) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             GetLastError(),
@@ -888,7 +888,7 @@ FindOrCreateCertificate(
             Cert,
             CERT_STORE_ADD_ALWAYS,
             NULL)) {
-        QuicTraceEvent(
+        CxPlatTraceEvent(
             LibraryErrorStatus,
             "[ lib] ERROR, %u, %s.",
             GetLastError(),
@@ -905,7 +905,7 @@ Done:
                 CERT_HASH_PROP_ID,
                 CertHash,
                 &CertHashLength)) {
-            QuicTraceEvent(
+            CxPlatTraceEvent(
                 LibraryErrorStatus,
                 "[ lib] ERROR, %u, %s.",
                 GetLastError(),
@@ -925,7 +925,7 @@ Done:
 
 _IRQL_requires_max_(PASSIVE_LEVEL)
 const CXPLAT_CREDENTIAL_CONFIG*
-QuicPlatGetSelfSignedCert(
+CxPlatPlatGetSelfSignedCert(
     _In_ CXPLAT_SELF_SIGN_CERT_TYPE Type
     )
 {
@@ -951,7 +951,7 @@ QuicPlatGetSelfSignedCert(
 
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicPlatFreeSelfSignedCert(
+CxPlatPlatFreeSelfSignedCert(
     _In_ const CXPLAT_CREDENTIAL_CONFIG* Params
     )
 {

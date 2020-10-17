@@ -164,7 +164,7 @@
     </Profile>
     <Profile Id="Full.Verbose.Memory" Base="Full.Verbose.File" Name="Full" Description="Everything" LoggingMode="Memory" DetailLevel="Verbose"/>
 
-    <Profile Id="SpinQuic.Light.File" Name="SpinQuic" Description="Used for SpinQuic Testing" LoggingMode="File" DetailLevel="Light">
+    <Profile Id="SpinCxPlat.Light.File" Name="SpinCxPlat" Description="Used for SpinCxPlat Testing" LoggingMode="File" DetailLevel="Light">
       <Collectors>
         <EventCollectorId Value="EC_LowVolume">
           <EventProviders>
@@ -173,7 +173,7 @@
         </EventCollectorId>
       </Collectors>
     </Profile>
-    <Profile Id="SpinQuic.Light.Memory" Base="SpinQuic.Light.File" Name="SpinQuic" Description="Used for SpinQuic Testing" LoggingMode="Memory" DetailLevel="Light"/>
+    <Profile Id="SpinCxPlat.Light.Memory" Base="SpinCxPlat.Light.File" Name="SpinCxPlat" Description="Used for SpinCxPlat Testing" LoggingMode="Memory" DetailLevel="Light"/>
 
   </Profiles>
 </WindowsPerformanceRecorder>

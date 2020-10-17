@@ -187,7 +187,7 @@ typedef struct CXPLAT_RECV_DATAGRAM {
 // Gets the corresponding recv datagram from its context pointer.
 //
 CXPLAT_RECV_DATAGRAM*
-QuicDataPathRecvPacketToRecvDatagram(
+CxPlatDataPathRecvPacketToRecvDatagram(
     _In_ const CXPLAT_RECV_PACKET* const Packet
     );
 
@@ -195,7 +195,7 @@ QuicDataPathRecvPacketToRecvDatagram(
 // Gets the corresponding client context from its recv datagram pointer.
 //
 CXPLAT_RECV_PACKET*
-QuicDataPathRecvDatagramToRecvPacket(
+CxPlatDataPathRecvDatagramToRecvPacket(
     _In_ const CXPLAT_RECV_DATAGRAM* const Datagram
     );
 
@@ -247,7 +247,7 @@ void
 typedef CXPLAT_DATAPATH_SEND_COMPLETE *CXPLAT_DATAPATH_SEND_COMPLETE_HANDLER;
 
 //
-// Structure that maintains the 'per send' context for QuicDataPath.
+// Structure that maintains the 'per send' context for CxPlatDataPath.
 //
 typedef struct CXPLAT_DATAPATH_SEND_CONTEXT CXPLAT_DATAPATH_SEND_CONTEXT;
 
@@ -256,7 +256,7 @@ typedef struct CXPLAT_DATAPATH_SEND_CONTEXT CXPLAT_DATAPATH_SEND_CONTEXT;
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicDataPathInitialize(
+CxPlatDataPathInitialize(
     _In_ uint32_t ClientRecvContextLength,
     _In_ CXPLAT_DATAPATH_RECEIVE_CALLBACK_HANDLER RecvCallback,
     _In_ CXPLAT_DATAPATH_UNREACHABLE_CALLBACK_HANDLER UnreachableCallback,
@@ -268,7 +268,7 @@ QuicDataPathInitialize(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicDataPathUninitialize(
+CxPlatDataPathUninitialize(
     _In_ CXPLAT_DATAPATH* Datapath
     );
 
@@ -281,7 +281,7 @@ QuicDataPathUninitialize(
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 uint32_t
-QuicDataPathGetSupportedFeatures(
+CxPlatDataPathGetSupportedFeatures(
     _In_ CXPLAT_DATAPATH* Datapath
     );
 
@@ -290,7 +290,7 @@ QuicDataPathGetSupportedFeatures(
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 BOOLEAN
-QuicDataPathIsPaddingPreferred(
+CxPlatDataPathIsPaddingPreferred(
     _In_ CXPLAT_DATAPATH* Datapath
     );
 
@@ -299,7 +299,7 @@ QuicDataPathIsPaddingPreferred(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicDataPathResolveAddress(
+CxPlatDataPathResolveAddress(
     _In_ CXPLAT_DATAPATH* Datapath,
     _In_z_ const char* HostName,
     _Inout_ CXPLAT_ADDR* Address
@@ -316,7 +316,7 @@ QuicDataPathResolveAddress(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicDataPathBindingCreate(
+CxPlatDataPathBindingCreate(
     _In_ CXPLAT_DATAPATH* Datapath,
     _In_opt_ const CXPLAT_ADDR* LocalAddress,
     _In_opt_ const CXPLAT_ADDR* RemoteAddress,
@@ -331,7 +331,7 @@ QuicDataPathBindingCreate(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
-QuicDataPathBindingDelete(
+CxPlatDataPathBindingDelete(
     _In_ CXPLAT_DATAPATH_BINDING* Binding
     );
 
@@ -341,7 +341,7 @@ QuicDataPathBindingDelete(
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 uint16_t
-QuicDataPathBindingGetLocalMtu(
+CxPlatDataPathBindingGetLocalMtu(
     _In_ CXPLAT_DATAPATH_BINDING* Binding
     );
 
@@ -350,7 +350,7 @@ QuicDataPathBindingGetLocalMtu(
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 void
-QuicDataPathBindingGetLocalAddress(
+CxPlatDataPathBindingGetLocalAddress(
     _In_ CXPLAT_DATAPATH_BINDING* Binding,
     _Out_ CXPLAT_ADDR* Address
     );
@@ -361,7 +361,7 @@ QuicDataPathBindingGetLocalAddress(
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 void
-QuicDataPathBindingGetRemoteAddress(
+CxPlatDataPathBindingGetRemoteAddress(
     _In_ CXPLAT_DATAPATH_BINDING* Binding,
     _Out_ CXPLAT_ADDR* Address
     );
@@ -372,18 +372,18 @@ QuicDataPathBindingGetRemoteAddress(
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 void
-QuicDataPathBindingReturnRecvDatagrams(
+CxPlatDataPathBindingReturnRecvDatagrams(
     _In_opt_ CXPLAT_RECV_DATAGRAM* DatagramChain
     );
 
 //
-// Allocates a new send context to be used to call QuicDataPathBindingSend. It
-// can be freed with QuicDataPathBindingFreeSendContext too.
+// Allocates a new send context to be used to call CxPlatDataPathBindingSend. It
+// can be freed with CxPlatDataPathBindingFreeSendContext too.
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 _Success_(return != NULL)
 CXPLAT_DATAPATH_SEND_CONTEXT*
-QuicDataPathBindingAllocSendContext(
+CxPlatDataPathBindingAllocSendContext(
     _In_ CXPLAT_DATAPATH_BINDING* Binding,
     _In_ CXPLAT_ECN_TYPE ECN,
     _In_ uint16_t MaxPacketSize
@@ -391,11 +391,11 @@ QuicDataPathBindingAllocSendContext(
 
 //
 // Frees a send context returned from a previous call to
-// QuicDataPathBindingAllocSendContext.
+// CxPlatDataPathBindingAllocSendContext.
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 void
-QuicDataPathBindingFreeSendContext(
+CxPlatDataPathBindingFreeSendContext(
     _In_ CXPLAT_DATAPATH_SEND_CONTEXT* SendContext
     );
 
@@ -405,18 +405,18 @@ QuicDataPathBindingFreeSendContext(
 _IRQL_requires_max_(DISPATCH_LEVEL)
 _Success_(return != NULL)
 CXPLAT_BUFFER*
-QuicDataPathBindingAllocSendDatagram(
+CxPlatDataPathBindingAllocSendDatagram(
     _In_ CXPLAT_DATAPATH_SEND_CONTEXT* SendContext,
     _In_ uint16_t MaxBufferLength
     );
 
 //
 // Frees a datagram buffer returned from a previous call to
-// QuicDataPathBindingAllocSendDatagram.
+// CxPlatDataPathBindingAllocSendDatagram.
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 void
-QuicDataPathBindingFreeSendDatagram(
+CxPlatDataPathBindingFreeSendDatagram(
     _In_ CXPLAT_DATAPATH_SEND_CONTEXT* SendContext,
     _In_ CXPLAT_BUFFER* SendDatagram
     );
@@ -426,7 +426,7 @@ QuicDataPathBindingFreeSendDatagram(
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 BOOLEAN
-QuicDataPathBindingIsSendContextFull(
+CxPlatDataPathBindingIsSendContextFull(
     _In_ CXPLAT_DATAPATH_SEND_CONTEXT* SendContext
     );
 
@@ -436,7 +436,7 @@ QuicDataPathBindingIsSendContextFull(
 //
 _IRQL_requires_max_(DISPATCH_LEVEL)
 CXPLAT_STATUS
-QuicDataPathBindingSend(
+CxPlatDataPathBindingSend(
     _In_ CXPLAT_DATAPATH_BINDING* Binding,
     _In_ const CXPLAT_ADDR* LocalAddress,
     _In_ const CXPLAT_ADDR* RemoteAddress,
@@ -448,7 +448,7 @@ QuicDataPathBindingSend(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicDataPathBindingSetParam(
+CxPlatDataPathBindingSetParam(
     _In_ CXPLAT_DATAPATH_BINDING* Binding,
     _In_ uint32_t Param,
     _In_ uint32_t BufferLength,
@@ -460,7 +460,7 @@ QuicDataPathBindingSetParam(
 //
 _IRQL_requires_max_(PASSIVE_LEVEL)
 CXPLAT_STATUS
-QuicDataPathBindingGetParam(
+CxPlatDataPathBindingGetParam(
     _In_ CXPLAT_DATAPATH_BINDING* Binding,
     _In_ uint32_t Param,
     _Inout_ uint32_t* BufferLength,
